@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import {getRoles} from "@testing-library/react";
 
 function SignUp() {
     // state voor het formulier
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+
+
 
     // state voor functionaliteit
     const [error, toggleError] = useState(false);
@@ -16,14 +21,18 @@ function SignUp() {
     async function handleSubmit(e) {
         // Zorgt ervoor dat de pagina niet refresht wanneer dit gebeurt
         e.preventDefault();
+        console.log(email, username, password, firstname, lastname);
         toggleError(false);
         toggleLoading(true);
 
         try {
-            await axios.post('http://localhost:3000/register', {
-                email: email,
+            await axios.post('http://localhost:8080/users', {
                 password: password,
                 username: username,
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                roles : ['BESTUURDER']
             });
 
             // Let op: omdat we geen axios Canceltoken gebruiken zul je hier een memory-leak melding krijgen.
@@ -41,23 +50,35 @@ function SignUp() {
 
     return (
         <>
-            <h1>Registreren</h1>
+            <h1>Aanmelden</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque consectetur, dolore eaque eligendi
                 harum, numquam, placeat quisquam repellat rerum suscipit ullam vitae. A ab ad assumenda, consequuntur deserunt
                 doloremque ea eveniet facere fuga illum in numquam quia reiciendis rem sequi tenetur veniam?
             </p>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email-field">
-                    Emailadres:
+//
+                <label htmlFor="password-field">
+                    Voornaam:
                     <input
-                        type="email"
-                        id="email-field"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type="text"
+                        id="firstname-field"
+                        name="firstname"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
                     />
                 </label>
 
+                <label htmlFor="password-field">
+                    Achternaam:
+                    <input
+                        type="text"
+                        id="lastname-field"
+                        name="lastname"
+                        value={lastname}
+                        onChange={(e) => setLastname(e.target.value)}
+                    />
+                </label>
+                //
                 <label htmlFor="username-field">
                     Gebruikersnaam:
                     <input
@@ -76,6 +97,17 @@ function SignUp() {
                         name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                    />
+                </label>
+
+                <label htmlFor="email-field">
+                    Email:
+                    <input
+                        type="email"
+                        id="email-field"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
 

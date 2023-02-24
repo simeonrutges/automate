@@ -7,6 +7,8 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import { AuthContext } from './context/AuthContext';
 import './App.css';
+import Modal from "./context/Modal";
+import './modal.css';
 
 function App() {
   const { isAuth } = useContext(AuthContext);
@@ -30,6 +32,7 @@ function App() {
             </Route>
           </Switch>
         </div>
+          <Modal message="test bericht!"/>
       </>
   );
 }

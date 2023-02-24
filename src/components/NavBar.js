@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+// bovenstaande altijd nodig
 import logo from '../assets/banana-01.png';
 import { useHistory, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
@@ -60,3 +61,4 @@ function NavBar() {
 }
 
 export default NavBar;
+// bovenstaande altijd nodig

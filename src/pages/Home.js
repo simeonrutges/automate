@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Modal from "../context/Modal";
 
 function Home() {
     return (
@@ -30,6 +31,7 @@ function Home() {
                 <p>Je kunt ook <Link to="/signin">inloggen</Link> of jezelf <Link to="/signup">registeren</Link> als je nog geen
                     account hebt.</p>
             </section>
+            <Modal message="druk op start!"/>
         </>
     );
 }

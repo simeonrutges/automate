@@ -19,5 +19,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Neucha', 'Times New Roman', cursive;
+  /*font-family: 'Neucha', 'Times New Roman', cursive;*/
+  font-family: Arial;
+  /* deze hierboven aangepast!*/
 }

@@ -2,9 +2,11 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
+import Modal from "../context/Modal";
+
 
 function SignIn() {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, toggleError] = useState(false);
     const { login } = useContext(AuthContext);
@@ -14,8 +16,8 @@ function SignIn() {
         toggleError(false);
 
         try {
-            const result = await axios.post('http://localhost:3000/login', {
-                email: email,
+            const result = await axios.post('http://localhost:8080/users', {
+                username: username,
                 password: password,
             });
             // log het resultaat in de console
@@ -36,14 +38,14 @@ function SignIn() {
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum debitis dolor dolore fuga id molestias qui quo unde?</p>
 
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email-field">
-                    Emailadres:
+                <label htmlFor="username-field">
+                    Gebruikersnaam:
                     <input
-                        type="email"
-                        id="email-field"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type="username"
+                        id="username-field"
+                        name="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                 </label>
 
@@ -68,6 +70,7 @@ function SignIn() {
             </form>
 
             <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
+            <Modal message="Dit is de inlog pagina!"/>
         </>
     );
 }

@@ -14,7 +14,7 @@ function Profile() {
             const token = localStorage.getItem('token');
 
             try {
-                const result = await axios.get('http://localhost:3000/660/private-content', {
+                const result = await axios.get('http://localhost:8080/users', {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
@@ -32,11 +32,13 @@ function Profile() {
     return (
         <>
             <h1>Mijn Profiel</h1>
+            <div>
             <section>
-                <h2>Gegevens</h2>
-                <p><strong>Gebruikersnaam:</strong> {user.username}</p>
-                <p><strong>Email:</strong> {user.email}</p>
+                <h2>FOTO</h2>
+                <h2>{user.username}</h2>
             </section>
+            </div>
+
 
             {/*Als er keys in ons object zitten hebben we data, en dan renderen we de content*/}
             {Object.keys(profileData).length > 0 &&
