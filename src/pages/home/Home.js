@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Modal from "./../../context/modal/Modal";
+import  './home.css';
 
 function Home() {
     return (
-        <>
+        <div className="home-page">
             <h1>Homepagina</h1>
             <section>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem id libero provident! Accusantium at autem
@@ -30,7 +32,8 @@ function Home() {
                 <p>Je kunt ook <Link to="/signin">inloggen</Link> of jezelf <Link to="/signup">registeren</Link> als je nog geen
                     account hebt.</p>
             </section>
-        </>
+            <Modal message="druk op start!"/>
+        </div>
     );
 }
 
