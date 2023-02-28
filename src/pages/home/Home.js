@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Modal from "../context/Modal";
-import  '../home.css';
+import Modal from "./../../context/modal/Modal";
+import  './home.css';
 
 function Home() {
     return (
