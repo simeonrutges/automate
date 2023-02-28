@@ -16,7 +16,7 @@ function SignIn() {
         toggleError(false);
 
         try {
-            const result = await axios.post('http://localhost:8080/users', {
+            const result = await axios.post('http://localhost:8080/auth', {
                 username: username,
                 password: password,
             });
@@ -25,6 +25,7 @@ function SignIn() {
 
             // geef de JWT token aan de login-functie van de context mee
             login(result.data.accessToken);
+
 
         } catch(e) {
             console.error(e);

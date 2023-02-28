@@ -11,6 +11,11 @@ function SignUp() {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
 
+    // state voor checkbox
+    const [roles, setRoles] = useState('');
+    const [isChecked1, setIsChecked1] = useState(false);
+    const [isChecked2, setIsChecked2] = useState(false);
+
 
 
     // state voor functionaliteit
@@ -21,7 +26,7 @@ function SignUp() {
     async function handleSubmit(e) {
         // Zorgt ervoor dat de pagina niet refresht wanneer dit gebeurt
         e.preventDefault();
-        console.log(email, username, password, firstname, lastname);
+        console.log(email, username, password, firstname, lastname, roles);
         toggleError(false);
         toggleLoading(true);
 
@@ -32,7 +37,7 @@ function SignUp() {
                 firstname: firstname,
                 lastname: lastname,
                 email: email,
-                roles : ['BESTUURDER']
+                roles: isChecked1 && isChecked2 ? ['BESTUURDER', 'PASSAGIER'] : isChecked1 ? ['BESTUURDER'] : isChecked2 ? ['PASSAGIER'] : []
             });
 
             // Let op: omdat we geen axios Canceltoken gebruiken zul je hier een memory-leak melding krijgen.
@@ -110,6 +115,32 @@ function SignUp() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
+                //// div omheen?
+                    <label htmlFor="driver-checkbox">
+                        <input
+                            type="checkbox"
+                            id="driver-checkbox"
+                            value="BESTUURDER"
+                            name="role"
+                            checked={isChecked1}
+                            onChange={(e) => setIsChecked1(e.target.checked)}
+                        />
+                        Bestuurder
+                    </label>
+
+                    <label htmlFor="passenger-checkbox">
+                        Passagier
+                        <input
+                            type="checkbox"
+                            id="passenger-checkbox"
+                            value="PASSAGIER"
+                            name="role"
+                            checked={isChecked2}
+                            onChange={(e) => setIsChecked2(e.target.checked)}
+                        />
+                    </label>
+                //
+
 
                 {error && <p className="error">Dit account bestaat al. Probeer een ander emailadres.</p>}
                 <button

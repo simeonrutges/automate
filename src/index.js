@@ -6,12 +6,14 @@ import App from './App';
 import './index.css';
 
 ReactDOM.render(
+    <Router>
     <React.StrictMode>
-        <Router>
+        {/*<Router>*/}
             <AuthContextProvider>
                 <App/>
             </AuthContextProvider>
-        </Router>
-    </React.StrictMode>,
+        {/*</Router>*/}
+    </React.StrictMode>
+    </Router>,
     document.getElementById('root')
 );

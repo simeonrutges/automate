@@ -9,6 +9,8 @@ import { AuthContext } from './context/AuthContext';
 import './App.css';
 import Modal from "./context/Modal";
 import './modal.css';
+import RidePage from "./pages/RidePage";
+import RidesOverview from "./pages/RidesOverview";
 
 function App() {
   const { isAuth } = useContext(AuthContext);
@@ -27,9 +29,19 @@ function App() {
             <Route exact path="/signin">
               <SignIn />
             </Route>
+
             <Route exact path="/signup">
               <SignUp />
             </Route>
+
+            <Route path="/ride/:id">
+              <RidePage />
+            </Route>
+
+            <Route path="/rides">
+              <RidesOverview />
+            </Route>
+
           </Switch>
         </div>
           <Modal message="test bericht!"/>
