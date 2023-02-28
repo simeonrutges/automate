@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import logo from '../../assets/banana-01.png';
 import { useHistory, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import './navbar.css';
 
 function NavBar() {
     const { isAuth, logout } = useContext(AuthContext);
