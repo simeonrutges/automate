@@ -7,9 +7,11 @@ export const AuthContext = createContext({});
 
 function AuthContextProvider({ children }) {
     const [isAuth, toggleIsAuth] = useState({
+        //  de "verzamelbak"
         isAuth: false,
         user: null,
         status: 'pending',
+        // dit is de state voor de dynamische comp. uit de het context objecT)
     });
     const history = useHistory();
 
@@ -30,7 +32,7 @@ function AuthContextProvider({ children }) {
                 status: 'done',
             });
         }
-    }, []);
+    }, []); // = mounting effect
 
     function login(JWT) {
         // zet de token in de Local Storage
@@ -57,11 +59,51 @@ function AuthContextProvider({ children }) {
     }
 
     // Omdat we deze functie in login- en het mounting-effect gebruiken, staat hij hier gedeclareerd!
-    async function fetchUserData(id, token, redirectUrl) {
+    // async function fetchUserData(id, token, redirectUrl) {
+    //     try {
+    //         // haal gebruikersdata op met de token en id van de gebruiker
+    //         // const result = await axios.get(`http://localhost:3000/600/users/${id}`, {
+    //         const result = await axios.get(`http://localhost:8080/users/${id}`, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //
+    //         // zet de gegevens in de state
+    //         toggleIsAuth({
+    //             ...isAuth,
+    //             isAuth: true,
+    //             user: {
+    //                 username: result.data.username,
+    //                 email: result.data.email,
+    //                 id: result.data.id,
+    //             },
+    //             status: 'done',
+    //         });
+    //
+    //         // als er een redirect URL is meegegeven (bij het mount-effect doen we dit niet) linken we hiernnaartoe door
+    //         // als we de history.push in de login-functie zouden zetten, linken we al door voor de gebuiker is opgehaald!
+    //         if (redirectUrl) {
+    //             history.push(redirectUrl);
+    //         }
+    //
+    //     } catch (e) {
+    //         console.error(e);
+    //         // ging er iets mis? Plaatsen we geen data in de state
+    //         toggleIsAuth({
+    //             isAuth: false,
+    //             user: null,
+    //             status: 'done',
+    //         });
+    //     }
+    // }
+
+    async function fetchUserData(username, token, redirectUrl) {
         try {
             // haal gebruikersdata op met de token en id van de gebruiker
             // const result = await axios.get(`http://localhost:3000/600/users/${id}`, {
-            const result = await axios.get(`http://localhost:8080/users/${id}`, {
+            const result = await axios.get(`http://localhost:8080/users/${username}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
@@ -75,7 +117,7 @@ function AuthContextProvider({ children }) {
                 user: {
                     username: result.data.username,
                     email: result.data.email,
-                    id: result.data.id,
+                    id: result.data.username,
                 },
                 status: 'done',
             });
@@ -97,11 +139,14 @@ function AuthContextProvider({ children }) {
         }
     }
 
+////////
     const contextData = {
         isAuth: isAuth.isAuth,
         user: isAuth.user,
         login: login,
         logout: logout,
+        // hier nog passagier en bestuurder laten kiezen?
+        // userDetails: auth.user, ...
     };
 
     return (

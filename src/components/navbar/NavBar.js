@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
 // bovenstaande altijd nodig
-import logo from '../../assets/banana-01.png';
+// import logo from '../../assets/banana-01.png';
+// import logo from '../../assets/log met doorz achter.png'
+import logo from '../../assets/log met doorz achter 1000.png'
 import { useHistory, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import './navbar.css';
 
 function NavBar() {
+    //aanroepen context:
     const { isAuth, logout } = useContext(AuthContext);
     const history = useHistory();
 

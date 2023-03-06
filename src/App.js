@@ -29,9 +29,11 @@ function App() {
             {/*  {isAuth ? <Profile /> : <Redirect to="/signin" />}*/}
             {/*</Route>*/}
             /////
-            <PrivateRoute path="/profile" auth={isAuth}>
+              <Route path="/profile">
+            <PrivateRoute auth={isAuth}>
                           <Profile/>
             </PrivateRoute>
+              </Route>
             //////
             <Route exact path="/signin">
               <SignIn />
