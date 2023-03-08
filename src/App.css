@@ -73,6 +73,7 @@ h2 {
 nav a,
 nav a:visited,
 nav a:active {
+  text-decoration: none;
   color: white;
 }
 
@@ -84,7 +85,8 @@ nav a:active {
 }
 
 .logo-container img {
-  width: 40px;
+  /*width: 40px;*/
+  width: 100px;
   margin-right: 8px;
 }
 

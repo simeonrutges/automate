@@ -1,17 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&family=Neucha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
+/*tweede import is van concept opdr*/
+
+/*////////////////////////
+    Table of Contents
+    1. Global Styles
+    2. Typography
+    3. Layout
+        3.1 Reusables
+        3.2 Other
+    4. Areas
+        4.1 Header
+        4.2 Introduction
+        4.3 Work
+        4.4 Services
+        4.5 Contact
+        4.6 Footer
+    5. Media Queries
+////////////////////////*/
+
+/* ------------------------------- 1. Global Styles -------------------------------- */
 
 * {
+  margin: 0;
+  padding: 0;
+  /*Dit is belangrijk zodat de breedtes en hoogtes van elementen worden berekend INCLUSIEF padding en borders */
   box-sizing: border-box;
 }
 
+/*body {*/
+/*  margin: 0;*/
+/*  font-family: 'Roboto', 'Oxygen',*/
+/*  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;*/
+/*  -webkit-font-smoothing: antialiased;*/
+/*  -moz-osx-font-smoothing: grayscale;*/
+/*  color: #051524;*/
+/*}*/
+
 body {
-  margin: 0;
-  font-family: 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
   color: #051524;
+  font-weight: 300;
+  font-size: 20px;
 }
+
+/* ------------------------------- 2. Typography ----------------------------------- */
 
 h1,
 h2,
@@ -20,6 +53,114 @@ h4,
 h5,
 h6 {
   /*font-family: 'Neucha', 'Times New Roman', cursive;*/
-  font-family: Arial;
-  /* deze hierboven aangepast!*/
+  /*font-family: Arial;*/
+  font-family: Merriweather, 'Times New Roman', serif;
+}
+
+h1, h2 {
+  font-size: 46px;
+  padding: 16px 0;
+}
+
+h3 {
+  font-size: 36px;
+}
+
+h4 {
+  font-size: 32px;
+  padding: 12px 0;
+  margin: 24px 0;
+}
+
+h5 {
+  font-size: 32px;
+  padding: 12px 0;
+}
+
+h6 {
+  font-size: 32px;
+  line-height: 1.5;
+  padding: 12px 0;
+}
+
+p {
+  margin: 12px 0;
+}
+  /*!* deze hierboven aangepast!*!*/
+
+/* --------------- 3.2 Other --------------------------- */
+
+/*a,*/
+/*a:visited,*/
+/*a:link {*/
+/*  text-decoration: none;*/
+/*  color: #5722CD;*/
+/*}*/
+
+/* --------------- 4.6 Footer ------------------------- */
+
+#footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+/* ------------------------------- 5. Media Queries -------------------------------- */
+
+
+/*Omdat hier maar zo weinig media-queries nodig zijn is er gebruik gemaakt van een max-width query.*/
+/*Normaliter maak je altijd gebruik van min-width queries, waarbij de versie voor mobiel buiten de query staat, */
+/*en de versie voor desktop juist BUITEN de query*/
+@media screen and (max-width: 576px) {
+  h1, h2 {
+    font-size: 36px;
+    padding: 16px 0;
+  }
+
+  h3 {
+    font-size: 26px;
+  }
+
+
+  h6 {
+    font-size: 22px;
+    line-height: 1.5;
+    padding: 12px 0;
+  }
+
+  .header-content__navigation {
+    justify-content: center;
+  }
+
+  .header-content__navigation a {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .intro__link {
+    margin: 50px 0 0 0;
+  }
+
+  .work-article:nth-of-type(odd),
+  .work-article {
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .work-article__image-wrapper {
+    /*om de breedte, die nu geldt als lengte, te overschrijven*/
+    flex-basis: auto;
+  }
+
+  .work-article__info-container {
+    padding: 0 0 50px 0;
+    /*om de breedte, die nu geldt als lengte, te overschrijven*/
+    flex-basis: auto;
+  }
+
+  #services > div {
+    padding: 100px 0 50px 0;
+  }
 }

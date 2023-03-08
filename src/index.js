@@ -7,13 +7,13 @@ import './index.css';
 
 ReactDOM.render(
     <Router>
-    <React.StrictMode>
+    {/*<React.StrictMode>*/}
         {/*<Router>*/}
             <AuthContextProvider>
                 <App/>
             </AuthContextProvider>
         {/*</Router>*/}
-    </React.StrictMode>
+    {/*</React.StrictMode>*/}
     </Router>,
     document.getElementById('root')
 );

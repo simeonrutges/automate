@@ -31,7 +31,8 @@ function SignUp() {
         toggleLoading(true);
 
         try {
-            await axios.post('http://localhost:8080/users', {
+            const result = await axios.post('http://localhost:8080/users', {
+
                 password: password,
                 username: username,
                 firstname: firstname,
@@ -39,6 +40,7 @@ function SignUp() {
                 email: email,
                 roles: isChecked1 && isChecked2 ? ['BESTUURDER', 'PASSAGIER'] : isChecked1 ? ['BESTUURDER'] : isChecked2 ? ['PASSAGIER'] : []
             });
+            console.log(result);
 
             // Let op: omdat we geen axios Canceltoken gebruiken zul je hier een memory-leak melding krijgen.
             // Om te zien hoe je een canceltoken implementeerd kun je de bonus-branch bekijken!

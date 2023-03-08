@@ -21,11 +21,16 @@ function SignIn() {
                 password: password,
             });
             // log het resultaat in de console
-            console.log(result.data);
+            // console.log(result.data);
+            // console.log(result.headers['authorization']);
+            // console.log(result.headers.getAuthorization('authorization'));
+            console.log(result);
 
             // geef de JWT token aan de login-functie van de context mee
-            login(result.data.accessToken);
-
+            // login(result.data.accessToken);
+            // login(result.headers['authorization'].substring(7));
+            // login(result.headers.authorization.substring(7));
+            login(result.data);
 
         } catch(e) {
             console.error(e);
@@ -60,7 +65,7 @@ function SignIn() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
-                {error && <p className="error">Combinatie van emailadres en wachtwoord is onjuist</p>}
+                {error && <p className="error">Combinatie van username en wachtwoord is onjuist</p>}
 
                 <button
                     type="submit"
