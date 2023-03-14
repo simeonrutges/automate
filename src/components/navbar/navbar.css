@@ -1,9 +1,34 @@
+navbar {
+    background: yellow;
+    /*background: linear-gradient(133deg, var(--secondary) 0%, var(--primary) 86%, var(--primary) 100%);*/
+    text-align: center;
+}
+
 nav {
     /*background-color: #0d3b66;*/
     background-color: darkslategrey;
     color: white;
     display: flex;
-    padding: 0 32px;
+    padding: 0 0px;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+}
+
+.nav-buttons{
+
+    display: flex;
+    /* row is de default, maar toch toegevoegd voor leesbaarheid */
+    flex-direction: row;
+    /*Wanneer we geen basis-breedte meegeven, hebben de items ook geen ruimte om zich evenredig te verdelen!*/
+    flex-basis: 400px;
+    /* alle items groeien NIET mee in verhouding tot de overgebleven ruimte */
+    flex-grow: 0;
+    /* alle items worden evenredig kleiner dan de basis wanneer er geen ruimte is */
+    flex-shrink: 1;
+    /* uitlijning van links naar rechts, want direction = row (horizontaal) */
+    justify-content: space-between;
+
+    background-color: white;
+
 }

@@ -44,6 +44,30 @@ body {
   font-size: 20px;
 }
 
+/* De buitenste container is altijd de volledige schermbreedte. Het is een flexbox container die zijn inhoud altijd netjes horizontaal centreert */
+.outer-content-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/*De binnenste container is maximaal 1400px breed, zodat het er ook goed uitziet op brede schermen.
+Hij mag krimpen als het scherm minder breed wordt, maar niet groeien als er meer ruimte is.*/
+.inner-content-container {
+  flex-basis: 1200px;
+  flex-shrink: 1;
+  flex-grow: 0;
+  /*We voegen margin toe aan de linker- en rechterkant, zodat de content nooit helemaal tegen de rand gedrukt kan worden*/
+  margin: 0 20px;
+  /*We zorgen er ook voor dat deze flex-item op haar beurt ook weer een flexbox container is, waarin alle children onder elkaar komen te staan*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background-color: #ea7e1f;
+}
+
 /* ------------------------------- 2. Typography ----------------------------------- */
 
 h1,
