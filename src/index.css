@@ -50,8 +50,6 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-
-  background-color: red;
 }
 
 /*De binnenste container is maximaal 1400px breed, zodat het er ook goed uitziet op brede schermen.
