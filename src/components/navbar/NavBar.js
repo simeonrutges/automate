@@ -13,7 +13,9 @@ function NavBar() {
     const history = useHistory();
 
     return (
-        <nav>
+        <navbar className="outer-content-container">
+            <div className="inner-content-container">
+        <nav className="nav">
             <Link to="/">
           <span className="logo-container">
             <img src={logo} alt="logo"/>
@@ -61,6 +63,8 @@ function NavBar() {
                 </div>
             }
         </nav>
+            </div>
+        </navbar>
     );
 }
 
