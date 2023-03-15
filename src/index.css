@@ -65,7 +65,7 @@ Hij mag krimpen als het scherm minder breed wordt, maar niet groeien als er meer
   flex-direction: column;
   justify-content: center;
 
-  background-color: #ea7e1f;
+  /*background-color: #ea7e1f;*/
 }
 
 /* ------------------------------- 2. Typography ----------------------------------- */

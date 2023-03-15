@@ -39,7 +39,10 @@ function SignIn() {
     }
 
     return (
-        <>
+        <signin className="outer-content-container">
+            <div className="inner-content-container">
+
+        <div>
             <h1>Inloggen</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum debitis dolor dolore fuga id molestias qui quo unde?</p>
 
@@ -77,7 +80,10 @@ function SignIn() {
 
             <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
             <Modal message="Dit is de inlog pagina!"/>
-        </>
+        </div>
+
+            </div>
+        </signin>
     );
 }
 

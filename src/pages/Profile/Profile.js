@@ -30,7 +30,10 @@ function Profile() {
     // }, [])
 
     return (
-        <>
+        <profile className="outer-content-container">
+            <div className="inner-content-container">
+
+        <div>
             <h1>Mijn Profiel</h1>
             <div>
             <section>
@@ -49,7 +52,10 @@ function Profile() {
                 </section>
             }
             <p>Terug naar de <Link to="/">Homepagina</Link></p>
-        </>
+        </div>
+
+            </div>
+        </profile>
     );
 }
 

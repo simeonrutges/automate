@@ -56,7 +56,10 @@ function SignUp() {
     }
 
     return (
-        <>
+        <signup className="outer-content-container">
+            <div className="inner-content-container">
+
+        <div>
             <h1>Aanmelden</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque consectetur, dolore eaque eligendi
                 harum, numquam, placeat quisquam repellat rerum suscipit ullam vitae. A ab ad assumenda, consequuntur deserunt
@@ -156,7 +159,10 @@ function SignUp() {
             </form>
 
             <p>Heb je al een account? Je kunt je <Link to="/signin">hier</Link> inloggen.</p>
-        </>
+        </div>
+
+            </div>
+        </signup>
     );
 }
 

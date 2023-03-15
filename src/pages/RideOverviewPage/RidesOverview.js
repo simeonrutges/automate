@@ -58,6 +58,9 @@ const ridesDatabase = [
 
 function RidesOverview() {
     return (
+        <rides className="outer-content-container">
+            <div className="inner-content-container">
+
         <div className="rides-overview-page">
             <h1>Kies een rit</h1>
             <div className="rides-container">
@@ -74,6 +77,9 @@ function RidesOverview() {
                 })}
             </div>
         </div>
+
+            </div>
+        </rides>
     );
 }
 
