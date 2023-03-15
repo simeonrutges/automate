@@ -5,6 +5,9 @@ import  './home.css';
 
 function Home() {
     return (
+        <home className="outer-content-container">
+            <div className="inner-content-container">
+
         <div className="home-page">
             <h1>Homepagina</h1>
             <section>
@@ -25,7 +28,7 @@ function Home() {
                     libero maxime minima neque nisi non officia omnis pariatur placeat quaerat quibusdam quidem quo quod
                     repellendus sequi tempore, temporibus totam velit vitae voluptate voluptatem? Ea eaque molestias nesciunt sit
                     temporibus?
-                </p>
+                  </p>
             </section>
             <section>
                 <p>Als je ingelogd bent, bekijk dan de <Link to="/profile">Profielpagina</Link></p>
@@ -94,6 +97,12 @@ function Home() {
             </section>
             <Modal message="druk op start!"/>
         </div>
+
+            </div>
+        </home>
+
+
+
     );
 }
 

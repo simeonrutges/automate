@@ -62,7 +62,8 @@ h2 {
 }
 
 .content {
-  margin: 32px;
+  margin: 0px;
+  /*was 32px*/
 }
 
 .form-button {
