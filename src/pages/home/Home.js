@@ -11,7 +11,7 @@ function Home() {
             <div className="inner-content-container">
 
                 {/*Waarom heeft de margin 50px? -> App.css */}
-                <section className="home">
+                <section className="home-page">
                         <img src={picture} alt="beschrijving van de afbeelding" />
                         <div className="textvlak">
                             <h1>De slimmer keuze voor milieubewuste reizigers</h1>

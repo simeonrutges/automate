@@ -6,8 +6,11 @@
 /*}*/
 
 /*//*/
+home {
+    background: lightgoldenrodyellow;
+}
 
-.home{
+.home-page{
     display: flex;
 
 

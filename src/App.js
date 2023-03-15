@@ -13,6 +13,7 @@ import RidePage from "./pages/RidePage/RidePage";
 import RidesOverview from "./pages/RideOverviewPage/RidesOverview";
 import PrivateRoute from "./components/PrivateRoute";
 import Special from "./components/special/Special";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const { isAuth } = useContext(AuthContext);
@@ -59,6 +60,7 @@ function App() {
             ipsa. At, beatae blanditiis, commodi corporis, eos fuga incidunt iste labore modi officia
             sunt ullam voluptatem voluptatum!</p>
         </Special>
+        <Footer/>
       </>
   );
 }
