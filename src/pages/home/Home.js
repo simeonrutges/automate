@@ -1,11 +1,122 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
 import Modal from "./../../context/modal/Modal";
 import  './home.css';
 import picture from '../../assets/shutterstock_2122349819.jpg'
+import FormInput from "../../components/formInput/FormInput";
+import axios from "axios";
 
 
 function Home() {
+    const [pickUpLocation, setPickUpLocation] = useState('');
+    const [destination, setDestination] = useState('');
+    const [route, setRoute] = useState('');
+    const [addRideInfo, setAddRideInfo] = useState('');
+    const [departureTime, setDepartureTime] = useState('');
+    const [departureDate, setDepartureDate] = useState('');
+
+    // test
+    const departureDateTime = new Date(`${departureDate}T${departureTime}`);
+    // const [date, setDate] = useState('');
+    // const [time, setTime] = useState('');
+
+    // tot  hier test
+
+    const [pricePerPerson, setPricePerPerson] = useState('');
+    const [availableSpots, setAvailableSpots] = useState('');
+    const [eta, setEta] = useState('');
+
+    const [error, toggleError] = useState(false);
+    const [loading, toggleLoading] = useState(false);
+
+    const history = useHistory();
+
+    const handlePickUpLocationChange = (e) => {
+        setPickUpLocation(e.target.value);
+    };
+
+    const handleDestinationChange = (e) => {
+        setDestination(e.target.value);
+    };
+
+    const handleRouteChange = (e) => {
+        setRoute(e.target.value);
+    };
+
+    const handleAddRideInfoChange = (e) => {
+        setAddRideInfo(e.target.value);
+    };
+
+    const handleDepartureTimeChange = (e) => {
+        setDepartureTime(e.target.value);
+    };
+// hierio
+//     const handleDateValueChange = (e) => {
+//         setDate(e.target.value);
+//     };
+//
+//     const handleTimeValueChange = (e) => {
+//         setTime(e.target.value);
+//     };
+
+    // tot hier
+
+    const handleDepartureDateChange = (e) => {
+        setDepartureDate(e.target.value);
+    };
+
+    const handlePricePerPersonChange = (e) => {
+        setPricePerPerson(e.target.value);
+    };
+
+    const handleAvailableSpotsChange = (e) => {
+        setAvailableSpots(e.target.value);
+    };
+
+    const handleEtaChange = (e) => {
+        setEta(e.target.value);
+    };
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        toggleError(false);
+        toggleLoading(true);
+
+        try {
+            const result = await axios.post('http://localhost:8080/rides', {
+                pickUpLocation: pickUpLocation,
+                destination: destination,
+                route: route,
+                addRideInfo: addRideInfo,
+                departureTime: departureTime,
+
+                // timeValue: time,
+                // dateValue: date,
+
+                departureDate: departureDate,
+                pricePerPerson: pricePerPerson,
+                availableSpots: availableSpots,
+                eta: eta,
+            });
+            console.log(result);
+
+            // if everything went well, redirect to the login page
+            history.push('/signin');
+        } catch (e) {
+            console.error(e);
+            toggleError(true);
+        }
+
+        toggleLoading(false);
+    }
+
+
+
+
+
+
+
     return (
         <home className="outer-content-container">
             <div className="inner-content-container">
@@ -17,7 +128,51 @@ function Home() {
                             <h1>De slimmer keuze voor milieubewuste reizigers</h1>
                         </div>
                         <div className="blok">
-                            <h1>hier komt het blok</h1>
+                            <h1>hier komt het formulier</h1>
+                            <form onSubmit={handleSubmit}>
+                                <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text" value={pickUpLocation} onChange={handlePickUpLocationChange} />
+                                <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination} onChange={handleDestinationChange} />
+                                <FormInput id="route" labelText="Route:" inputType="text" value={route} onChange={handleRouteChange} />
+                                <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text" value={addRideInfo} onChange={handleAddRideInfoChange} />
+                                <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time" value={departureTime} onChange={handleDepartureTimeChange} />
+
+                                {/*<FormInput id="date" labelText="Datum:" inputType="date" value={date} onChange={handleDateValueChange} />*/}
+                                {/*<FormInput id="time" labelText="Tijd:" inputType="time" value={time} onChange={handleTimeValueChange} />*/}
+
+
+                                <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date" value={departureDate} onChange={handleDepartureDateChange} />
+                                {/*<FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" value={pricePerPerson} onChange={handlePricePerPersonChange} />*/}
+                                <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="1" step="0.01" value={pricePerPerson} onChange={handlePricePerPersonChange} />
+
+                                {/*<FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number" value={availableSpots} onChange={handleAvailableSpotsChange} />*/}
+                                <FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number" min="1" max="5" step="1" value={availableSpots} onChange={handleAvailableSpotsChange} />
+
+                                <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta} onChange={handleEtaChange} />
+                                {/*<label htmlFor="driver-checkbox" className="checkbox">*/}
+                                {/*    <input*/}
+                                {/*        type="checkbox"*/}
+                                {/*        id="driver-checkbox"*/}
+                                {/*        value="BESTUURDER"*/}
+                                {/*        name="role"*/}
+                                {/*        checked={isChecked1}*/}
+                                {/*        onChange={(e) => setIsChecked1(e.target.checked)}*/}
+                                {/*    />*/}
+                                {/*    Bestuurder*/}
+                                {/*</label>*/}
+                                {/*<label htmlFor="passenger-checkbox" className="checkbox">*/}
+                                {/*    <input*/}
+                                {/*        type="checkbox"*/}
+                                {/*        id="passenger-checkbox"*/}
+                                {/*        value="PASSAGIER"*/}
+                                {/*        name="role"*/}
+                                {/*        checked={isChecked2}*/}
+                                {/*        onChange={(e) => setIsChecked2(e.target.checked)}*/}
+                                {/*    />*/}
+                                {/*    Passagier*/}
+                                {/*</label>*/}
+                                <button type="submit">Sign Up</button>
+                            </form>
+
                         </div>
                 </section>
 

@@ -5,6 +5,7 @@ import Profile from '././pages/Profile/Profile';
 import Home from '././pages/home/Home';
 import SignIn from '././pages/signIn/SignIn';
 import SignUp from '././pages/signUp/SignUp';
+import SignUpTest from "./pages/signUp/SignUpTest";
 import { AuthContext } from './context/AuthContext';
 import './App.css';
 import Modal from "././context/modal/Modal";
@@ -14,6 +15,7 @@ import RidesOverview from "./pages/RideOverviewPage/RidesOverview";
 import PrivateRoute from "./components/PrivateRoute";
 import Special from "./components/special/Special";
 import Footer from "./components/footer/Footer";
+
 
 function App() {
   const { isAuth } = useContext(AuthContext);
@@ -41,7 +43,8 @@ function App() {
             </Route>
 
             <Route exact path="/signup">
-              <SignUp />
+              {/*<SignUp />*/}
+                <SignUpTest/>
             </Route>
 
             <Route path="/ride/:id">
