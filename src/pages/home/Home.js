@@ -1,13 +1,47 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import Modal from "./../../context/modal/Modal";
 import  './home.css';
 import picture from '../../assets/shutterstock_2122349819.jpg'
 import FormInput from "../../components/formInput/FormInput";
 import axios from "axios";
+import {AuthContext} from "../../context/AuthContext";
 
 
 function Home() {
+    //aanroepen context:
+    const { isAuth, logout } = useContext(AuthContext);
+    // const history = useHistory();
+
+    //voor het zoek-form
+    const [pax, setPax] = useState('');
+    // const { currentUser } = useAuth(); // haal de huidige gebruiker op uit de AuthContext
+
+    const handleSubmit2 = async (e) => {
+        e.preventDefault();
+        toggleError(false);
+        toggleLoading(true);
+
+        try {
+            const result = await axios.get('http://localhost:8080/rides', {
+            });
+            console.log(result);
+
+            // if everything went well, redirect to the ride-page
+            history.push('/rides');
+        } catch (e) {
+            console.error(e);
+            toggleError(true);
+        }
+
+        toggleLoading(false);
+    }
+
+
+
+
+
+    // voor addRide form
     const [pickUpLocation, setPickUpLocation] = useState('');
     const [destination, setDestination] = useState('');
     const [route, setRoute] = useState('');
@@ -15,12 +49,12 @@ function Home() {
     const [departureTime, setDepartureTime] = useState('');
     const [departureDate, setDepartureDate] = useState('');
 
-    // test
+    // test voor LcalDate
     const departureDateTime = new Date(`${departureDate}T${departureTime}`);
     // const [date, setDate] = useState('');
     // const [time, setTime] = useState('');
 
-    // tot  hier test
+    // tot hier test
 
     const [pricePerPerson, setPricePerPerson] = useState('');
     const [availableSpots, setAvailableSpots] = useState('');
@@ -101,8 +135,8 @@ function Home() {
             });
             console.log(result);
 
-            // if everything went well, redirect to the login page
-            history.push('/signin');
+            // if everything went well, redirect to the ride-page
+            history.push('/ride/:id');
         } catch (e) {
             console.error(e);
             toggleError(true);
@@ -125,10 +159,13 @@ function Home() {
                 <section className="home-page">
                         <img src={picture} alt="beschrijving van de afbeelding" />
                         <div className="textvlak">
-                            <h1>De slimmer keuze voor milieubewuste reizigers</h1>
+                            <h1>De slimme keuze voor milieubewuste reizigers</h1>
                         </div>
+
+
+
                         <div className="blok">
-                            <h1>hier komt het formulier</h1>
+                            {isAuth ?
                             <form onSubmit={handleSubmit}>
                                 <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text" value={pickUpLocation} onChange={handlePickUpLocationChange} />
                                 <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination} onChange={handleDestinationChange} />
@@ -170,10 +207,26 @@ function Home() {
                                 {/*    />*/}
                                 {/*    Passagier*/}
                                 {/*</label>*/}
-                                <button type="submit">Sign Up</button>
-                            </form>
+                                <button type="submit">Plaats rit</button>
+                            </form> :
+                                <form onSubmit={handleSubmit2}>
+                                    <label htmlFor="pickUpLocation">Vertrek locatie:</label>
+                                    <input type="text" id="pickUpLocation" value={pickUpLocation} onChange={e => setPickUpLocation(e.target.value)} />
 
+                                    <label htmlFor="destination">Bestemming:</label>
+                                    <input type="text" id="destination" value={destination} onChange={e => setDestination(e.target.value)} />
+
+                                    <label htmlFor="pax">Aantal reizigers:</label>
+                                    <input type="number" id="pax" value={pax} onChange={e => setPax(e.target.value)} />
+
+                                    <label htmlFor="departureDate">Reisdatum:</label>
+                                    <input type="date" id="departureDate" value={departureDate} onChange={e => setDepartureDate(e.target.value)} />
+
+                                    <button type="submit">Zoeken</button>
+                                </form>
+                            }
                         </div>
+
                 </section>
 
                 <section>

@@ -2,7 +2,7 @@
 /*    background-color: #FEE9E1;*/
 /*    padding: 30px;*/
 /*    min-height: 100vh;*/
-/*    !*!/laatste is belangrijk om de achtergrond helemaal tot het einde vh scherm te laten lopen! alle pag. doen!*!*!*!*/
+/*!*    !*!/laatste is belangrijk om de achtergrond helemaal tot het einde vh scherm te laten lopen! alle pag. doe*/
 /*}*/
 
 /*//*/
@@ -12,14 +12,13 @@ home {
 
 .home-page{
     display: flex;
-
-
     position: relative;
     /*padding: 0px;*/
     /*min-height: 100vh;*/
     width: 100%;
     flex-direction: column;
-    border: 3px solid red;
+
+    /*border: 3px solid red;*/
 
 
 }
@@ -40,18 +39,17 @@ home {
     height: auto;
 }
 
-.home .textvlak {
+.textvlak {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 65%;
+    left: 27%;
     transform: translate(-50%, -50%);
     padding: 20px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0);
-    /*background: rgba(255, 255, 255, 0);*/
     color: white;
 
-    border: 3px solid blue;
+    /*border: 3px solid blue;*/
 
 
 
@@ -72,18 +70,17 @@ home {
 }
 
 
-.home .blok {
+.blok {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 55%;
+    left: 75%;
     transform: translate(-50%, -50%);
     padding: 20px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0);
-    /*background: rgba(255, 255, 255, 0);*/
     color: white;
 
-    border: 3px solid black;
+    /*border: 3px solid black;*/
 }
 
 /*//*/

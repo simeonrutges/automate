@@ -57,12 +57,12 @@ function App() {
 
           </Switch>
         </div>
-          <Modal message="test bericht!"/>
-        <Special title="banaan">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A consequatur dolore facilis in
-            ipsa. At, beatae blanditiis, commodi corporis, eos fuga incidunt iste labore modi officia
-            sunt ullam voluptatem voluptatum!</p>
-        </Special>
+        {/*  <Modal message="test bericht!"/>*/}
+        {/*<Special title="banaan">*/}
+        {/*  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A consequatur dolore facilis in*/}
+        {/*    ipsa. At, beatae blanditiis, commodi corporis, eos fuga incidunt iste labore modi officia*/}
+        {/*    sunt ullam voluptatem voluptatum!</p>*/}
+        {/*</Special>*/}
         <Footer/>
       </>
   );
