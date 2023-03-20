@@ -143,11 +143,22 @@ function AuthContextProvider({ children }) {
     const contextData = {
         isAuth: isAuth.isAuth,
         user: isAuth.user,
+        role: isAuth.user.role === 'BESTUURDER' ? 'BESTUURDER' : 'PASSAGIER',
         login: login,
         logout: logout,
         // hier nog passagier en bestuurder laten kiezen?
         // userDetails: auth.user, ...
-    };
+    }
+        function requireBestuurder(req, res, next) {
+        if (req.user && req.user.role === 'BESTUURDER') {
+            next();
+        } else {
+            res.redirect('/signup');
+        }
+    }
+
+
+    ;
 
     return (
         <AuthContext.Provider value={contextData}>
