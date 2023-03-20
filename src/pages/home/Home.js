@@ -158,15 +158,15 @@ function Home() {
                     <div className="blok">
                         {/*{isAuth ?*/}
                         <div className="form-buttonblock-home">
-                            <button className="form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}"
-                                    type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
-                            </button>
                             <button className="form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}"
                                     type="button" onClick={() => setActiveForm('selfDrive')}>Zelf rijden
                             </button>
+                            <button className="form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}"
+                                    type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
+                            </button>
                         </div>
 
-                        {activeForm === 'rideAlong' ? (
+                        {activeForm === 'selfDrive' ? (
                                 <form onSubmit={handleSubmit}>
                                     <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
                                                value={pickUpLocation} onChange={handlePickUpLocationChange}/>
@@ -202,7 +202,7 @@ function Home() {
                             )
                             : (
 
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit2}>
                                     <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
                                                value={pickUpLocation}
                                                onChange={e => setPickUpLocation(e.target.value)}/>
