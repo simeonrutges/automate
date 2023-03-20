@@ -109,6 +109,11 @@ home {
     padding: 13px;
 
 }
+button:active {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
 
 
 /*//*/

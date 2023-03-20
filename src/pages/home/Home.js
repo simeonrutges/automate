@@ -159,10 +159,10 @@ function Home() {
                         {/*{isAuth ?*/}
                         <div className="form-buttonblock-home">
                             <button className="form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}"
-                                    type="button" onClick={() => setActiveForm('rideAlong')}>Zelf rijden
+                                    type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
                             </button>
                             <button className="form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}"
-                                    type="button" onClick={() => setActiveForm('selfDrive')}>Rij mee
+                                    type="button" onClick={() => setActiveForm('selfDrive')}>Zelf rijden
                             </button>
                         </div>
 
