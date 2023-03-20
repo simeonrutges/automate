@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {getRoles} from "@testing-library/react";
+import  './signUp.css';
+import FormInput from "../../components/formInput/FormInput";
 
 function SignUp() {
     // state voor het formulier
@@ -65,8 +67,10 @@ function SignUp() {
                 harum, numquam, placeat quisquam repellat rerum suscipit ullam vitae. A ab ad assumenda, consequuntur deserunt
                 doloremque ea eveniet facere fuga illum in numquam quia reiciendis rem sequi tenetur veniam?
             </p>
+
+            
             <form onSubmit={handleSubmit}>
-//
+
                 <label htmlFor="password-field">
                     Voornaam:
                     <input
@@ -88,7 +92,7 @@ function SignUp() {
                         onChange={(e) => setLastname(e.target.value)}
                     />
                 </label>
-                //
+
                 <label htmlFor="username-field">
                     Gebruikersnaam:
                     <input
@@ -120,8 +124,9 @@ function SignUp() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
-                //// div omheen?
-                    <label htmlFor="driver-checkbox">
+
+                    <label htmlFor="driver-checkbox" className="checkbox">
+                        Bestuurder
                         <input
                             type="checkbox"
                             id="driver-checkbox"
@@ -130,10 +135,8 @@ function SignUp() {
                             checked={isChecked1}
                             onChange={(e) => setIsChecked1(e.target.checked)}
                         />
-                        Bestuurder
                     </label>
-
-                    <label htmlFor="passenger-checkbox">
+                    <label htmlFor="passenger-checkbox" className="checkbox">
                         Passagier
                         <input
                             type="checkbox"
@@ -144,8 +147,6 @@ function SignUp() {
                             onChange={(e) => setIsChecked2(e.target.checked)}
                         />
                     </label>
-                //
-
 
                 {error && <p className="error">Dit account bestaat al. Probeer een ander emailadres.</p>}
                 <button

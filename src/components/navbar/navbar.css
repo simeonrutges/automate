@@ -1,12 +1,10 @@
 navbar {
-    background: yellow;
+    background: darkslategrey;
     /*background: linear-gradient(133deg, var(--secondary) 0%, var(--primary) 86%, var(--primary) 100%);*/
     text-align: center;
 }
 
 nav {
-    /*background-color: #0d3b66;*/
-    background-color: darkslategrey;
     color: white;
     display: flex;
     padding: 0 0px;
