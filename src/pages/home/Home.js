@@ -4,13 +4,13 @@ import Modal from "./../../context/modal/Modal";
 import  './home.css';
 import picture from '../../assets/shutterstock_2122349819.jpg'
 import FormInput from "../../components/formInput/FormInput";
-import axios from "axios";
+import axios, {defaults} from "axios";
 import {AuthContext} from "../../context/AuthContext";
 
 
 function Home() {
     //aanroepen context:
-    const { isAuth, logout } = useContext(AuthContext);
+    const {isAuth, logout} = useContext(AuthContext);
     // const history = useHistory();
 
     //voor het zoek-form
@@ -23,8 +23,7 @@ function Home() {
         toggleLoading(true);
 
         try {
-            const result = await axios.get('http://localhost:8080/rides', {
-            });
+            const result = await axios.get('http://localhost:8080/rides', {});
             console.log(result);
 
             // if everything went well, redirect to the ride-page
@@ -38,7 +37,6 @@ function Home() {
     }
     // voor het switchen van de forms
     const [activeForm, setActiveForm] = useState('rideAlong'); // 'rideAlong' of 'selfDrive'
-
 
 
     // voor addRide form
@@ -151,94 +149,90 @@ function Home() {
 
                 {/*Waarom heeft de margin 50px? -> App.css */}
                 <section className="home-page">
-                        <img src={picture} alt="beschrijving van de afbeelding" />
-                        <div className="textvlak">
-                            <h1>De slimme keuze voor milieubewuste reizigers</h1>
+                    <img src={picture} alt="beschrijving van de afbeelding"/>
+                    <div className="textvlak">
+                        <h1>De slimme keuze voor milieubewuste reizigers</h1>
+                    </div>
+
+
+                    <div className="blok">
+                        {/*{isAuth ?*/}
+                        <div className="form-buttonblock-home">
+                            <button className="form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}"
+                                    type="button" onClick={() => setActiveForm('rideAlong')}>Zelf rijden
+                            </button>
+                            <button className="form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}"
+                                    type="button" onClick={() => setActiveForm('selfDrive')}>Rij mee
+                            </button>
                         </div>
 
+                        {activeForm === 'rideAlong' ? (
+                                <form onSubmit={handleSubmit}>
+                                    <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
+                                               value={pickUpLocation} onChange={handlePickUpLocationChange}/>
+                                    <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination}
+                                               onChange={handleDestinationChange}/>
+                                    <FormInput id="route" labelText="Route:" inputType="text" value={route}
+                                               onChange={handleRouteChange}/>
+                                    <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
+                                               value={addRideInfo} onChange={handleAddRideInfoChange}/>
+                                    <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
+                                               value={departureTime} onChange={handleDepartureTimeChange}/>
 
-                        <div className="blok">
-                            {isAuth ?
-
-                            <form onSubmit={handleSubmit}>
-                                <div className="form-buttonblock-home ${activeForm === 'rideAlong' ? 'active' : ''}">
-                                    <button className="form-button-home" type="button"  onClick={() => setActiveForm('rideAlong')}>Rij mee</button>
-                                    <button className="form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}" type="button" onClick={() => setActiveForm('selfDrive')}>Zelf rijden</button>
-                                </div>
-                                <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text" value={pickUpLocation} onChange={handlePickUpLocationChange} />
-                                <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination} onChange={handleDestinationChange} />
-                                <FormInput id="route" labelText="Route:" inputType="text" value={route} onChange={handleRouteChange} />
-                                <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text" value={addRideInfo} onChange={handleAddRideInfoChange} />
-                                <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time" value={departureTime} onChange={handleDepartureTimeChange} />
-
-                                {/*<FormInput id="date" labelText="Datum:" inputType="date" value={date} onChange={handleDateValueChange} />*/}
-                                {/*<FormInput id="time" labelText="Tijd:" inputType="time" value={time} onChange={handleTimeValueChange} />*/}
+                                    {/*<FormInput id="date" labelText="Datum:" inputType="date" value={date} onChange={handleDateValueChange} />*/}
+                                    {/*<FormInput id="time" labelText="Tijd:" inputType="time" value={time} onChange={handleTimeValueChange} />*/}
 
 
-                                <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date" value={departureDate} onChange={handleDepartureDateChange} />
-                                {/*<FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" value={pricePerPerson} onChange={handlePricePerPersonChange} />*/}
-                                <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="1" step="0.01" value={pricePerPerson} onChange={handlePricePerPersonChange} />
+                                    <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
+                                               value={departureDate} onChange={handleDepartureDateChange}/>
+                                    {/*<FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" value={pricePerPerson} onChange={handlePricePerPersonChange} />*/}
+                                    <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="1"
+                                               step="0.01" value={pricePerPerson} onChange={handlePricePerPersonChange}/>
 
-                                {/*<FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number" value={availableSpots} onChange={handleAvailableSpotsChange} />*/}
-                                <FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number" min="1" max="5" step="1" value={availableSpots} onChange={handleAvailableSpotsChange} />
+                                    {/*<FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number" value={availableSpots} onChange={handleAvailableSpotsChange} />*/}
+                                    <FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number"
+                                               min="1" max="5" step="1" value={availableSpots}
+                                               onChange={handleAvailableSpotsChange}/>
 
-                                <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta} onChange={handleEtaChange} />
-                                {/*<label htmlFor="driver-checkbox" className="checkbox">*/}
-                                {/*    <input*/}
-                                {/*        type="checkbox"*/}
-                                {/*        id="driver-checkbox"*/}
-                                {/*        value="BESTUURDER"*/}
-                                {/*        name="role"*/}
-                                {/*        checked={isChecked1}*/}
-                                {/*        onChange={(e) => setIsChecked1(e.target.checked)}*/}
-                                {/*    />*/}
-                                {/*    Bestuurder*/}
-                                {/*</label>*/}
-                                {/*<label htmlFor="passenger-checkbox" className="checkbox">*/}
-                                {/*    <input*/}
-                                {/*        type="checkbox"*/}
-                                {/*        id="passenger-checkbox"*/}
-                                {/*        value="PASSAGIER"*/}
-                                {/*        name="role"*/}
-                                {/*        checked={isChecked2}*/}
-                                {/*        onChange={(e) => setIsChecked2(e.target.checked)}*/}
-                                {/*    />*/}
-                                {/*    Passagier*/}
-                                {/*</label>*/}
-                                <button type="submit">Plaats rit</button>
-                            </form>
-                            :
+                                    <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
+                                               onChange={handleEtaChange}/>
+
+                                    <button type="submit">Plaats rit</button>
+                                </form>
+                            )
+                            : (
 
                                 <form onSubmit={handleSubmit}>
-                                    <div className="form-buttonblock-home ${activeForm === 'selfDrive' ? 'active' : ''}">
-                                    <button className="form-button-home" type="button" >Rij mee</button>
-                                    <button className="form-button-home" type="button">Zelf rijden</button>
-                                    </div>
+                                    <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
+                                               value={pickUpLocation}
+                                               onChange={e => setPickUpLocation(e.target.value)}/>
 
-                                    <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text" value={pickUpLocation} onChange={e => setPickUpLocation(e.target.value)} />
+                                    <FormInput id="destination" labelText="Bestemming:" inputType="text"
+                                               value={destination} onChange={e => setDestination(e.target.value)}/>
 
-                                    <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination} onChange={e => setDestination(e.target.value)} />
+                                    <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" value={pax}
+                                               onChange={e => setPax(e.target.value)}/>
 
-                                    <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" value={pax} onChange={e => setPax(e.target.value)} />
-
-                                    <FormInput id="departureDate" labelText="Reisdatum:" inputType="date" value={departureDate} onChange={e => setDepartureDate(e.target.value)} />
+                                    <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
+                                               value={departureDate} onChange={e => setDepartureDate(e.target.value)}/>
 
                                     <button type="submit">Zoeken</button>
                                 </form>
-
-                            }
-                        </div>
+                            )}
+                    </div>
                 </section>
 
                 <section>
-                   <p>Als je ingelogd bent, bekijk dan de <Link to="/profile">Profielpagina</Link></p>
-                <p>Je kunt ook <Link to="/signin">inloggen</Link> of jezelf <Link to="/signup">registeren</Link> als je nog geen
-                    account hebt.</p>
+                    <p>Als je ingelogd bent, bekijk dan de <Link to="/profile">Profielpagina</Link></p>
+                    <p>Je kunt ook <Link to="/signin">inloggen</Link> of jezelf <Link to="/signup">registeren</Link> als
+                        je nog geen
+                        account hebt.</p>
                 </section>
 
             </div>
         </home>
     );
 }
+
 
 export default Home;
