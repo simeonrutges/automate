@@ -36,8 +36,8 @@ function Home() {
 
         toggleLoading(false);
     }
-
-
+    // voor het switchen van de forms
+    const [activeForm, setActiveForm] = useState('rideAlong'); // 'rideAlong' of 'selfDrive'
 
 
 
@@ -145,12 +145,6 @@ function Home() {
         toggleLoading(false);
     }
 
-
-
-
-
-
-
     return (
         <home className="outer-content-container">
             <div className="inner-content-container">
@@ -163,10 +157,14 @@ function Home() {
                         </div>
 
 
-
                         <div className="blok">
                             {isAuth ?
+
                             <form onSubmit={handleSubmit}>
+                                <div className="form-buttonblock-home ${activeForm === 'rideAlong' ? 'active' : ''}">
+                                    <button className="form-button-home" type="button"  onClick={() => setActiveForm('rideAlong')}>Rij mee</button>
+                                    <button className="form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}" type="button" onClick={() => setActiveForm('selfDrive')}>Zelf rijden</button>
+                                </div>
                                 <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text" value={pickUpLocation} onChange={handlePickUpLocationChange} />
                                 <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination} onChange={handleDestinationChange} />
                                 <FormInput id="route" labelText="Route:" inputType="text" value={route} onChange={handleRouteChange} />
@@ -208,25 +206,28 @@ function Home() {
                                 {/*    Passagier*/}
                                 {/*</label>*/}
                                 <button type="submit">Plaats rit</button>
-                            </form> :
-                                <form onSubmit={handleSubmit2}>
-                                    <label htmlFor="pickUpLocation">Vertrek locatie:</label>
-                                    <input type="text" id="pickUpLocation" value={pickUpLocation} onChange={e => setPickUpLocation(e.target.value)} />
+                            </form>
+                            :
 
-                                    <label htmlFor="destination">Bestemming:</label>
-                                    <input type="text" id="destination" value={destination} onChange={e => setDestination(e.target.value)} />
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-buttonblock-home ${activeForm === 'selfDrive' ? 'active' : ''}">
+                                    <button className="form-button-home" type="button" >Rij mee</button>
+                                    <button className="form-button-home" type="button">Zelf rijden</button>
+                                    </div>
 
-                                    <label htmlFor="pax">Aantal reizigers:</label>
-                                    <input type="number" id="pax" value={pax} onChange={e => setPax(e.target.value)} />
+                                    <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text" value={pickUpLocation} onChange={e => setPickUpLocation(e.target.value)} />
 
-                                    <label htmlFor="departureDate">Reisdatum:</label>
-                                    <input type="date" id="departureDate" value={departureDate} onChange={e => setDepartureDate(e.target.value)} />
+                                    <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination} onChange={e => setDestination(e.target.value)} />
+
+                                    <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" value={pax} onChange={e => setPax(e.target.value)} />
+
+                                    <FormInput id="departureDate" labelText="Reisdatum:" inputType="date" value={departureDate} onChange={e => setDepartureDate(e.target.value)} />
 
                                     <button type="submit">Zoeken</button>
                                 </form>
+
                             }
                         </div>
-
                 </section>
 
                 <section>
