@@ -35,24 +35,19 @@ function Home() {
 
         toggleLoading(false);
     }
+
     // voor het switchen van de forms
     const [activeForm, setActiveForm] = useState('rideAlong'); // 'rideAlong' of 'selfDrive'
-
 
     // voor addRide form
     const [pickUpLocation, setPickUpLocation] = useState('');
     const [destination, setDestination] = useState('');
     const [route, setRoute] = useState('');
     const [addRideInfo, setAddRideInfo] = useState('');
+
     const [departureTime, setDepartureTime] = useState('');
     const [departureDate, setDepartureDate] = useState('');
-
-    // test voor LcalDate
     const departureDateTime = new Date(`${departureDate}T${departureTime}`);
-    // const [date, setDate] = useState('');
-    // const [time, setTime] = useState('');
-
-    // tot hier test
 
     const [pricePerPerson, setPricePerPerson] = useState('');
     const [availableSpots, setAvailableSpots] = useState('');
@@ -82,16 +77,6 @@ function Home() {
     const handleDepartureTimeChange = (e) => {
         setDepartureTime(e.target.value);
     };
-// hierio
-//     const handleDateValueChange = (e) => {
-//         setDate(e.target.value);
-//     };
-//
-//     const handleTimeValueChange = (e) => {
-//         setTime(e.target.value);
-//     };
-
-    // tot hier
 
     const handleDepartureDateChange = (e) => {
         setDepartureDate(e.target.value);
@@ -121,25 +106,24 @@ function Home() {
                 destination: destination,
                 route: route,
                 addRideInfo: addRideInfo,
-                departureTime: departureTime,
-
-                // timeValue: time,
-                // dateValue: date,
-
-                departureDate: departureDate,
+                // departureTime: departureTime,
+                // departureDate: departureDate,
+                departureDateTime: departureDateTime,
                 pricePerPerson: pricePerPerson,
                 availableSpots: availableSpots,
                 eta: eta,
             });
             console.log(result);
 
+            const id= result.data.id;
+
             // if everything went well, redirect to the ride-page
-            history.push('/ride/:id');
+            // history.push('/ride/:id');
+            history.push(`/ride/${id}`);
         } catch (e) {
             console.error(e);
             toggleError(true);
         }
-
         toggleLoading(false);
     }
 
