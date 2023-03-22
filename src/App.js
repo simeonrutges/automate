@@ -63,6 +63,7 @@ function App() {
         {/*    ipsa. At, beatae blanditiis, commodi corporis, eos fuga incidunt iste labore modi officia*/}
         {/*    sunt ullam voluptatem voluptatum!</p>*/}
         {/*</Special>*/}
+
         <Footer/>
       </>
   );
