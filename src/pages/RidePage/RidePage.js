@@ -9,9 +9,9 @@ function RidePage() {
     const {user} = useContext(AuthContext);
 
     const {id} = useParams();
-    //useParams geeft alleen welke sok het is
+    //useParams geeft alleen welke rit het is
 
-// GET request om sok 34 (id) op te vragen naar BE
+// GET request
     useEffect(() => {
         async function fetchRideData() {
             try {
@@ -25,9 +25,8 @@ function RidePage() {
         fetchRideData()
     }, [id]);
 
-    // Delete ride request
+    // DELETE ride request
     const history = useHistory();
-
     async function handleAnnuleerRitClick() {
         try {
             await axios.delete(`http://localhost:8080/rides/${id}`);
@@ -36,8 +35,6 @@ function RidePage() {
             console.error(error);
         }
     }
-
-
 
 
     return (

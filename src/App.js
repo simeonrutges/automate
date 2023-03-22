@@ -51,9 +51,12 @@ function App() {
               <RidePage />
             </Route>
 
-            <Route path="/rides">
-              <RidesOverview />
-            </Route>
+            {/*<Route path="/rides" >*/}
+            {/*  <RidesOverview />*/}
+            {/*</Route>*/}
+
+              <Route path="/rides" render={(props) => <RidesOverview {...props} />} />
+
 
           </Switch>
         </div>

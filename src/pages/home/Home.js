@@ -23,11 +23,19 @@ function Home() {
         toggleLoading(true);
 
         try {
-            const result = await axios.get('http://localhost:8080/rides', {});
+            const result = await axios.get('http://localhost:8080/rides', {
+                params: {
+                    pickUpLocation: pickUpLocation,
+                    destination: destination,
+                    pax: pax,
+                    departureDate: departureDate
+                }
+            });
             console.log(result);
 
             // if everything went well, redirect to the ride-page
-            history.push('/rides');
+            // history.push('/rides');
+            history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDate}`);
         } catch (e) {
             console.error(e);
             toggleError(true);
