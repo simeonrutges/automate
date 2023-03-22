@@ -51,9 +51,12 @@ function App() {
               <RidePage />
             </Route>
 
-            <Route path="/rides">
-              <RidesOverview />
-            </Route>
+            {/*<Route path="/rides" >*/}
+            {/*  <RidesOverview />*/}
+            {/*</Route>*/}
+
+              <Route path="/rides" render={(props) => <RidesOverview {...props} />} />
+
 
           </Switch>
         </div>
@@ -63,6 +66,7 @@ function App() {
         {/*    ipsa. At, beatae blanditiis, commodi corporis, eos fuga incidunt iste labore modi officia*/}
         {/*    sunt ullam voluptatem voluptatum!</p>*/}
         {/*</Special>*/}
+
         <Footer/>
       </>
   );
