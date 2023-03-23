@@ -13,36 +13,7 @@ function Home() {
     const {isAuth, logout} = useContext(AuthContext);
     // const history = useHistory();
 
-    //voor het zoek-form
-    const [pax, setPax] = useState('');
-    // const { currentUser } = useAuth(); // haal de huidige gebruiker op uit de AuthContext
 
-    const handleSubmit2 = async (e) => {
-        e.preventDefault();
-        toggleError(false);
-        toggleLoading(true);
-
-        try {
-            const result = await axios.get('http://localhost:8080/rides', {
-                params: {
-                    pickUpLocation: pickUpLocation,
-                    destination: destination,
-                    pax: pax,
-                    departureDate: departureDate
-                }
-            });
-            console.log(result);
-
-            // if everything went well, redirect to the ride-page
-            // history.push('/rides');
-            history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDate}`);
-        } catch (e) {
-            console.error(e);
-            toggleError(true);
-        }
-
-        toggleLoading(false);
-    }
 
     // voor het switchen van de forms
     const [activeForm, setActiveForm] = useState('rideAlong'); // 'rideAlong' of 'selfDrive'
@@ -103,7 +74,7 @@ function Home() {
     };
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmitSelfDrive = async (e) => {
         e.preventDefault();
         toggleError(false);
         toggleLoading(true);
@@ -135,6 +106,40 @@ function Home() {
         toggleLoading(false);
     }
 
+    //RideAlong-form
+    const [pax, setPax] = useState('');
+    // const { currentUser } = useAuth(); // haal de huidige gebruiker op uit de AuthContext
+
+    const handleSubmitRideAlong = async (e) => {
+        e.preventDefault();
+        toggleError(false);
+        toggleLoading(true);
+
+        try {
+            const result = await axios.get('http://localhost:8080/rides', {
+                params: {
+                    pickUpLocation: pickUpLocation,
+                    destination: destination,
+                    // pax: pax,
+                    // departureDate: departureDate,
+                    // departureTime: departureTime
+                    departureDateTime: departureDateTime
+                }
+            });
+            console.log(result);
+
+            // if everything went well, redirect to the ride-page
+            // history.push('/rides');
+            // history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDate}`);
+            history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDateTime=${departureDateTime}`);
+        } catch (e) {
+            console.error(e);
+            toggleError(true);
+        }
+
+        toggleLoading(false);
+    }
+
     return (
         <home className="outer-content-container">
             <div className="inner-content-container">
@@ -159,7 +164,7 @@ function Home() {
                         </div>
 
                         {activeForm === 'selfDrive' ? (
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmitSelfDrive}>
                                     <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
                                                value={pickUpLocation} onChange={handlePickUpLocationChange}/>
                                     <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination}
@@ -194,7 +199,7 @@ function Home() {
                             )
                             : (
 
-                                <form onSubmit={handleSubmit2}>
+                                <form onSubmit={handleSubmitRideAlong}>
                                     <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
                                                value={pickUpLocation}
                                                onChange={e => setPickUpLocation(e.target.value)}/>
@@ -205,8 +210,14 @@ function Home() {
                                     <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" value={pax}
                                                onChange={e => setPax(e.target.value)}/>
 
+                                    //hier gebleven:
+
                                     <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
                                                value={departureDate} onChange={e => setDepartureDate(e.target.value)}/>
+
+                                    <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
+                                               value={departureTime} onChange={e => setDepartureTime(e.target.value)}/>
+                                    {/*//*/}
 
                                     <button type="submit">Zoeken</button>
                                 </form>
