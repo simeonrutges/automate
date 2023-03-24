@@ -8,10 +8,12 @@ import axios, {defaults} from "axios";
 import {AuthContext} from "../../context/AuthContext";
 
 
+
 function Home() {
     //aanroepen context:
     const {isAuth, logout} = useContext(AuthContext);
     // const history = useHistory();
+
 
 
 
@@ -26,7 +28,7 @@ function Home() {
 
     const [departureTime, setDepartureTime] = useState('');
     const [departureDate, setDepartureDate] = useState('');
-    const departureDateTime = new Date(`${departureDate}T${departureTime}`);
+    const departureDateTime = (`${departureDate}T${departureTime}`);
 
     const [pricePerPerson, setPricePerPerson] = useState('');
     const [availableSpots, setAvailableSpots] = useState('');
@@ -62,25 +64,29 @@ function Home() {
     };
     // vanaf hier....
 
+
     const setDepartureDateTime = (dateTimeString) => {
         // Parse the datetime string into a Date object
         const dateTime = new Date(dateTimeString);
 
 
         // Get the timezone offset for the user's timezone in minutes
-        const timeZoneOffset = new Date().getTimezoneOffset();
+        const timeZoneOffset = dateTime.getTimezoneOffset();
+        console.log(timeZoneOffset);
         // Adjust the datetime for the user's timezone
-        const userDateTime = new Date(dateTime.getTime() + timeZoneOffset * 60 * 1000);
+        const userDateTime = timeZoneOffset / 60 ;
+        console.log(userDateTime);
+        const currentDateTime = new Date(Date.now()+ userDateTime * 60 * 1000);
+        console.log(currentDateTime);
         // Format the datetime into a string that matches the LocalDateTime format expected by the server
-        const formattedDateTime = `${userDateTime.getFullYear()}-${padZero(userDateTime.getMonth() + 1)}-${padZero(userDateTime.getDate())}T${padZero(userDateTime.getHours())}:${padZero(userDateTime.getMinutes())}`;
-
+        const formattedDateTime = `${currentDateTime.getFullYear()}-${padZero(currentDateTime.getMonth() + 1)}-${padZero(currentDateTime.getDate())}T${padZero(currentDateTime.getHours())}:${padZero(currentDateTime.getMinutes())}`;
+        console.log(formattedDateTime);
 
         // de oude code was hieronder. Evt. bovenstaand blok vervangen:
         // // Format the datetime into a string that matches the LocalDateTime format expected by the server
         // const formattedDateTime = `${dateTime.getFullYear()}-${padZero(dateTime.getMonth() + 1)}-${padZero(dateTime.getDate())}T${padZero(dateTime.getHours())}:${padZero(dateTime.getMinutes())}`;
 
         // Set the formatted datetime as the new departureDateTime value
-        setDepartureDateTime(formattedDateTime);
 
 
 
@@ -88,8 +94,10 @@ function Home() {
         // const amsterdamTime = now.toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
         // console.log(`De huidige tijd in Amsterdam is: ${amsterdamTime}.`);
         // console.log(`De resulterende datum en tijd zijn: ${formattedDateTime}`);
-
+        setDepartureDateTime(formattedDateTime);
     }
+
+
 
     const padZero = (num) => {
         return num.toString().padStart(2, '0');
@@ -133,6 +141,7 @@ function Home() {
 
 
             // controle browsertijd:
+
             const dateTime = new Date();
             const dateTimeString = dateTime.toString();
             console.log(`De huidige datum en tijd zijn: ${dateTimeString}.`);
