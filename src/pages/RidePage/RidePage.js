@@ -7,16 +7,20 @@ import  './ridePage.css';
 function RidePage() {
     const [rideData, setRideData] = useState({});
     const {user} = useContext(AuthContext);
+    const [currentData, setCurrentData] = useState("");
 
     const {id} = useParams();
     //useParams geeft alleen welke rit het is
-
+let datum = [];
 // GET request
     useEffect(() => {
         async function fetchRideData() {
             try {
                 const response = await axios.get(`http://localhost:8080/rides/${id}`);
                 setRideData(response.data);
+                datum = response.data.departureDateTime.split("T");
+                setCurrentData(datum[1])
+                console.log(response.data)
             } catch (error) {
                 console.error(error);
             }
@@ -47,15 +51,14 @@ function RidePage() {
 
                     {Object.keys(rideData).length > 0 &&
                         <div>
+                            {console.log(rideData)}
                             <p>reisdatum: {new Date(rideData.departureDateTime).toLocaleDateString()}</p>
                         <section className="ride-summary">
                             <div className="top-box">
                             <span className="summary-block1">
-                                <p>{new Date(rideData.departureDateTime).toLocaleTimeString([], {
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    hour12: false
-                                })}</p>
+                                <p>
+                                    { currentData }
+                                </p>
                                 <p>{rideData.pickUpLocation}</p>
 
                                 <p>{rideData.eta}*</p>

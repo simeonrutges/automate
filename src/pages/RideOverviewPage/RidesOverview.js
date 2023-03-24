@@ -70,6 +70,7 @@ function RidesOverview({ location }) {
         const departureDate = searchParams.get('departureDate');
 
         async function fetchRides() {
+            console.log(departureDate)
             try {
                 setLoading(true);
                 const response = await axios.get('http://localhost:8080/rides', {
@@ -81,7 +82,15 @@ function RidesOverview({ location }) {
                     },
                 });
                 console.log('Response:', response);
-                setRides(response.data);
+                const output = response.data[0].departureDateTime.split("T")
+                console.log(output)
+                if (output[0] === departureDate) {
+                    setRides(response.data)
+                }
+                else {
+                    console.log("Geen rit")
+                }
+                // setRides(response.data);
             } catch (e) {
                 setError(true);
             } finally {
