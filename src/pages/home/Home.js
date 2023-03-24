@@ -60,6 +60,42 @@ function Home() {
     const handleDepartureDateChange = (e) => {
         setDepartureDate(e.target.value);
     };
+    // vanaf hier....
+
+    const setDepartureDateTime = (dateTimeString) => {
+        // Parse the datetime string into a Date object
+        const dateTime = new Date(dateTimeString);
+
+
+        // Get the timezone offset for the user's timezone in minutes
+        const timeZoneOffset = new Date().getTimezoneOffset();
+        // Adjust the datetime for the user's timezone
+        const userDateTime = new Date(dateTime.getTime() + timeZoneOffset * 60 * 1000);
+        // Format the datetime into a string that matches the LocalDateTime format expected by the server
+        const formattedDateTime = `${userDateTime.getFullYear()}-${padZero(userDateTime.getMonth() + 1)}-${padZero(userDateTime.getDate())}T${padZero(userDateTime.getHours())}:${padZero(userDateTime.getMinutes())}`;
+
+
+        // de oude code was hieronder. Evt. bovenstaand blok vervangen:
+        // // Format the datetime into a string that matches the LocalDateTime format expected by the server
+        // const formattedDateTime = `${dateTime.getFullYear()}-${padZero(dateTime.getMonth() + 1)}-${padZero(dateTime.getDate())}T${padZero(dateTime.getHours())}:${padZero(dateTime.getMinutes())}`;
+
+        // Set the formatted datetime as the new departureDateTime value
+        setDepartureDateTime(formattedDateTime);
+
+
+
+        // const now = new Date();
+        // const amsterdamTime = now.toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
+        // console.log(`De huidige tijd in Amsterdam is: ${amsterdamTime}.`);
+        // console.log(`De resulterende datum en tijd zijn: ${formattedDateTime}`);
+
+    }
+
+    const padZero = (num) => {
+        return num.toString().padStart(2, '0');
+    }
+
+    // tot hier proberen...
 
     const handlePricePerPersonChange = (e) => {
         setPricePerPerson(e.target.value);
@@ -94,6 +130,15 @@ function Home() {
             });
             console.log(result);
 
+
+
+            // controle browsertijd:
+            const dateTime = new Date();
+            const dateTimeString = dateTime.toString();
+            console.log(`De huidige datum en tijd zijn: ${dateTimeString}.`);
+
+
+
             const id= result.data.id;
 
             // if everything went well, redirect to the ride-page
@@ -116,24 +161,29 @@ function Home() {
         toggleLoading(true);
 
         try {
+            // Extraheren van de datumcomponent van de geselecteerde datum
+            // const departureDateOnly = departureDate.split('T')[0];
+
             const result = await axios.get('http://localhost:8080/rides', {
                 params: {
                     pickUpLocation: pickUpLocation,
                     destination: destination,
-                    // pax: pax,
-                    // departureDate: departureDate,
+                    pax: pax,
+                    departureDate: departureDate,
+
                     // departureTime: departureTime
-                    departureDateTime: departureDateTime
+                    // Alleen de datumcomponent opnemen in de GET-aanvraag
+                    // departureDate: departureDateOnly
                 }
             });
             console.log(result);
 
             // if everything went well, redirect to the ride-page
             // history.push('/rides');
-            // history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDate}`);
-            history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDateTime=${departureDateTime}`);
+            history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDate}`);
+            // history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDateOnly}`);
         } catch (e) {
-            console.error(e);
+            console.error(e.response.data);
             toggleError(true);
         }
 
@@ -173,24 +223,23 @@ function Home() {
                                                onChange={handleRouteChange}/>
                                     <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
                                                value={addRideInfo} onChange={handleAddRideInfoChange}/>
+
+
                                     <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
                                                value={departureTime} onChange={handleDepartureTimeChange}/>
-
                                     {/*<FormInput id="date" labelText="Datum:" inputType="date" value={date} onChange={handleDateValueChange} />*/}
                                     {/*<FormInput id="time" labelText="Tijd:" inputType="time" value={time} onChange={handleTimeValueChange} />*/}
-
-
                                     <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
                                                value={departureDate} onChange={handleDepartureDateChange}/>
+
+
                                     {/*<FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" value={pricePerPerson} onChange={handlePricePerPersonChange} />*/}
                                     <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="1"
                                                step="0.01" value={pricePerPerson} onChange={handlePricePerPersonChange}/>
-
                                     {/*<FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number" value={availableSpots} onChange={handleAvailableSpotsChange} />*/}
                                     <FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number"
                                                min="1" max="5" step="1" value={availableSpots}
                                                onChange={handleAvailableSpotsChange}/>
-
                                     <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
                                                onChange={handleEtaChange}/>
 
@@ -215,8 +264,17 @@ function Home() {
                                     <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
                                                value={departureDate} onChange={e => setDepartureDate(e.target.value)}/>
 
-                                    <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
-                                               value={departureTime} onChange={e => setDepartureTime(e.target.value)}/>
+                                    {/*<FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"*/}
+                                    {/*           value={departureTime} onChange={e => setDepartureTime(e.target.value)}/>*/}
+                                    {/*<FormInput*/}
+                                    {/*    id="departureDateTime"*/}
+                                    {/*    labelText="Vertrekdatum en -tijd:"*/}
+                                    {/*    inputType="date"*/}
+                                    {/*    value={departureDateTime}*/}
+                                    {/*    onChange={(e) => setDepartureDate(e.target.value)}*/}
+                                    {/*/>*/}
+
+
                                     {/*//*/}
 
                                     <button type="submit">Zoeken</button>
