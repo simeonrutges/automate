@@ -69,6 +69,7 @@ function RidesOverview({ location }) {
         // const pax = searchParams.get('pax');
         const departureDate = searchParams.get('departureDate');
 
+
         async function fetchRides() {
             console.log(departureDate)
             try {
@@ -82,11 +83,23 @@ function RidesOverview({ location }) {
                     },
                 });
                 console.log('Response:', response);
-                const output = response.data[0].departureDateTime.split("T")
-                console.log(output)
-                if (output[0] === departureDate) {
-                    setRides(response.data)
+                //sams: ...
+                // const output = response.data[0].departureDateTime.split("T")
+                // console.log(output)
+                // if (output[0] === departureDate) {
+                //     setRides(response.data)
+                // }
+
+                // const departureDateMatches = response.data.some(ride => ride.departureDateTime.split("T")[0] === departureDate);
+                // if (departureDateMatches) {
+                //     setRides(response.data);
+
+                // zelf..:
+                const matchingRides = response.data.filter(ride => ride.departureDateTime.split("T")[0] === departureDate);
+                if (matchingRides.length > 0) {
+                    setRides(matchingRides);
                 }
+
                 else {
                     console.log("Geen rit")
                 }
