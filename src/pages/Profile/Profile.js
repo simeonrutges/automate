@@ -5,29 +5,65 @@ import axios from 'axios';
 
 function Profile() {
     const [profileData, setProfileData] = useState({});
+
     const { user } = useContext(AuthContext);
 
+    // useEffect(() => {
+    //     // we halen de pagina-content op in de mounting-cycle
+    //     async function fetchProfileData() {
+    //         // haal de token uit de Local Storage om in het GET-request te bewijzen dat we geauthoriseerd zijn
+    //         const token = localStorage.getItem('token');
+    //
+    //         try {
+    //             const result = await axios.get('http://localhost:8080/users', {
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
+    //             console.log(result.data)
+    //             setProfileData(result.data);
+    //         } catch (e) {
+    //             console.error(e);
+    //         }
+    //     }
+    //
+    //     fetchProfileData();
+    // }, [])
+
+    // Deze heb ik bijgevoegd om te proberen/bovenstaand was goed!:
+  const username = user.username;
+
     useEffect(() => {
-        // we halen de pagina-content op in de mounting-cycle
         async function fetchProfileData() {
-            // haal de token uit de Local Storage om in het GET-request te bewijzen dat we geauthoriseerd zijn
             const token = localStorage.getItem('token');
+            // const username = ''; // vervang dit door de daadwerkelijke gebruikersnaam
+
 
             try {
-                const result = await axios.get('http://localhost:8080/users', {
+                console.log(username);
+                const result = await axios.get(`http://localhost:8080/users/${username}`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setProfileData(result.data);
+                console.log(result);
+
+                // controleer of de response het verwachte formaat heeft
+                if (result.data && result.data.username) {
+                    setProfileData(result.data);
+                } else {
+                    console.error('Ongeldige response van de server');
+                }
             } catch (e) {
                 console.error(e);
             }
         }
 
         fetchProfileData();
-    }, [])
+    }, []);
+
 
     return (
         <profile className="outer-content-container">
@@ -38,7 +74,7 @@ function Profile() {
             <div>
             <section>
                 <h2>FOTO</h2>
-                <h2>{user.username}</h2>
+                <h2>username: {user.username}</h2>
             </section>
             </div>
 
@@ -47,12 +83,22 @@ function Profile() {
             {Object.keys(profileData).length > 0 &&
                 <section>
                     <h2>Strikt geheime profiel-content</h2>
-                    <h3>{profileData.title}</h3>
-                    <p>{profileData.content}</p>
+                    <h3>{profileData.email}</h3>
+                    <p>{profileData.roles}</p>
+                    <p>{profileData.firstname}</p>
+                    <p>{profileData.lastname}</p>
+
+
+
+
                 </section>
             }
             <p>Terug naar de <Link to="/">Homepagina</Link></p>
         </div>
+
+
+
+
 
             </div>
         </profile>

@@ -99,6 +99,7 @@ function AuthContextProvider({ children }) {
     //     }
     // }
 
+    // Dit is de juiste: = werkt nu met Roles!
     async function fetchUserData(username, token, redirectUrl) {
         try {
             // haal gebruikersdata op met de token en id van de gebruiker
@@ -136,8 +137,53 @@ function AuthContextProvider({ children }) {
                 user: null,
                 status: 'done',
             });
+
+
+    // deze als test via chatGpt:
+    // async function fetchUserData(username, token, redirectUrl) {
+    //     try {
+    //         // haal gebruikersdata op met de token en id van de gebruiker
+    //         const userResult = await axios.get(`http://localhost:8080/users/${username}`, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //
+    //         // zet de gegevens in de state
+    //         toggleIsAuth({
+    //             ...isAuth,
+    //             isAuth: true,
+    //             user: {
+    //                 username: userResult.data.username,
+    //                 email: userResult.data.email,
+    //                 id: userResult.data.username,
+    //                 roles: userResult.data.roles, // voeg de rollen toe aan de gebruikersgegevens -> deze erbij gezet
+    //             },
+    //             status: 'done',
+    //         });
+    //
+    //         // als er een redirect URL is meegegeven (bij het mount-effect doen we dit niet) linken we hiernnaartoe door
+    //         // als we de history.push in de login-functie zouden zetten, linken we al door voor de gebuiker is opgehaald!
+    //         if (redirectUrl) {
+    //             history.push(redirectUrl);
+    //         }
+    //
+    //     } catch (e) {
+    //         console.error(e);
+    //         // ging er iets mis? Plaatsen we geen data in de state
+    //         toggleIsAuth({
+    //             isAuth: false,
+    //             user: null,
+    //             status: 'done',
+    //         });
+    //         // tot hier test
+
+
         }
     }
+
+
 
 ////////
     const contextData = {

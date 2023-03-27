@@ -15,8 +15,6 @@ function Home() {
     // const history = useHistory();
 
 
-
-
     // voor het switchen van de forms
     const [activeForm, setActiveForm] = useState('rideAlong'); // 'rideAlong' of 'selfDrive'
 
@@ -62,8 +60,6 @@ function Home() {
     const handleDepartureDateChange = (e) => {
         setDepartureDate(e.target.value);
     };
-    // vanaf hier....
-
 
     const setDepartureDateTime = (dateTimeString) => {
         // Parse the datetime string into a Date object
@@ -82,18 +78,7 @@ function Home() {
         const formattedDateTime = `${currentDateTime.getFullYear()}-${padZero(currentDateTime.getMonth() + 1)}-${padZero(currentDateTime.getDate())}T${padZero(currentDateTime.getHours())}:${padZero(currentDateTime.getMinutes())}`;
         console.log(formattedDateTime);
 
-        // de oude code was hieronder. Evt. bovenstaand blok vervangen:
-        // // Format the datetime into a string that matches the LocalDateTime format expected by the server
-        // const formattedDateTime = `${dateTime.getFullYear()}-${padZero(dateTime.getMonth() + 1)}-${padZero(dateTime.getDate())}T${padZero(dateTime.getHours())}:${padZero(dateTime.getMinutes())}`;
 
-        // Set the formatted datetime as the new departureDateTime value
-
-
-
-        // const now = new Date();
-        // const amsterdamTime = now.toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
-        // console.log(`De huidige tijd in Amsterdam is: ${amsterdamTime}.`);
-        // console.log(`De resulterende datum en tijd zijn: ${formattedDateTime}`);
         setDepartureDateTime(formattedDateTime);
     }
 
@@ -170,8 +155,6 @@ function Home() {
         toggleLoading(true);
 
         try {
-            // Extraheren van de datumcomponent van de geselecteerde datum
-            // const departureDateOnly = departureDate.split('T')[0];
 
             const result = await axios.get('http://localhost:8080/rides', {
                 params: {
@@ -179,10 +162,6 @@ function Home() {
                     destination: destination,
                     pax: pax,
                     departureDate: departureDate,
-
-                    // departureTime: departureTime
-                    // Alleen de datumcomponent opnemen in de GET-aanvraag
-                    // departureDate: departureDateOnly
                 }
             });
             console.log(result);
@@ -236,11 +215,8 @@ function Home() {
 
                                     <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
                                                value={departureTime} onChange={handleDepartureTimeChange}/>
-                                    {/*<FormInput id="date" labelText="Datum:" inputType="date" value={date} onChange={handleDateValueChange} />*/}
-                                    {/*<FormInput id="time" labelText="Tijd:" inputType="time" value={time} onChange={handleTimeValueChange} />*/}
                                     <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
                                                value={departureDate} onChange={handleDepartureDateChange}/>
-
 
                                     {/*<FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" value={pricePerPerson} onChange={handlePricePerPersonChange} />*/}
                                     <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="1"
@@ -251,7 +227,6 @@ function Home() {
                                                onChange={handleAvailableSpotsChange}/>
                                     <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
                                                onChange={handleEtaChange}/>
-
                                     <button type="submit">Plaats rit</button>
                                 </form>
                             )
@@ -268,24 +243,8 @@ function Home() {
                                     <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" value={pax}
                                                onChange={e => setPax(e.target.value)}/>
 
-                                    //hier gebleven:
-
                                     <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
                                                value={departureDate} onChange={e => setDepartureDate(e.target.value)}/>
-
-                                    {/*<FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"*/}
-                                    {/*           value={departureTime} onChange={e => setDepartureTime(e.target.value)}/>*/}
-                                    {/*<FormInput*/}
-                                    {/*    id="departureDateTime"*/}
-                                    {/*    labelText="Vertrekdatum en -tijd:"*/}
-                                    {/*    inputType="date"*/}
-                                    {/*    value={departureDateTime}*/}
-                                    {/*    onChange={(e) => setDepartureDate(e.target.value)}*/}
-                                    {/*/>*/}
-
-
-                                    {/*//*/}
-
                                     <button type="submit">Zoeken</button>
                                 </form>
                             )}
