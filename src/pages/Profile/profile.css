@@ -1,0 +1,14 @@
+.foto-name{
+    display: flex;
+    flex-direction: row;
+    border-radius: 4px;
+    border: none;
+    /*color: white;*/
+    padding: 0px 0px;
+    margin-bottom: 15px;
+    background-color: #f5ab00;
+    color: white;
+    font-weight: bold;
+
+    border: 2px solid black;
+}
