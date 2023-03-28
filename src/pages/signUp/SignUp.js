@@ -7,6 +7,7 @@ import FormInput from "../../components/formInput/FormInput";
 
 function SignUp() {
     // state voor het formulier
+
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

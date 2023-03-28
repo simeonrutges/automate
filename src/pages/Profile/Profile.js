@@ -67,9 +67,9 @@ function Profile() {
     //////////////////////////
     const [bio, setBio] = useState('');
     const [vehicle, setVehicle] = useState('');
-    const [licensePlate, setLicensePlate] = useState('Kenteken');
-    const [model, setModel] = useState('Model');
-    const [brand, setBrand] = useState('Merk')
+    const [licensePlate, setLicensePlate] = useState('');
+    const [model, setModel] = useState('');
+    const [brand, setBrand] = useState('')
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -95,11 +95,29 @@ function Profile() {
                         </section>
                     </div>
 
+                    {/*Als er keys in ons object zitten hebben we data, en dan renderen we de content*/}
+                    {Object.keys(profileData).length > 0 &&
+                        <section>
+                            <h2>Strikt geheime profiel-content</h2>
+                            <p>Rol: {profileData.roles}</p>
+                            <p>Voornaam: {profileData.firstname}</p>
+                            <p>Achternaam: {profileData.lastname}</p>
+                            <p>Telefoon:{profileData.phoneNumber}</p>
+                            <p>Email: {profileData.email}</p>
+
+
+                        </section>
+                    }
+
+
                     <div>
                         <form onSubmit={handleSubmit}>
                             <label htmlFor="bio-field">
-                                Biografie toevoegen:
+                                Biografie toevoegen
                                 <textarea
+                                    cols="30"
+                                    rows="10"
+                                    placeholder="Wie ben ik?"
                                     id="bio-field"
                                     name="bio"
                                     value={bio}
@@ -107,34 +125,27 @@ function Profile() {
                                 />
                             </label>
 
-                            <label htmlFor="vehicle-field">
-                                Voertuig toevoegen
-                                <input
-                                    type="text"
-                                    id="vehicle-field"
-                                    name="vehicle"
-                                    value={vehicle}
-                                    onChange={(e) => setVehicle(e.target.value)}
-                                />
-                            </label>
-                            <label htmlFor="licensePlate-field">Kenteken:</label>
+                            <label htmlFor="licensePlate-field">Voertuig toevoegen</label>
                             <input
+                                placeholder="Kenteken"
                                 type="text"
                                 id="licensePlate-field"
                                 value={licensePlate}
                                 onChange={(e) => setLicensePlate(e.target.value)}
                             />
 
-                            <label htmlFor="model-field">Model:</label>
+                            <label htmlFor="model-field"></label>
                             <input
+                                placeholder="Model"
                                 type="text"
                                 id="model-field"
                                 value={model}
                                 onChange={(e) => setModel(e.target.value)}
                             />
 
-                            <label htmlFor="brand-field">Merk:</label>
+                            <label htmlFor="brand-field"></label>
                             <input
+                                placeholder="Merk"
                                 type="text"
                                 id="brand-field"
                                 value={brand}
@@ -151,18 +162,6 @@ function Profile() {
                     </div>
 
 
-                    {/*Als er keys in ons object zitten hebben we data, en dan renderen we de content*/}
-                    {Object.keys(profileData).length > 0 &&
-                        <section>
-                            <h2>Strikt geheime profiel-content</h2>
-                            <h3>{profileData.email}</h3>
-                            <p>{profileData.roles}</p>
-                            <p>{profileData.firstname}</p>
-                            <p>{profileData.lastname}</p>
-
-
-                        </section>
-                    }
                     <p>Terug naar de <Link to="/">Homepagina</Link></p>
                 </div>
 
