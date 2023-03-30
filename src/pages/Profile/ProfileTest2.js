@@ -12,6 +12,7 @@ function Profile() {
 
     const [bio, setBio] = useState("");
 
+// deze horen bij car. Hier was ik mee begonnen. evt weg
     const [licensePlate, setLicensePlate] = useState('');
     const [model, setModel] = useState('');
     const [brand, setBrand] = useState('');
@@ -115,7 +116,7 @@ function Profile() {
         toggleLoading(false);
     }
 
-    ///////
+    /////// met car begonnen
     async function handleVehicleSubmit(event) {
         event.preventDefault();
 
@@ -191,6 +192,7 @@ function Profile() {
                         </section>
                     )}
 
+                    {/*met car begonnen:*/}
                     <section className="vehicle-submit">
                         <form onSubmit={handleVehicleSubmit}>
                             <label htmlFor="licensePlate-field">Voertuig toevoegen</label>
@@ -222,10 +224,9 @@ function Profile() {
 
                             <button type="submit">Voertuig toevoegen</button>
                         </form>
-
-
-
                     </section>
+
+
                 </div>
             </div>
         </div>

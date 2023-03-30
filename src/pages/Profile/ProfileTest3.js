@@ -15,6 +15,7 @@ function Profile() {
     const [licensePlate, setLicensePlate] = useState('');
     const [model, setModel] = useState('');
     const [brand, setBrand] = useState('');
+    const [carData, setCarData] = useState({});
 
 
 
@@ -115,30 +116,41 @@ function Profile() {
         toggleLoading(false);
     }
 
-        ///////
-        async function handleVehicleSubmit(event) {
-            event.preventDefault();
+        /////// cars
+    async function handleVehicleSubmit(event) {
+        event.preventDefault();
 
-            try {
-                const result = await axios.post('http://localhost:8080/cars', {
-                    licensePlate: licensePlate,
-                    model: model,
-                    brand: brand,
-                });
+        try {
+            const result = await axios.post('http://localhost:8080/cars', {
+                licensePlate: licensePlate,
+                model: model,
+                brand: brand,
+            });
+            console.log(result.data);
 
-                // Handle the response data (result.data) as needed
+            // Store the response data (result.data) in carData state
+            setCarData(result.data);
 
-                // Clear the input fields after successful submission
-                setLicensePlate('');
-                setModel('');
-                setBrand('');
+            // Clear the input fields after successful submission
+            setLicensePlate('');
+            setModel('');
+            setBrand('');
 
-            } catch (error) {
-                console.error('Error submitting the vehicle data:', error);
-            }
+        } catch (error) {
+            console.error('Error submitting the vehicle data:', error);
+        }
+    }
+
+    async function handleDeleteVehicle() {
+        try {
+            await axios.delete(`http://localhost:8080/cars/${carData.id}`);
+            setCarData({}); // Clear the carData state after successful deletion
+        } catch (error) {
+            console.error('Error deleting the vehicle:', error);
+        }
 
 
-    };
+};
 
     return (
         <div className="outer-content-container">
@@ -192,36 +204,48 @@ function Profile() {
                     )}
 
                     <section className="vehicle-submit">
-                        <form onSubmit={handleVehicleSubmit}>
-                            <label htmlFor="licensePlate-field">Voertuig toevoegen</label>
-                            <input
-                                placeholder="Kenteken"
-                                type="text"
-                                id="licensePlate-field"
-                                value={licensePlate}
-                                onChange={(e) => setLicensePlate(e.target.value)}
-                            />
 
-                            <label htmlFor="model-field">Model</label>
-                            <input
-                                placeholder="Model"
-                                type="text"
-                                id="model-field"
-                                value={model}
-                                onChange={(e) => setModel(e.target.value)}
-                            />
 
-                            <label htmlFor="brand-field">Merk</label>
-                            <input
-                                placeholder="Merk"
-                                type="text"
-                                id="brand-field"
-                                value={brand}
-                                onChange={(e) => setBrand(e.target.value)}
-                            />
+                        {Object.keys(carData).length === 0 ? (
+                            <form onSubmit={handleVehicleSubmit}>
+                                <label htmlFor="licensePlate-field">Voertuig toevoegen</label>
+                                <input
+                                    placeholder="Kenteken"
+                                    type="text"
+                                    id="licensePlate-field"
+                                    value={licensePlate}
+                                    onChange={(e) => setLicensePlate(e.target.value)}
+                                />
 
-                            <button type="submit">Voertuig toevoegen</button>
-                        </form>
+                                <label htmlFor="model-field">Model</label>
+                                <input
+                                    placeholder="Model"
+                                    type="text"
+                                    id="model-field"
+                                    value={model}
+                                    onChange={(e) => setModel(e.target.value)}
+                                />
+
+                                <label htmlFor="brand-field">Merk</label>
+                                <input
+                                    placeholder="Merk"
+                                    type="text"
+                                    id="brand-field"
+                                    value={brand}
+                                    onChange={(e) => setBrand(e.target.value)}
+                                />
+
+                                <button type="submit">Voertuig toevoegen</button>
+                            </form>
+                        ) : (
+                            <div>
+                                <h3>Mijn auto:</h3>
+                                <p>Kenteken: {carData.licensePlate}</p>
+                                <p>Model: {carData.model}</p>
+                                <p>Merk: {carData.brand}</p>
+                                <button onClick={handleDeleteVehicle}>Verwijder</button>
+                            </div>
+                        )}
 
 
 
