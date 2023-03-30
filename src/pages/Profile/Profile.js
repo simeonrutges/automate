@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {AuthContext} from '../../context/AuthContext';
 import axios from 'axios';
-import  './profile.css';
+import './profile.css';
 
 function Profile() {
     const [profileData, setProfileData] = useState({});
@@ -12,16 +12,6 @@ function Profile() {
     // state voor functionaliteit
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-
-    //Form
-    // const [showForm, setShowForm] = useState(false);
-    // const toggleForm = () => {
-    //     setShowForm(!showForm);
-    // };
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     // Hier voeg je de code toe om de biografie op te slaan
-    // };
 
 
     const history = useHistory();
@@ -88,52 +78,59 @@ function Profile() {
     const [brand, setBrand] = useState('')
 
 
+//Form///////////
+    const [showForm, setShowForm] = useState(false);
 
-    async function handleSubmit(event) {
+    const handleEditBio = async (event) => {
         event.preventDefault();
-        console.log(`Bio: ${bio}`);
-        console.log(`Merk: ${brand}`);
         toggleError(false);
         toggleLoading(true);
 
-        // voeg hier de code toe om de biografie en het voertuig op te slaan
-        try {
-            console.log(username);
-            const result = await axios.put(`http://localhost:8080/users/${username}`, {
-                // bio: bio,
+        ///////////////
+        async function handleSubmit(event) {
+            event.preventDefault();
+            console.log(`Bio: ${bio}`);
+            console.log(`Merk: ${brand}`);
+            toggleError(false);
+            toggleLoading(true);
 
-                bio: bio,
-                username: profileData.username,
-                password: profileData.password,
-                firstname: profileData.firstname,
-                lastname: profileData.lastname,
-                email: profileData.email,
-                phoneNumber: profileData.phoneNumber,
-                enabled: profileData.enabled,
-                roles: profileData.roles,
-            });
-            console.log(result);
+            // voeg hier de code toe om de biografie en het voertuig op te slaan
+            try {
+                console.log(username);
+                const result = await axios.put(`http://localhost:8080/users/${username}`, {
+                    // bio: bio,
 
-            // als alles goed gegaan is, linken we door naar de login-pagina
-            history.push('/signin');
-        } catch (e) {
-            console.error(e);
-            toggleError(true);
+                    bio: bio,
+                    username: profileData.username,
+                    password: profileData.password,
+                    firstname: profileData.firstname,
+                    lastname: profileData.lastname,
+                    email: profileData.email,
+                    phoneNumber: profileData.phoneNumber,
+                    enabled: profileData.enabled,
+                    roles: profileData.roles,
+                });
+                console.log(result);
+
+                // als alles goed gegaan is, linken we door naar de login-pagina
+                history.push('/signin');
+            } catch (e) {
+                console.error(e);
+                toggleError(true);
+            }
+
+            toggleLoading(false);
         }
 
-        toggleLoading(false);
     }
-
-
-
 
     return (
         <profile className="outer-content-container">
             <div className="inner-content-container">
-
                 <div>
-                    <h1>Mijn Profiel</h1>
 
+
+                    <h1>Mijn Profiel</h1>
 
                     <div>
                         <section className="foto-name">
@@ -157,63 +154,71 @@ function Profile() {
                     }
 
 
-                    <div>
+                    {/*<div>*/}
+                    {/*    <form onSubmit={handleSubmit}>*/}
+                    {/*        <label htmlFor="bio-field">*/}
+                    {/*            Biografie toevoegen*/}
+                    {/*            <textarea*/}
+                    {/*                cols="30"*/}
+                    {/*                rows="10"*/}
+                    {/*                placeholder="Wie ben ik?"*/}
+                    {/*                id="bio-field"*/}
+                    {/*                name="bio"*/}
+                    {/*                value={bio}*/}
+                    {/*                onChange={(e) => setBio(e.target.value)}*/}
+                    {/*            />*/}
+                    {/*        </label>*/}
 
-                        <form onSubmit={handleSubmit}>
-                            <label htmlFor="bio-field">
-                                Biografie toevoegen
-                                <textarea
-                                    cols="30"
-                                    rows="10"
-                                    placeholder="Wie ben ik?"
-                                    id="bio-field"
-                                    name="bio"
-                                    value={bio}
-                                    onChange={(e) => setBio(e.target.value)}
-                                />
-                            </label>
-
-                            {/*<label htmlFor="licensePlate-field">Voertuig toevoegen</label>*/}
-                            {/*<input*/}
-                            {/*    placeholder="Kenteken"*/}
-                            {/*    type="text"*/}
-                            {/*    id="licensePlate-field"*/}
-                            {/*    value={licensePlate}*/}
-                            {/*    onChange={(e) => setLicensePlate(e.target.value)}*/}
+                    {/*        /!*<label htmlFor="licensePlate-field">Voertuig toevoegen</label>*!/*/}
+                    {/*        /!*<input*!/*/}
+                    {/*        /!*    placeholder="Kenteken"*!/*/}
+                    {/*        /!*    type="text"*!/*/}
+                    {/*        /!*    id="licensePlate-field"*!/*/}
+                    {/*        /!*    value={licensePlate}*!/*/}
+                    {/*        /!*    onChange={(e) => setLicensePlate(e.target.value)}*!/*/}
                             {/*/>*/}
 
-                            {/*<label htmlFor="model-field"></label>*/}
-                            {/*<input*/}
-                            {/*    placeholder="Model"*/}
-                            {/*    type="text"*/}
-                            {/*    id="model-field"*/}
-                            {/*    value={model}*/}
-                            {/*    onChange={(e) => setModel(e.target.value)}*/}
+                    {/*        /!*<label htmlFor="model-field"></label>*!/*/}
+                    {/*        /!*<input*!/*/}
+                    {/*        /!*    placeholder="Model"*!/*/}
+                    {/*        /!*    type="text"*!/*/}
+                    {/*        /!*    id="model-field"*!/*/}
+                    {/*        /!*    value={model}*!/*/}
+                    {/*        /!*    onChange={(e) => setModel(e.target.value)}*!/*/}
                             {/*/>*/}
 
-                            {/*<label htmlFor="brand-field"></label>*/}
-                            {/*<input*/}
-                            {/*    placeholder="Merk"*/}
-                            {/*    type="text"*/}
-                            {/*    id="brand-field"*/}
-                            {/*    value={brand}*/}
-                            {/*    onChange={(e) => setBrand(e.target.value)}*/}
+                    {/*        /!*<label htmlFor="brand-field"></label>*!/*/}
+                    {/*        /!*<input*!/*/}
+                    {/*        /!*    placeholder="Merk"*!/*/}
+                    {/*        /!*    type="text"*!/*/}
+                    {/*        /!*    id="brand-field"*!/*/}
+                    {/*        /!*    value={brand}*!/*/}
+                    {/*        /!*    onChange={(e) => setBrand(e.target.value)}*!/*/}
                             {/*/>*/}
 
-                            <button
-                                type="submit"
-                                className="form-button"
-                            >
-                                Opslaan
-                            </button>
-                        </form>
-                    </div>
+                    {/*        <button*/}
+                    {/*            type="submit"*/}
+                    {/*            className="form-button"*/}
+                    {/*        >*/}
+                    {/*            Opslaan*/}
+                    {/*        </button>*/}
+                    {/*    </form>*/}
+                    {/*</div>*/}
+
+
+
+
+
+
+
+
 
 
                     <p>Terug naar de <Link to="/">Homepagina</Link></p>
+
+
+
                 </div>
-
-
             </div>
         </profile>
     );
