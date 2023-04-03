@@ -125,7 +125,10 @@ function Profile() {
                 licensePlate: licensePlate,
                 model: model,
                 brand: brand,
-            });
+            }, { headers: {
+                "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+            }});
             console.log(result.data);
 
             // Store the response data (result.data) in carData state
