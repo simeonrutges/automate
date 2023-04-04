@@ -10,6 +10,8 @@ function Profile() {
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
 
+    const [fetchProfileDataError, setFetchProfileDataError] = useState('');
+
     const [bio, setBio] = useState("");
 
     const [licensePlate, setLicensePlate] = useState('');
@@ -38,8 +40,27 @@ function Profile() {
                 } else {
                     console.error("Ongeldige response van de server");
                 }
+                ////
+                // Fetch car data for the user
+                // const carResult = await axios.get(`http://localhost:8080/cars/user/${username}`, {
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         Authorization: `Bearer ${token}`,
+                //     },
+                // });
+                //
+                // if (carResult.data) {
+                //     setCarData(carResult.data);
+                // }
+
+
+                ////
             } catch (e) {
                 console.error(e);
+                // alle error informatie die je nodig hebt staat hier:
+                console.log(e.response);
+                setFetchProfileDataError(e.response.status);
+
             }
         }
 
@@ -116,7 +137,7 @@ function Profile() {
         toggleLoading(false);
     }
 
-        /////// cars
+
     async function handleVehicleSubmit(event) {
         event.preventDefault();
 
@@ -144,6 +165,7 @@ function Profile() {
         }
     }
 
+    // de juiste tot nu toe:
     async function handleDeleteVehicle() {
         try {
             await axios.delete(`http://localhost:8080/cars/${carData.id}`);
@@ -151,9 +173,82 @@ function Profile() {
         } catch (error) {
             console.error('Error deleting the vehicle:', error);
         }
+}
+
+    // async function handleDeleteCar(carId) {
+    //     try {
+    //         await axios.delete(`http://localhost:8080/cars/${carId}`, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         console.log(`Car with ID ${carId} was deleted`);
+    //
+    //         // Refresh the list of cars after successful deletion
+    //         // fetchCars();
+    //
+    //     } catch (error) {
+    //         console.error(`Error deleting car with ID ${carId}:`, error);
+    //     }
+    // }
 
 
-};
+    ///////////////////
+    // useEffect(() => {
+    //     async function fetchCarData() {
+    //         try {
+    //             const result = await axios.get(`http://localhost:8080/cars/user/${username}`, {
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
+    //
+    //             if (result.data) {
+    //                 setCarData(result.data);
+    //             } else {
+    //                 console.error("Ongeldige response van de server");
+    //             }
+    //         } catch (e) {
+    //             console.error(e);
+    //         }
+    //     }
+    //
+    //     fetchCarData();
+    // }, [username]);
+    //
+    //
+    // async function handleDeleteVehicle() {
+    //     try {
+    //         const response = await axios.delete(`http://localhost:8080/cars/${carData.id}`);
+    //
+    //         if (response.status === 200) {
+    //             setCarData({}); // Clear the carData state after successful deletion
+    //
+    //             // Fetch updated profile data after deleting the car
+    //             const updatedProfileData = await axios.get(`http://localhost:8080/users/${username}`, {
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
+    //
+    //             if (updatedProfileData.data && updatedProfileData.data.username) {
+    //                 setProfileData(updatedProfileData.data);
+    //             } else {
+    //                 console.error("Ongeldige response van de server");
+    //             }
+    //         } else {
+    //             console.error("Error deleting the vehicle:", response);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error deleting the vehicle:', error);
+    //     }
+    // }
+    //////////
+
+    ;
 
     return (
         <div className="outer-content-container">
