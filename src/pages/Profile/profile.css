@@ -12,3 +12,22 @@
 
     border: 2px solid black;
 }
+
+.bio-form {
+    display: flex;
+    flex-direction: column;
+    border: solid black 3px;
+    /*background-color: transparent ;*/
+}
+
+.bio-label {
+    margin-bottom: 16px; /* Adjust this value to add more space between the label and the textarea */
+}
+
+#bio-field::placeholder {
+    padding-left: 8px; /* Add space from the left border */
+    padding-top: 8px; /* Add space from the top border */
+}
+.bio-text {
+    margin-bottom: 16px; /* Adjust this value to add more space between the <p> element and the textarea */
+}

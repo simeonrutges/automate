@@ -15,6 +15,9 @@ import RidesOverview from "./pages/RideOverviewPage/RidesOverview";
 import PrivateRoute from "./components/PrivateRoute";
 import Special from "./components/special/Special";
 import Footer from "./components/footer/Footer";
+import ProfileTest from "./pages/Profile/ProfileTest";
+import ProfileTest2 from "./pages/Profile/ProfileTest2";
+import ProfileTest3 from "./pages/Profile/ProfileTest3";
 
 
 function App() {
@@ -34,7 +37,7 @@ function App() {
             /////
               <Route path="/profile">
             <PrivateRoute auth={isAuth}>
-                          <Profile/>
+                          <ProfileTest3/>
             </PrivateRoute>
               </Route>
             //////
