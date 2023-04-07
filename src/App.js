@@ -28,19 +28,21 @@ function App() {
         <NavBar />
         <div className="content">
           <Switch>
-            <Route exact path="/">
-              <Home />
+
+              <Route exact path="/">
+              <Home/>
             </Route>
+
             {/*<Route path="/profile">*/}
             {/*  {isAuth ? <Profile /> : <Redirect to="/signin" />}*/}
             {/*</Route>*/}
-            /////
+
               <Route path="/profile">
             <PrivateRoute auth={isAuth}>
                           <ProfileTest3/>
             </PrivateRoute>
               </Route>
-            //////
+
             <Route exact path="/signin">
               <SignIn />
             </Route>

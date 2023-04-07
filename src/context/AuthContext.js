@@ -12,6 +12,10 @@ function AuthContextProvider({ children }) {
         user: null,
         status: 'pending',
         // dit is de state voor de dynamische comp. uit de het context objecT)
+        ///// 0
+        isBestuurder: false,
+        isPassagier: false,
+        //////
     });
     const history = useHistory();
 
@@ -41,7 +45,8 @@ function AuthContextProvider({ children }) {
         const decoded = jwt_decode(JWT);
 
         // geef de ID, token en redirect-link mee aan de fetchUserData functie (staat hieronder)
-        fetchUserData(decoded.sub, JWT, '/profile');
+        // fetchUserData(decoded.sub, JWT, '/profile');
+        fetchUserData(decoded.sub, JWT, '/');
         // link de gebruiker door naar de profielpagina
         // history.push('/profile');
     }
@@ -110,18 +115,48 @@ function AuthContextProvider({ children }) {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            console.log('Result:', result);
 
-            // zet de gegevens in de state
+/////// 1
+            const user = {
+                username: result.data.username,
+                email: result.data.email,
+                id: result.data.username,
+                roles: result.data.roles,
+            };
+            console.log('User:', user);
+            // haal de rollen van de gebruiker op
+            // const roles = result.data.roles.map(role => role.rolename);
+            /////////////
+
+
+            // zet de gegevens in de state ---> deze is goed!!!
+            // toggleIsAuth({
+            //     ...isAuth,
+            //     isAuth: true,
+            //     user: {
+            //         username: result.data.username,
+            //         email: result.data.email,
+            //         id: result.data.username,
+            //     },
+            //     status: 'done',
+            // });
+
+            /////// 2
+            console.log(isAuth.user)
             toggleIsAuth({
-                ...isAuth,
                 isAuth: true,
                 user: {
                     username: result.data.username,
                     email: result.data.email,
                     id: result.data.username,
+                    roles: result.data.roles,
                 },
-                status: 'done',
+                status: "done",
+                isBestuurder: result.data.roles.includes("BESTUURDER"),
+                isPassagier: result.data.roles.includes("PASSAGIER"),
             });
+            /////////
 
             // als er een redirect URL is meegegeven (bij het mount-effect doen we dit niet) linken we hiernnaartoe door
             // als we de history.push in de login-functie zouden zetten, linken we al door voor de gebuiker is opgehaald!
@@ -136,6 +171,10 @@ function AuthContextProvider({ children }) {
                 isAuth: false,
                 user: null,
                 status: 'done',
+                ///////3  evt. weer weghalen
+                isBestuurder: false,
+                isPassagier: false,
+                /////////
             });
 
 
@@ -191,8 +230,10 @@ function AuthContextProvider({ children }) {
         user: isAuth.user,
         login: login,
         logout: logout,
-        // hier nog passagier en bestuurder laten kiezen?
-        // userDetails: auth.user, ...
+        ///// 3
+        isBestuurder: isAuth.isBestuurder,
+        isPassagier: isAuth.isPassagier,
+        /////
     };
 
     return (
