@@ -70,11 +70,19 @@ function Profile() {
                     phoneNumber: profileData.phoneNumber,
                     enabled: profileData.enabled,
                     roles: profileData.roles,
+                    car: {
+                        id: carData.id,
+                        licensePlate: carData.licensePlate,
+                        model: carData.model,
+                        brand: carData.brand,
+                    },
                 }
             );
 
             if (result.data && result.data.username) {
                 setProfileData(result.data);
+                console.log(result.data);
+                console.log(carData);
             } else {
                 console.error("Ongeldige response van de server");
             }
@@ -105,6 +113,7 @@ function Profile() {
                     phoneNumber: profileData.phoneNumber,
                     enabled: profileData.enabled,
                     roles: profileData.roles,
+                    car: carData,
                 },
                 {
                     headers: {
@@ -126,8 +135,8 @@ function Profile() {
 
 
 
-    async function handleVehicleSubmit(event) {
-        event.preventDefault();
+    async function handleVehicleSubmit(e) {
+        e.preventDefault();
 
         try {
             const result = await axios.post('http://localhost:8080/cars', {
@@ -147,9 +156,9 @@ function Profile() {
             console.log(result.data)
 
             // Clear the input fields after successful submission
-            setLicensePlate('');
-            setModel('');
-            setBrand('');
+            // setLicensePlate('');
+            // setModel('');
+            // setBrand('');
 
         } catch (error) {
             console.error('Error submitting the vehicle data:', error);
@@ -158,8 +167,13 @@ function Profile() {
 
 
 
-    //// het probleem zit hier: morgen verder: de auto blijft op het scherm
+    //// het probleem zit hier: morgen verder: als een bio wordt ingevuklt verdwijnt de auto
+
     async function handleDeleteVehicle() {
+        setLicensePlate('');
+        setModel('');
+        setBrand('');
+        setCarData({});
         try {
             await axios.delete(`http://localhost:8080/cars/${carData.id}`, {
                 headers: {
@@ -168,15 +182,15 @@ function Profile() {
                 },
 
             });
-            // setCarData({}); // Clear the carData state after successful deletion
-            setLicensePlate('');
-            setModel('');
-            setBrand('');
-            setCarData({});
         } catch (error) {
             console.error('Error deleting the vehicle:', error);
         }
     }
+
+
+
+
+
 
 
 
