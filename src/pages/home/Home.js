@@ -11,7 +11,11 @@ import {AuthContext} from "../../context/AuthContext";
 
 function Home() {
     //aanroepen context:
-    const {isAuth, logout} = useContext(AuthContext);
+    const {isAuth, logout, isBestuurder, isPassagier} = useContext(AuthContext);
+    // const watIsDit = useContext(AuthContext);
+    // console.log(watIsDit);
+    // hierboven ook isBetuureder en isPassagier zetten??
+
     // const history = useHistory();
 
 
@@ -185,6 +189,21 @@ function Home() {
     //     }
     //     setActiveForm('selfDrive');
     // }
+
+    // const handleSelfDriveClick = () => {
+    //     console.log(isAuth);
+    //     console.log(isAuth.user)
+    //     if (!isAuth) {
+    //         history.push('/signin');
+    //         return;
+    //     }
+    //     if (isPassagier) {
+    //         alert("Je moet een BESTUURDER zijn om dit te kunnen doen.");
+    //         return;
+    //     }
+    //     setActiveForm('selfDrive');
+    // }
+
     const handleSelfDriveClick = () => {
         console.log(isAuth);
         console.log(isAuth.user)
@@ -192,13 +211,15 @@ function Home() {
             history.push('/signin');
             return;
         }
-        if (isAuth.isPassagier) {
+        if (isPassagier && isBestuurder) {
+            setActiveForm('selfDrive');
+        }
+        if (!isBestuurder && isAuth) {
             alert("Je moet een BESTUURDER zijn om dit te kunnen doen.");
             return;
         }
         setActiveForm('selfDrive');
     }
-
 
     return (
         <home className="outer-content-container">

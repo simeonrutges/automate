@@ -153,8 +153,8 @@ function AuthContextProvider({ children }) {
                     roles: result.data.roles,
                 },
                 status: "done",
-                isBestuurder: result.data.roles.some(role => role.rolename === "BESTUURDER"),
-                isPassagier: result.data.roles.some(role => role.rolename === "PASSAGIER"),
+                isBestuurder: result.data.roles.includes("BESTUURDER"),
+                isPassagier: result.data.roles.includes("PASSAGIER"),
             });
             /////////
 
