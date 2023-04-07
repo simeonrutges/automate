@@ -178,6 +178,28 @@ function Home() {
         toggleLoading(false);
     }
 
+    // const handleSelfDriveClick = () => {
+    //     if (!isAuth) {
+    //         history.push('/signin');
+    //         return;
+    //     }
+    //     setActiveForm('selfDrive');
+    // }
+    const handleSelfDriveClick = () => {
+        console.log(isAuth);
+        console.log(isAuth.user)
+        if (!isAuth) {
+            history.push('/signin');
+            return;
+        }
+        if (isAuth.isPassagier) {
+            alert("Je moet een BESTUURDER zijn om dit te kunnen doen.");
+            return;
+        }
+        setActiveForm('selfDrive');
+    }
+
+
     return (
         <home className="outer-content-container">
             <div className="inner-content-container">
@@ -194,8 +216,12 @@ function Home() {
                         {/*{isAuth ?*/}
                         <div className="form-buttonblock-home">
                             <button className="form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}"
-                                    type="button" onClick={() => setActiveForm('selfDrive')}>Zelf rijden
+                                    // type="button" onClick={() => setActiveForm('selfDrive')}disabled={!isAuth}>Zelf rijden
+
+                                    type="button" onClick={handleSelfDriveClick}>Zelf rijden
+
                             </button>
+
                             <button className="form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}"
                                     type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
                             </button>
