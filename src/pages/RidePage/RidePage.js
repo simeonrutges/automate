@@ -40,6 +40,37 @@ let datum = [];
         }
     }
 
+    //////// hierboven soweiso goed
+    // async function handleAnnuleerRitClick() {
+    //     try {
+    //         await axios.delete(`http://localhost:8080/rides/${id}`, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${token}`,
+    //             },});
+    //         history.push('/');
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+
+/////////////
+    ///// nog implementeren:
+    // async function handleDeleteUser() {
+    //     try {
+    //         // Verwijder eerst alle rides die zijn gekoppeld aan de gebruiker
+    //         await axios.delete(`http://localhost:8080/users/${username}/rides`);
+    //
+    //         // Vervolgens verwijder je de gebruiker zelf
+    //         await axios.delete(`http://localhost:8080/users/${username}`);
+    //
+    //         // Navigeer terug naar de startpagina of een andere pagina
+    //         history.push('/');
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+    //////
 
     return (
         <ride className="outer-content-container">

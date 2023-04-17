@@ -78,9 +78,7 @@ function SignUpTest() {
             <div className="inner-content-container">
 
                 <h1>Aanmelden</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque consectetur, dolore eaque eligendi
-                    harum, numquam, placeat quisquam repellat rerum suscipit ullam vitae. A ab ad assumenda, consequuntur deserunt
-                    doloremque ea eveniet facere fuga illum in numquam quia reiciendis rem sequi tenetur veniam?
+                <p>Registreer je nu als AutoMate gebruiker! Vul hieronder je persoonlijke gegevens in en kies of je als bestuurder of passagier wilt deelnemen aan de carpoolcommunity. Samen kunnen we files verminderen en duurzamer reizen!
                 </p>
 
                 <form onSubmit={handleSubmit}>
