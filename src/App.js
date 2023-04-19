@@ -18,6 +18,7 @@ import Footer from "./components/footer/Footer";
 import ProfileTest from "./pages/Profile/ProfileTest";
 import ProfileTest2 from "./pages/Profile/ProfileTest2";
 import ProfileTest3 from "./pages/Profile/ProfileTest3";
+import RideOverviewTest from "./pages/RideOverviewPage/RideOverviewTest";
 
 
 function App() {
@@ -48,8 +49,8 @@ function App() {
             </Route>
 
             <Route exact path="/signup">
-              {/*<SignUp />*/}
-                <SignUpTest/>
+              <SignUp />
+              {/*  <SignUpTest/>*/}
             </Route>
 
             <Route path="/ride/:id">
@@ -60,7 +61,8 @@ function App() {
             {/*  <RidesOverview />*/}
             {/*</Route>*/}
 
-              <Route path="/rides" render={(props) => <RidesOverview {...props} />} />
+              {/*<Route path="/rides" render={(props) => <RidesOverview {...props} />} />*/}
+              <Route path="/rides" render={(props) => <RideOverviewTest {...props} />} />
 
 
           </Switch>
