@@ -11,12 +11,9 @@ import {AuthContext} from "../../context/AuthContext";
 
 function Home() {
     //aanroepen context:
-    const {isAuth, logout, isBestuurder, isPassagier} = useContext(AuthContext);
+    const {isAuth, logout, isBestuurder, isPassagier, user} = useContext(AuthContext);
     // const watIsDit = useContext(AuthContext);
     // console.log(watIsDit);
-    // hierboven ook isBetuureder en isPassagier zetten??
-
-    // const history = useHistory();
 
 
     // voor het switchen van de forms
@@ -107,12 +104,16 @@ function Home() {
     };
 
 
-    const handleSubmitSelfDrive = async (e) => {
+    // const handleSubmitSelfDrive = async (e) => {
+    async function handleSubmitSelfDrive(e) {
         e.preventDefault();
         toggleError(false);
         toggleLoading(true);
 
         try {
+            const username = isAuth && user.username ? user.username : '';
+            console.log("username: " + username);
+
             const result = await axios.post('http://localhost:8080/rides', {
                 pickUpLocation: pickUpLocation,
                 destination: destination,
@@ -124,18 +125,25 @@ function Home() {
                 pricePerPerson: pricePerPerson,
                 availableSpots: availableSpots,
                 eta: eta,
+
             });
             console.log(result);
 
+            ///// test koppeling
+            // Add the current user to the list of users for the ride
+            const rideId = result.data.id;
+            // const user = isAuth.user;
+            const response = await axios.post(
+                `http://localhost:8080/rides/${rideId}/${username}`
+            );
+            // NU DE DELETE AANPASSEN!!!!!
+            ////
 
 
             // controle browsertijd:
-
             const dateTime = new Date();
             const dateTimeString = dateTime.toString();
             console.log(`De huidige datum en tijd zijn: ${dateTimeString}.`);
-
-
 
             const id= result.data.id;
 

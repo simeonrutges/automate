@@ -154,6 +154,7 @@ function RidesOverview({ location }) {
                             <p>Prijs per persoon: {ride.pricePerPerson} euro</p>
                             <p>Totaal prijs: {ride.totalRitPrice} euro</p>
                             <p>Aantal personen: {ride.pax}</p>
+                            {/*<p>Bestuurder: {ride.}</p>*/}
                         </Link>
                     );
                 })}

@@ -11,7 +11,11 @@ function RidePage() {
 
     const {id} = useParams();
     //useParams geeft alleen welke rit het is
-let datum = [];
+    const { rideId } = useParams();
+//
+    const [bestuurderUsername, setBestuurderUsername] = useState(null);
+//
+    let datum = [];
 // GET request
     useEffect(() => {
         async function fetchRideData() {
@@ -21,6 +25,12 @@ let datum = [];
                 datum = response.data.departureDateTime.split("T");
                 setCurrentData(datum[1])
                 console.log(response.data)
+
+                // Haal de bestuurdersnaam op en sla deze op in de staat
+                const bestuurder = await fetchBestuurder();
+                setBestuurderUsername(bestuurder);
+                ////
+
             } catch (error) {
                 console.error(error);
             }
@@ -37,6 +47,53 @@ let datum = [];
             history.push('/');
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    //////// hierboven soweiso goed
+    // async function handleAnnuleerRitClick() {
+    //     try {
+    //         await axios.delete(`http://localhost:8080/rides/${id}`, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${token}`,
+    //             },});
+    //         history.push('/');
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+
+/////////////
+    ///// nog implementeren:
+    // async function handleDeleteUser() {
+    //     try {
+    //         // Verwijder eerst alle rides die zijn gekoppeld aan de gebruiker
+    //         await axios.delete(`http://localhost:8080/users/${username}/rides`);
+    //
+    //         // Vervolgens verwijder je de gebruiker zelf
+    //         await axios.delete(`http://localhost:8080/users/${username}`);
+    //
+    //         // Navigeer terug naar de startpagina of een andere pagina
+    //         history.push('/');
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+    //////
+
+    async function fetchBestuurder() {
+        try {
+            const result = await axios.get(`http://localhost:8080/users`, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            console.log(result.data.username);
+            return result.data.username;
+        } catch (e) {
+            console.error(e);
+            return null;
         }
     }
 
@@ -77,7 +134,12 @@ let datum = [];
                             </span>
                             </div>
 
+                            {bestuurderUsername && (
+                                <p>De gebruikersnaam van de bestuurder is: {bestuurderUsername}</p>
+                            )}
+
                             <p>* Verwachte aankomst tijd</p>
+
                         </section>
                             <section className="ride-info">
                                 <p>Ophaal locatie: {rideData.pickUpLocation}</p>
