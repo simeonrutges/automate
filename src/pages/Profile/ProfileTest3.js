@@ -4,6 +4,9 @@ import {useHistory} from "react-router-dom";
 import axios from "axios";
 import './profile.css';
 
+import FileUploadForm from './FileUploadForm';
+
+
 function Profile() {
     const [profileData, setProfileData] = useState({});
     const {user} = useContext(AuthContext);
@@ -23,6 +26,8 @@ function Profile() {
     const history = useHistory();
     const token = localStorage.getItem("token");
     const username = user.username;
+
+    const [uploadedImage, setUploadedImage] = useState(null);
 
 
     useEffect(() => {
@@ -187,6 +192,41 @@ function Profile() {
         }
     }
 
+    ///
+    // Haal de profielfoto op bij het laden van de component.
+
+    useEffect(() => {
+        async function fetchProfileImage() {
+            // console.log(user);
+            console.log("filename: " + user.fileName);
+            try {
+                const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${user.fileName}`, {
+                    responseType: 'blob',
+                });
+                console.log(response.data);
+                const image = URL.createObjectURL(response.data);
+                console.log('Image URL:', image);
+                setUploadedImage(image);
+            } catch (error) {
+                console.error('Error fetching profile image:', error);
+            }
+        }
+
+        if (user) {
+            fetchProfileImage();
+        }
+    }, [user]);
+
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`http://localhost:8080/....${user.username}/profile-image`);
+            setUploadedImage(null);
+        } catch (error) {
+            console.error('Error deleting profile image:', error);
+        }
+    };
+    ///
 
 
 
@@ -204,7 +244,18 @@ function Profile() {
                         <h1>Mijn Profiel</h1>
                         <section className="profile-picture">
                             <section className="foto-name">
-                                <h4>FOTO</h4>
+//
+                                {uploadedImage ? (
+                                    <>
+                                        <img src={uploadedImage} alt="Profielfoto" />
+                                        <button onClick={handleDelete}>Verwijder</button>
+                                    </>
+                                ) : (
+                                    //
+                                <FileUploadForm username={username} />
+
+                                )}
+
                                 <h4>{user.username}</h4>
                             </section>
                         </section>
