@@ -22,6 +22,8 @@ function Profile() {
     const [brand, setBrand] = useState('');
     const [carData, setCarData] = useState({});
 
+    const [toggle, setToggle] = useState(false);
+
 
     const history = useHistory();
     const token = localStorage.getItem("token");
@@ -39,9 +41,10 @@ function Profile() {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-
+                console.log(result);
                 if (result.data && result.data.username) {
                     setProfileData(result.data);
+                    console.log("profileData : " + profileData.fileName);
                 } else {
                     console.error("Ongeldige response van de server");
                 }
@@ -53,9 +56,8 @@ function Profile() {
 
             }
         }
-
         fetchProfileData();
-    }, [username]);
+    }, [username, toggle]);
 
     async function handleBioSubmit(e) {
         e.preventDefault();
@@ -198,7 +200,7 @@ function Profile() {
     useEffect(() => {
         async function fetchProfileImage() {
             // console.log(user);
-            console.log("filename: " + user.fileName);
+            console.log("filename: " + username.fileName);
             try {
                 const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${user.fileName}`, {
                     responseType: 'blob',
@@ -244,7 +246,11 @@ function Profile() {
                         <h1>Mijn Profiel</h1>
                         <section className="profile-picture">
                             <section className="foto-name">
-//
+
+
+                                {/*{profileData.fileName && <img src={profileData.fileName.url} alt={profileData.username}/>}*/}
+
+
                                 {uploadedImage ? (
                                     <>
                                         <img src={uploadedImage} alt="Profielfoto" />
@@ -252,9 +258,10 @@ function Profile() {
                                     </>
                                 ) : (
                                     //
-                                <FileUploadForm username={username} />
+                                <FileUploadForm username={username} setToggle={setToggle} toggle={toggle}/>
 
                                 )}
+
 
                                 <h4>{user.username}</h4>
                             </section>

@@ -87,11 +87,18 @@ import './fileUploadForm.css';
 //
 // export default FileUploadForm;
 
-function FileUploadForm({ username }) {
+function FileUploadForm({ username, setToggle, toggle }) {
     const [file, setFile] = useState(null);
 
-    function onFileChange(e) {
+    const [previewUrl, setPreviewUrl] = useState('');
+
+    function handleImageChange(e) {
+        // const uploadedFile = e.target.files[0];
+        // console.log(uploadedFile);
         setFile(e.target.files[0]);
+
+        setPreviewUrl(URL.createObjectURL(e.target.files[0]))
+
     }
 
     function isValidFileType(file) {
@@ -99,7 +106,7 @@ function FileUploadForm({ username }) {
         return file && acceptedFileTypes.includes(file.type);
     }
 
-    async function onFormSubmit(e) {
+    async function sendImage(e) {
         e.preventDefault();
 
         if (!file) {
@@ -116,12 +123,20 @@ function FileUploadForm({ username }) {
         formData.append('file', file);
         formData.append('username', username);
 
+        // const formData = new FormData();
+        // formData.append("file", file);
+        ///
+        console.log(formData);
+
         try {
             const response = await axios.post('http://localhost:8080/users/single/uploadDb', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            // contentType!!!
+            console.log(response.data);
+            setToggle(!toggle);
 
             alert('Bestand geüpload: ' + response.data.fileName);
         } catch (error) {
@@ -129,13 +144,42 @@ function FileUploadForm({ username }) {
         }
     }
 
+//     return (
+//         <form onSubmit={sendImage} className="file-upload-container">
+//             <input type="file" onChange={handleImageChange} />
+//
+//             {previewUrl &&
+//             <label>
+//                 Preview:
+//                 <img src={previewUrl} alt="Voorbeeld van de afbeelding die zojuist gekozen is"
+//                     className="image-preview"/>
+//             </label>
+//             }
+//             <button type="submit">Upload</button>
+//         </form>
+//     );
+// }
+
     return (
-        <form onSubmit={onFormSubmit}>
-            <input type="file" onChange={onFileChange} />
-            <button type="submit">Upload</button>
+        <form onSubmit={sendImage} className="file-upload-container">
+            {previewUrl && (
+                <label>
+                    {/*Preview:*/}
+                    <img
+                        src={previewUrl}
+                        alt="Voorbeeld van de afbeelding die zojuist gekozen is"
+                        className="image-preview"
+                    />
+                </label>
+            )}
+            <div className="file-upload-actions">
+                <input type="file" onChange={handleImageChange}/>
+                {file && <button type="submit">Upload preview</button>}
+            </div>
         </form>
     );
 }
 
-export default FileUploadForm;
+
+    export default FileUploadForm;
 
