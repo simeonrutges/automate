@@ -4,6 +4,10 @@ import {useHistory} from "react-router-dom";
 import axios from "axios";
 import './profile.css';
 
+
+import FileUploadForm from './FileUploadForm';
+
+
 function Profile() {
     const [profileData, setProfileData] = useState({});
     const {user} = useContext(AuthContext);
@@ -19,10 +23,14 @@ function Profile() {
     const [brand, setBrand] = useState('');
     const [carData, setCarData] = useState({});
 
+    const [toggle, setToggle] = useState(false);
+
 
     const history = useHistory();
     const token = localStorage.getItem("token");
     const username = user.username;
+
+    const [uploadedImage, setUploadedImage] = useState(null);
 
 
     useEffect(() => {
@@ -34,9 +42,10 @@ function Profile() {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-
+                console.log(result);
                 if (result.data && result.data.username) {
                     setProfileData(result.data);
+                    console.log("profileData : " + profileData.fileName);
                 } else {
                     console.error("Ongeldige response van de server");
                 }
@@ -48,9 +57,8 @@ function Profile() {
 
             }
         }
-
         fetchProfileData();
-    }, [username]);
+    }, [username, toggle]);
 
     async function handleBioSubmit(e) {
         e.preventDefault();
@@ -70,6 +78,8 @@ function Profile() {
                     phoneNumber: profileData.phoneNumber,
                     enabled: profileData.enabled,
                     roles: profileData.roles,
+                    fileName: profileData.fileName,
+                    docFile: profileData.docFile,
                     car: {
                         id: carData.id,
                         licensePlate: carData.licensePlate,
@@ -113,6 +123,8 @@ function Profile() {
                     phoneNumber: profileData.phoneNumber,
                     enabled: profileData.enabled,
                     roles: profileData.roles,
+                    fileName: profileData.fileName,
+                    docFile: profileData.docFile,
                     car: carData,
                 },
                 {
@@ -187,6 +199,69 @@ function Profile() {
         }
     }
 
+    ///
+    // Haal de profielfoto op bij het laden van de component.
+
+    // useEffect(() => {
+    //     async function fetchProfileImage() {
+    //         // console.log(user);
+    //         console.log("filename: " + username.fileName);
+    //         try {
+    //             const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${user.fileName}`, {
+    //                 responseType: 'blob',
+    //             });
+    //             console.log(response.data);
+    //             const image = URL.createObjectURL(response.data);
+    //             console.log('Image URL:', image);
+    //             setUploadedImage(image);
+    //         } catch (error) {
+    //             console.error('Error fetching profile image:', error);
+    //         }
+    //     }
+    //
+    //     if (user) {
+    //         fetchProfileImage();
+    //     }
+    // }, [user]);
+
+    useEffect(() => {
+        async function fetchProfileImage() {
+            console.log("profileData filename: " + profileData.fileName);
+            if (profileData.fileName) {
+                try {
+                    const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${profileData.fileName}`, {
+                        responseType: 'blob',
+                    });
+                    console.log(response.data);
+                    const image = URL.createObjectURL(response.data);
+                    console.log('Image URL:', image);
+                    setUploadedImage(image);
+                } catch (error) {
+                    console.error('Error fetching profile image:', error);
+                }
+            }
+        }
+
+        fetchProfileImage();
+    }, [profileData]);
+
+
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`http://localhost:8080/users/deleteProfileImage/${username}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setUploadedImage(null);
+        } catch (error) {
+            console.error('Error deleting profile image:', error);
+        }
+    };
+
+    ///
 
 
 
@@ -204,7 +279,23 @@ function Profile() {
                         <h1>Mijn Profiel</h1>
                         <section className="profile-picture">
                             <section className="foto-name">
-                                <h4>FOTO</h4>
+
+
+                                {/*{profileData.fileName && <img src={profileData.fileName.url} alt={profileData.username}/>}*/}
+
+
+                                {uploadedImage ? (
+                                    <div className="file-upload-container">
+                                        <img src={uploadedImage} alt="Profielfoto" className="image-upload" />
+                                        <button onClick={handleDelete}>Verwijder</button>
+                                    </div>
+                                ) : (
+                                    //
+                                <FileUploadForm username={username} setToggle={setToggle} toggle={toggle}/>
+
+                                )}
+
+
                                 <h4>{user.username}</h4>
                             </section>
                         </section>
