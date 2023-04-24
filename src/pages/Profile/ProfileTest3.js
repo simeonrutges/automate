@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import axios from "axios";
 import './profile.css';
 
+
 import FileUploadForm from './FileUploadForm';
 
 
@@ -284,10 +285,10 @@ function Profile() {
 
 
                                 {uploadedImage ? (
-                                    <>
-                                        <img src={uploadedImage} alt="Profielfoto" />
+                                    <div className="file-upload-container">
+                                        <img src={uploadedImage} alt="Profielfoto" className="image-upload" />
                                         <button onClick={handleDelete}>Verwijder</button>
-                                    </>
+                                    </div>
                                 ) : (
                                     //
                                 <FileUploadForm username={username} setToggle={setToggle} toggle={toggle}/>
