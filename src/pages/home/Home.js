@@ -126,6 +126,8 @@ function Home() {
                 availableSpots: availableSpots,
                 eta: eta,
 
+                driverUsername: username
+
             });
             console.log(result);
 
