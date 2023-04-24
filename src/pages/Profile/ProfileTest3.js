@@ -77,6 +77,8 @@ function Profile() {
                     phoneNumber: profileData.phoneNumber,
                     enabled: profileData.enabled,
                     roles: profileData.roles,
+                    fileName: profileData.fileName,
+                    docFile: profileData.docFile,
                     car: {
                         id: carData.id,
                         licensePlate: carData.licensePlate,
@@ -120,6 +122,8 @@ function Profile() {
                     phoneNumber: profileData.phoneNumber,
                     enabled: profileData.enabled,
                     roles: profileData.roles,
+                    fileName: profileData.fileName,
+                    docFile: profileData.docFile,
                     car: carData,
                 },
                 {
@@ -197,37 +201,65 @@ function Profile() {
     ///
     // Haal de profielfoto op bij het laden van de component.
 
+    // useEffect(() => {
+    //     async function fetchProfileImage() {
+    //         // console.log(user);
+    //         console.log("filename: " + username.fileName);
+    //         try {
+    //             const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${user.fileName}`, {
+    //                 responseType: 'blob',
+    //             });
+    //             console.log(response.data);
+    //             const image = URL.createObjectURL(response.data);
+    //             console.log('Image URL:', image);
+    //             setUploadedImage(image);
+    //         } catch (error) {
+    //             console.error('Error fetching profile image:', error);
+    //         }
+    //     }
+    //
+    //     if (user) {
+    //         fetchProfileImage();
+    //     }
+    // }, [user]);
+
     useEffect(() => {
         async function fetchProfileImage() {
-            // console.log(user);
-            console.log("filename: " + username.fileName);
-            try {
-                const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${user.fileName}`, {
-                    responseType: 'blob',
-                });
-                console.log(response.data);
-                const image = URL.createObjectURL(response.data);
-                console.log('Image URL:', image);
-                setUploadedImage(image);
-            } catch (error) {
-                console.error('Error fetching profile image:', error);
+            console.log("profileData filename: " + profileData.fileName);
+            if (profileData.fileName) {
+                try {
+                    const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${profileData.fileName}`, {
+                        responseType: 'blob',
+                    });
+                    console.log(response.data);
+                    const image = URL.createObjectURL(response.data);
+                    console.log('Image URL:', image);
+                    setUploadedImage(image);
+                } catch (error) {
+                    console.error('Error fetching profile image:', error);
+                }
             }
         }
 
-        if (user) {
-            fetchProfileImage();
-        }
-    }, [user]);
+        fetchProfileImage();
+    }, [profileData]);
+
 
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:8080/....${user.username}/profile-image`);
+            await axios.delete(`http://localhost:8080/users/deleteProfileImage/${username}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             setUploadedImage(null);
         } catch (error) {
             console.error('Error deleting profile image:', error);
         }
     };
+
     ///
 
 
