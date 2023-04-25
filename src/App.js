@@ -19,6 +19,7 @@ import ProfileTest from "./pages/Profile/ProfileTest";
 import ProfileTest2 from "./pages/Profile/ProfileTest2";
 import ProfileTest3 from "./pages/Profile/ProfileTest3";
 import RideOverviewTest from "./pages/RideOverviewPage/RideOverviewTest";
+import RidePageTest from "./pages/RidePage/RidePageTest";
 
 
 function App() {
@@ -54,7 +55,7 @@ function App() {
             </Route>
 
             <Route path="/ride/:id">
-              <RidePage />
+              <RidePageTest />
             </Route>
 
             {/*<Route path="/rides" >*/}

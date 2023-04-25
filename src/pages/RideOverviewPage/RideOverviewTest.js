@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import {Link, Route, Switch} from "react-router-dom";
 import axios from "axios";
 import RidePage from "../RidePage/RidePage";
+import RidePageTest from "../RidePage/RidePageTest";
 
 function RideOverviewTest({location}) {
     const [rides, setRides] = useState([]);
@@ -129,7 +130,7 @@ function RideOverviewTest({location}) {
                 <div className="rides-overview-page">
                     <Switch>
                         <Route path="/rides/:id">
-                            <RidePage/>
+                            <RidePageTest/>
                         </Route>
                     </Switch>
 
@@ -171,6 +172,8 @@ function RideOverviewTest({location}) {
                                         </React.Fragment>
                                     );
                                 })}
+
+
                             </div>
                         </div>
                     )}
