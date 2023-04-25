@@ -9,29 +9,62 @@ function RidePage() {
     const {user} = useContext(AuthContext);
     const [currentData, setCurrentData] = useState("");
 
+    const [driverData, setDriverData] = useState({});
+
     const {id} = useParams();
     //useParams geeft alleen welke rit het is
     const { rideId } = useParams();
 
     let datum = [];
-// GET request
+// GET request deze werkt!!!
+//     useEffect(() => {
+//         async function fetchRideData() {
+//             try {
+//                 const response = await axios.get(`http://localhost:8080/rides/${id}`);
+//                 setRideData(response.data);
+//                 datum = response.data.departureDateTime.split("T");
+//                 setCurrentData(datum[1])
+//                 console.log(response.data)
+//
+//             } catch (error) {
+//                 console.error(error);
+//             }
+//         }
+//
+//         fetchRideData()
+//     }, [id]);
+
+
+    // test!
     useEffect(() => {
-        async function fetchRideData() {
+        async function fetchData() {
             try {
-                const response = await axios.get(`http://localhost:8080/rides/${id}`);
-                setRideData(response.data);
-                datum = response.data.departureDateTime.split("T");
-                setCurrentData(datum[1])
-                console.log(response.data)
+                const rideResponse = await axios.get(`http://localhost:8080/rides/${id}`);
+                setRideData(rideResponse.data);
+                datum = rideResponse.data.departureDateTime.split("T");
+                setCurrentData(datum[1]);
 
-
+                if (rideResponse.data.driverUsername) {
+                    const driverResponse = await axios.get(`http://localhost:8080/users/${rideResponse.data.driverUsername}`);
+                    setDriverData(driverResponse.data);
+                }
             } catch (error) {
                 console.error(error);
             }
         }
 
-        fetchRideData()
+        fetchData();
     }, [id]);
+/////
+
+
+
+
+
+
+
+
+
 
     // DELETE ride request
     const history = useHistory();
@@ -54,6 +87,8 @@ function RidePage() {
             console.error(error);
         }
     }
+
+    // console.log(rideData);
 
     return (
         <ride className="outer-content-container">
@@ -97,6 +132,18 @@ function RidePage() {
 
                                 <p>* Verwachte aankomst tijd</p>
 
+///test 25/4!
+                                <p>Bestuurder: {driverData.username}</p>
+                                {driverData.fileName && (
+                                    <img
+                                        src={`data:image/jpeg;base64,${driverData.fileName}`}
+                                        alt="Profielfoto van de bestuurder"
+                                        className="driver-profile-picture"
+                                    />
+
+                                )}
+                                ////test 25/4!!
+
 
 
                             </section>
@@ -117,15 +164,6 @@ function RidePage() {
                         </div>
                     }
 
-
-                    {/*<div className="buttons">*/}
-                    {/*    /!*<button id="wijzig-rit-btn">Wijzig rit</button>*!/*/}
-                    {/*    <button onClick={handleAnnuleerRitClick} id="annuleer-rit-btn">Annuleer rit</button>*/}
-                    {/*</div>*/}
-
-
-
-                    {/*hierboven werkt goed:*/}
                     <div className="buttons">
 
                         {user && rideData.driverUsername === user.username && (
