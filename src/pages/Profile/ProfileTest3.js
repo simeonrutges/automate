@@ -302,7 +302,7 @@ function Profile() {
 
                         {Object.keys(profileData).length > 0 && (
                             <section className="bio">
-                                <h2>Strikt geheime profiel-content</h2>
+                                <h4>Mijn Gegevens</h4>
                                 <p>Rol: {profileData.roles}</p>
                                 <p>Voornaam: {profileData.firstname}</p>
                                 <p>Achternaam: {profileData.lastname}</p>
@@ -311,7 +311,7 @@ function Profile() {
 
                                 {profileData.bio ? (
                                     <div>
-                                        <h6>Biografie</h6>
+                                        <h4>Biografie</h4>
                                         <p>{profileData.bio}</p>
                                         <button onClick={handleDeleteBio}>Verwijder</button>
                                     </div>
@@ -376,7 +376,7 @@ function Profile() {
                                 </form>
                             ) : (
                                 <div>
-                                    <h3>Mijn auto:</h3>
+                                    <h4>Mijn auto:</h4>
                                     <p>Kenteken: {carData.licensePlate}</p>
                                     <p>Model: {carData.model}</p>
                                     <p>Merk: {carData.brand}</p>

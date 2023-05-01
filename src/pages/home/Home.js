@@ -1,12 +1,11 @@
-import React, {useContext, useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import React, {useContext, useEffect, useState} from 'react';
+import {Link, useHistory, useLocation} from 'react-router-dom';
 import Modal from "./../../context/modal/Modal";
-import  './home.css';
+import './home.css';
 import picture from '../../assets/shutterstock_2122349819.jpg'
 import FormInput from "../../components/formInput/FormInput";
 import axios, {defaults} from "axios";
 import {AuthContext} from "../../context/AuthContext";
-
 
 
 function Home() {
@@ -32,6 +31,10 @@ function Home() {
     const [pricePerPerson, setPricePerPerson] = useState('');
     const [availableSpots, setAvailableSpots] = useState('');
     const [eta, setEta] = useState('');
+
+    // const [submitDisabled, setSubmitDisabled] = useState(true); // << hier wordt de state-variabele gedefinieerd en standaard ingesteld op true
+    // const [fieldsFilled, setFieldsFilled] = useState(false);
+
 
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -71,9 +74,9 @@ function Home() {
         const timeZoneOffset = dateTime.getTimezoneOffset();
         console.log(timeZoneOffset);
         // Adjust the datetime for the user's timezone
-        const userDateTime = timeZoneOffset / 60 ;
+        const userDateTime = timeZoneOffset / 60;
         console.log(userDateTime);
-        const currentDateTime = new Date(Date.now()+ userDateTime * 60 * 1000);
+        const currentDateTime = new Date(Date.now() + userDateTime * 60 * 1000);
         console.log(currentDateTime);
         // Format the datetime into a string that matches the LocalDateTime format expected by the server
         const formattedDateTime = `${currentDateTime.getFullYear()}-${padZero(currentDateTime.getMonth() + 1)}-${padZero(currentDateTime.getDate())}T${padZero(currentDateTime.getHours())}:${padZero(currentDateTime.getMinutes())}`;
@@ -82,7 +85,6 @@ function Home() {
 
         setDepartureDateTime(formattedDateTime);
     }
-
 
 
     const padZero = (num) => {
@@ -147,7 +149,7 @@ function Home() {
             const dateTimeString = dateTime.toString();
             console.log(`De huidige datum en tijd zijn: ${dateTimeString}.`);
 
-            const id= result.data.id;
+            const id = result.data.id;
 
             // if everything went well, redirect to the ride-page
             // history.push('/ride/:id');
@@ -231,6 +233,38 @@ function Home() {
         setActiveForm('selfDrive');
     }
 
+    // const handleFieldsChange = () => {
+    //     if (activeForm === 'selfDrive') {
+    //         if (pickUpLocation && destination && departureTime && departureDate && pricePerPerson && availableSpots) {
+    //             setFieldsFilled(true);
+    //         } else {
+    //             setFieldsFilled(false);
+    //         }
+    //     }
+    //     else {
+    //         if (pickUpLocation && departureDate && pax ) {
+    //             setFieldsFilled(true);
+    //         } else {
+    //             setFieldsFilled(false);
+    //         }
+    //     }
+    // };
+
+    const location = useLocation();
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const section = params.get('section');
+
+        if (section === 'how-it-works') {
+            const element = document.getElementById('how-it-works');
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [location]);
+
+
     return (
         <home className="outer-content-container">
             <div className="inner-content-container">
@@ -247,7 +281,7 @@ function Home() {
                         {/*{isAuth ?*/}
                         <div className="form-buttonblock-home">
                             <button className="form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}"
-                                    // type="button" onClick={() => setActiveForm('selfDrive')}disabled={!isAuth}>Zelf rijden
+                                // type="button" onClick={() => setActiveForm('selfDrive')}disabled={!isAuth}>Zelf rijden
 
                                     type="button" onClick={handleSelfDriveClick}>Zelf rijden
 
@@ -284,7 +318,9 @@ function Home() {
                                                onChange={handleAvailableSpotsChange}/>
                                     <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
                                                onChange={handleEtaChange}/>
-                                    <button type="submit">Plaats rit</button>
+
+
+                                    <button type="submit" >Plaats rit</button>
                                 </form>
                             )
                             : (
@@ -302,9 +338,17 @@ function Home() {
 
                                     <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
                                                value={departureDate} onChange={e => setDepartureDate(e.target.value)}/>
+
+
                                     <button type="submit">Zoeken</button>
                                 </form>
                             )}
+                    </div>
+
+                </section>
+                <section id="how-it-works" className="uitleg-box">
+                    <div className="tekst-box">
+                        <h3>Zo werkt het</h3>
                     </div>
                 </section>
 

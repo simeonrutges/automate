@@ -113,10 +113,23 @@ button:active {
     background-color: #007bff;
     border-color: #007bff;
 }
+/*////*/
+.uitleg-box{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4fb3bf;
+}
+.uitleg-box {
+    text-align: center;
+}
+
+.tekst-box h3 {
+    color: #fff;
+}
 
 
-
-/*//*/
 
 
 

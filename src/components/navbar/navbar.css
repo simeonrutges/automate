@@ -13,20 +13,32 @@ nav {
     width: 100%;
 }
 
-.nav-buttons{
+/*.nav-buttons{*/
 
+/*    display: flex;*/
+/*    !* row is de default, maar toch toegevoegd voor leesbaarheid *!*/
+/*    flex-direction: row;*/
+/*    !*Wanneer we geen basis-breedte meegeven, hebben de items ook geen ruimte om zich evenredig te verdelen!*!*/
+/*    flex-basis: 400px;*/
+/*    !* alle items groeien NIET mee in verhouding tot de overgebleven ruimte *!*/
+/*    flex-grow: 0;*/
+/*    !* alle items worden evenredig kleiner dan de basis wanneer er geen ruimte is *!*/
+/*    flex-shrink: 1;*/
+/*    !* uitlijning van links naar rechts, want direction = row (horizontaal) *!*/
+/*    justify-content: space-between;*/
+
+/*    background-color: white;*/
+
+/*}*/
+
+.nav-buttons {
     display: flex;
-    /* row is de default, maar toch toegevoegd voor leesbaarheid */
     flex-direction: row;
-    /*Wanneer we geen basis-breedte meegeven, hebben de items ook geen ruimte om zich evenredig te verdelen!*/
-    flex-basis: 400px;
-    /* alle items groeien NIET mee in verhouding tot de overgebleven ruimte */
-    flex-grow: 0;
-    /* alle items worden evenredig kleiner dan de basis wanneer er geen ruimte is */
-    flex-shrink: 1;
-    /* uitlijning van links naar rechts, want direction = row (horizontaal) */
-    justify-content: space-between;
-
-    background-color: white;
-
+    align-items: center;
+    /*justify-content: flex-end;*/
 }
+
+.nav-buttons button {
+    margin-left: 10px;
+}
+

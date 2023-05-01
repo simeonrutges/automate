@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {Link, useHistory, useParams} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 import axios from "axios";
-import  './ridePage.css';
+import './ridePage.css';
 
 function RidePage() {
     const [rideData, setRideData] = useState({});
@@ -13,7 +13,7 @@ function RidePage() {
 
     const {id} = useParams();
     //useParams geeft alleen welke rit het is
-    const { rideId } = useParams();
+    const {rideId} = useParams();
 
     let datum = [];
 // GET request deze werkt!!!
@@ -35,7 +35,6 @@ function RidePage() {
 //     }, [id]);
 
 
-    // test!
     useEffect(() => {
         async function fetchData() {
             try {
@@ -55,40 +54,59 @@ function RidePage() {
 
         fetchData();
     }, [id]);
-/////
 
-
-
-
-
-
-
-
-
-
+/////////////
     // DELETE ride request
-    const history = useHistory();
-    async function handleAnnuleerRitClick() {
-        console.log("idddd: " + id);
-        try {
-            await axios.delete(`http://localhost:8080/rides/${id}`);
-            history.push('/');
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    // const history = useHistory();
+    //
+    // async function handleAnnuleerRitClick() {
+    //     console.log("idddd: " + id);
+    //     try {
+    //         await axios.delete(`http://localhost:8080/rides/${id}`);
+    //         history.push('/');
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+    //
+    // // functie om huidige gebruiker aan de rit toe te voegen-->
+    // async function handleSelectRitClick() {
+    //     console.log("username: " + user.username);
+    //     try {
+    //         await axios.post(`http://localhost:8080/rides/${id}/${user.username}`);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+    /////////
 
-    // functie om huidige gebruiker aan de rit toe te voegen-->
+
+    ///// test hierboven is sowieso  goed!
+    const history = useHistory();
     async function handleSelectRitClick() {
         console.log("username: " + user.username);
         try {
             await axios.post(`http://localhost:8080/rides/${id}/${user.username}`);
+            history.push('/confirmation/reservation/success');
         } catch (error) {
             console.error(error);
+            history.push('/confirmation/reservation/failure');
         }
     }
 
-    // console.log(rideData);
+    async function handleAnnuleerRitClick() {
+        console.log("idddd: " + id);
+        try {
+            await axios.delete(`http://localhost:8080/rides/${id}`);
+            history.push('/confirmation/rideRemoved/success');
+        } catch (error) {
+            console.error(error);
+            history.push('/confirmation/rideRemoved/failure');
+        }
+    }
+/////
+
+    console.log(driverData.username);
 
     return (
         <ride className="outer-content-container">
@@ -106,7 +124,7 @@ function RidePage() {
                                 <div className="top-box">
                             <span className="summary-block1">
                                 <p>
-                                    { currentData }
+                                    {currentData}
                                 </p>
                                 <p>{rideData.pickUpLocation}</p>
 
@@ -132,18 +150,21 @@ function RidePage() {
 
                                 <p>* Verwachte aankomst tijd</p>
 
-///test 25/4!
-                                <p>Bestuurder: {driverData.username}</p>
-                                {driverData.fileName && (
-                                    <img
-                                        src={`data:image/jpeg;base64,${driverData.fileName}`}
-                                        alt="Profielfoto van de bestuurder"
-                                        className="driver-profile-picture"
-                                    />
 
-                                )}
-                                ////test 25/4!!
-
+                                <div className="driver-profile-box">
+                                    {driverData.fileName && (
+                                        <Link to={`/profile/${driverData.username}`}>
+                                            <img
+                                                src={`data:image/jpeg;base64,${driverData.docFile}`}
+                                                alt="Profielfoto van de bestuurder"
+                                                className="driver-profile-picture"
+                                            />
+                                        </Link>
+                                    )}
+                                    <Link to={`/profile/${driverData.username}`}>
+                                        <p>{driverData.username}</p>
+                                    </Link>
+                                </div>
 
 
                             </section>
@@ -175,7 +196,6 @@ function RidePage() {
                         )}
                     </div>
                     {/*tot hier weghalen*/}
-
 
 
                     <p className="home-page-link">Terug naar de <Link to="/">Homepagina</Link></p>
