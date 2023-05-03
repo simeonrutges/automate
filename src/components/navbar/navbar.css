@@ -1,6 +1,6 @@
 navbar {
-    background: darkslategrey;
-    /*background: linear-gradient(133deg, var(--secondary) 0%, var(--primary) 86%, var(--primary) 100%);*/
+    /*background-color: #F5F5F5;*/
+    background-color: white;
     text-align: center;
 }
 
@@ -40,5 +40,10 @@ nav {
 
 .nav-buttons button {
     margin-left: 10px;
+}
+
+.brand{
+    font-family: "Montserrat Subrayada";
+
 }
 
