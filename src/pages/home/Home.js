@@ -271,7 +271,7 @@ function Home() {
 
                 {/*Waarom heeft de margin 50px? -> App.css */}
                 <section className="home-page">
-                    <img src={picture} alt="beschrijving van de afbeelding"/>
+                    <img src={picture} alt="auto door bos" className="cover-img"/>
                     <div className="textvlak">
                         <h1>De slimme keuze voor milieubewuste reizigers</h1>
                     </div>
@@ -346,17 +346,27 @@ function Home() {
                     </div>
 
                 </section>
+                <section>
+<p>Kostenbesparing: Bespaar geld en deel je rit met anderen. Carpoolen is de perfecte manier om je uitgaven voor brandstof te verminderen en de kosten voor het onderhoud van je auto te delen. Als passagier kun je genieten van een betaalbare en comfortabele manier om te reizen, zonder je zorgen te maken over de kosten van een eigen auto. Door samen te rijden helpen we elkaar om geld te besparen en duurzamer te reizen!</p>
+                   <p>Milieuvriendelijkheid: Draag bij aan een beter milieu en verminder je ecologische voetafdruk. Carpoolen vermindert het aantal auto's op de weg en zorgt voor minder CO2-uitstoot en luchtverontreiniging.</p>
+
+                    <p>Gezelligheid: Maak nieuwe vrienden en verminder de stress van het rijden. Carpoolen biedt een geweldige kans om in contact te komen met anderen en je rit aangenamer te maken. Bovendien kan carpoolen bijdragen aan het verminderen van stress en vermoeidheid, waardoor je ontspannen op je bestemming aankomt.</p>
+                </section>
                 <section id="how-it-works" className="uitleg-box">
                     <div className="tekst-box">
                         <h3>Zo werkt het</h3>
+                        <p>Hey, carpool-liefhebbers! Wist je dat je niet alleen ritten kunt vinden, maar ook ritten kunt plaatsen op ons platform? Het enige wat je hoeft te doen is je profiel aanvullen en je ritdetails invoeren. Je kunt zelf kiezen welke prijs je wilt vragen voor je rit en hoeveel passagiers je wilt meenemen.
+                            Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem of door te bellen. Samen delen jullie dan de kosten van de reis.</p>
+                        <p>Als je juist een passagier bent die een lift nodig heeft, zoek dan gemakkelijk naar beschikbare ritten die bij jouw planning passen. Voordat je boekt, kan je altijd contact opnemen met de bestuurder via ons messaging systeem of via je telefoon om eventuele vragen te stellen en om ze beter te leren kennen.
+                            Het betalen van de ritkosten regelen jullie onderling.
+                        </p>
+                        <p>Als je eenmaal op weg bent, kan je ontspannen en genieten van de reis. En als alles goed gaat, vergeet dan niet om je chauffeur een beoordeling te geven - wie weet geven ze er wel een voor jou terug!</p>
                     </div>
                 </section>
 
                 <section>
-                    <p>Als je ingelogd bent, bekijk dan de <Link to="/profile">Profielpagina</Link></p>
-                    <p>Je kunt ook <Link to="/signin">inloggen</Link> of jezelf <Link to="/signup">registeren</Link> als
-                        je nog geen
-                        account hebt.</p>
+                    <p>Enthousiast geworden? <Link to="/signup">Registreer</Link> je nu om te beginnen met het delen van ritten, geld te besparen en nieuwe mensen te ontmoeten. Of bekijk onze Veelgestelde Vragen (FAQ) pagina voor meer informatie over ons platform en hoe het werkt.</p>
+                    <p>Ben je <Link to="/signin">ingelogd</Link>? Bekijk dan hier je <Link to="/profile">Profielpagina</Link> en start vandaag nog met onbezorgd reizen!</p>
                 </section>
 
             </div>

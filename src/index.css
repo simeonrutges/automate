@@ -42,7 +42,9 @@ body {
   font-family: Roboto, Arial, Helvetica, sans-serif;
   color: #051524;
   font-weight: 300;
-  font-size: 20px;
+  /*font-size: 20px;*/
+  font-size: 16px;
+  /*line-height: 24px;*/
 }
 
 /* De buitenste container is altijd de volledige schermbreedte. Het is een flexbox container die zijn inhoud altijd netjes horizontaal centreert */
@@ -80,6 +82,8 @@ h6 {
   /*font-family: 'Neucha', 'Times New Roman', cursive;*/
   /*font-family: Arial;*/
   font-family: Merriweather, 'Times New Roman', serif;
+  /*font-family: Roboto, Arial, Helvetica, sans-serif;*/
+  /*font-family: Roboto;*/
 }
 
 h1, h2 {
@@ -110,6 +114,7 @@ h6 {
 
 p {
   margin: 12px 0;
+  font-family: Helvetica;
 }
   /*!* deze hierboven aangepast!*!*/
 
