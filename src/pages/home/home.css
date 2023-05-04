@@ -7,7 +7,8 @@
 
 /*//*/
 home {
-    background: lightgoldenrodyellow;
+    /*background: #F5F5F5;*/
+    background-color: white;
 }
 
 .home-page{
@@ -32,11 +33,11 @@ home {
 
 
 .home img {
-
-
-
     width: 100%;
     height: auto;
+
+    object-fit: cover;
+
 }
 
 .textvlak {
@@ -75,11 +76,17 @@ home {
     top: 55%;
     left: 75%;
     transform: translate(-50%, -50%);
-    padding: 20px;
+    /*padding: 20px;*/
+    padding: 0px;
     text-align: center;
     /*background-color: rgba(255, 255, 255, 0);*/
-    background-color: darkseagreen;
-    color: white;
+    /*background-color: darkseagreen;*/
+    background-color: white;
+    /*background-color: #4fb3bf;*/
+    border-radius: 4px;
+
+    /*color: white;*/
+
 
     /*border: 3px solid black;*/
 }
@@ -91,17 +98,19 @@ home {
     border: none;
     /*color: white;*/
     padding: 0px 0px;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     background-color: #f5ab00;
     color: white;
     font-weight: bold;
 
-    border: 2px solid black;
+    /*border: 2px solid black;*/
 }
 
 .form-button-home {
-    /*border: 3px solid red;*/
-    border-left: 2px solid black ;
+    border: 3px solid #F5F5F5;
+
+    /*border: 3px silid #4CAD98;*/
+    /*border-left: 2px solid black ;*/
     margin: 0px;
     border-radius: 0%;
     flex: 1;
@@ -110,13 +119,32 @@ home {
 
 }
 button:active {
-    background-color: #007bff;
-    border-color: #007bff;
+    /*background-color: #007bff;*/
+    background-color: #333333;
+    /*background-color: #556b2f;*/
+    border-color: #333333;
+}
+/*////*/
+.uitleg-box{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background-color: #4fb3bf;*/
+    /*background-color: darkseagreen;*/
+    /*background-color: #4FB37B;*/
+    background-color: #4CAD98;
+}
+.uitleg-box {
+    text-align: center;
+
+}
+
+.tekst-box h3 {
+    color: #fff;
 }
 
 
-
-/*//*/
 
 
 
