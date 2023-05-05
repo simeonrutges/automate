@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import {Link} from "react-router-dom";
+import  './myMessages.css';
 
 function MyMessages() {
     const {isAuth, logout, isBestuurder, isPassagier, user} = useContext(AuthContext);
@@ -10,7 +11,7 @@ function MyMessages() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        async function fetchMessages () {
+        async function fetchMessages() {
 
             try {
                 const username = isAuth && user.username ? user.username : '';
@@ -31,23 +32,28 @@ function MyMessages() {
     }, []);
 
     return (
-        <div>
-            <h1>Berichten</h1>
-            {error ? (
-                <p>Er is een fout opgetreden bij het ophalen van berichten: {error}</p>
-            ) : (
-                <ul>
-                    {/*{messages.map((message) => (*/}
-                    {/*    <li key={message.id}>{message.text}</li>*/}
-                    {/*))}*/}
-                    {messages.map((message) => (
-                        <li key={message.id}>
-                            {message.type} {message.sentDate}. Voor meer informatie ga naar <Link to="/my-rides">"Mijn ritten"</Link>. afzender: {message.sender.username}
-                        </li>
-                    ))}
+        <div className="outer-content-container">
+            <div className="inner-content-container">
+                <div>
+                    <h1>Berichten</h1>
+                    {error ? (
+                        <p>Er is een fout opgetreden bij het ophalen van berichten: {error}</p>
+                    ) : (
+                        <ul>
+                            {/*{messages.map((message) => (*/}
+                            {/*    <li key={message.id}>{message.text}</li>*/}
+                            {/*))}*/}
+                            {messages.map((message) => (
+                                <li key={message.id}>
+                                    {message.type} {message.sentDate}. Voor meer informatie ga naar <Link
+                                    to="/my-rides">"Mijn ritten"</Link>. afzender: {message.sender.username}
+                                </li>
+                            ))}
 
-                </ul>
-            )}
+                        </ul>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

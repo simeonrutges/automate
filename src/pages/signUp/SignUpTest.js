@@ -82,7 +82,7 @@ function SignUpTest() {
                 </p>
 
                 <form onSubmit={handleSubmit}>
-                    <FormInput id="username" labelText="Username:" inputType="text" value={username}
+                    <FormInput id="username" labelText="Gebruikersnaam:" inputType="text" value={username}
                                onChange={handleUsernameChange}/>
                     <FormInput id="password" labelText="Wachtwoord:" inputType="password" value={password}
                                onChange={handlePasswordChange}/>

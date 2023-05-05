@@ -90,7 +90,7 @@ function SignUpTest() {
                 <form onSubmit={handleSubmit}>
                     <FormInput
                         id="username"
-                        labelText="Username:"
+                        labelText="Gebruikersnaam:"
                         inputType="text"
                         value={username}
                         onChange={handleUsernameChange}
