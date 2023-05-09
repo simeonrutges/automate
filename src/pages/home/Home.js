@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Link, useHistory, useLocation} from 'react-router-dom';
-import Modal from "./../../context/modal/Modal";
 import './home.css';
 import picture from '../../assets/shutterstock_2122349819.jpg';
 import picture_save from '../../assets/money-saving-tips-1622109964.jpg';
@@ -140,8 +139,7 @@ function Home() {
             // Add the current user to the list of users for the ride
             const rideId = result.data.id;
             // const user = isAuth.user;
-            const response = await axios.post(
-                `http://localhost:8080/rides/${rideId}/${username}`
+            const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}`
             );
             // NU DE DELETE AANPASSEN!!!!!
             ////
@@ -270,6 +268,7 @@ function Home() {
 
     return (
         <home className="outer-content-container">
+
             <div className="inner-content-container">
 
                 {/*Waarom heeft de margin 50px? -> App.css */}
@@ -281,16 +280,12 @@ function Home() {
 
 
                     <div className="form-container">
-                        {/*{isAuth ?*/}
                         <div className="form-buttonblock-home">
-                            <button className="form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}"
+                            <button className={`form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}`}
                                 // type="button" onClick={() => setActiveForm('selfDrive')}disabled={!isAuth}>Zelf rijden
-
                                     type="button" onClick={handleSelfDriveClick}>Zelf rijden
-
                             </button>
-
-                            <button className="form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}"
+                            <button className={`form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}`}
                                     type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
                             </button>
                         </div>
@@ -396,59 +391,20 @@ function Home() {
                     </div>
                 </section>
 
-
-                {/*<section>*/}
-                {/*    <p>Kostenbesparing: Bespaar geld en deel je rit met anderen. Carpoolen is de perfecte manier om je*/}
-                {/*        uitgaven voor brandstof te verminderen en de kosten voor het onderhoud van je auto te delen. Als*/}
-                {/*        passagier kun je genieten van een betaalbare en comfortabele manier om te reizen, zonder je*/}
-                {/*        zorgen te maken over de kosten van een eigen auto. Door samen te rijden helpen we elkaar om geld*/}
-                {/*        te besparen en duurzamer te reizen!</p>*/}
-                {/*    <p>Milieuvriendelijkheid: Draag bij aan een beter milieu en verminder je ecologische voetafdruk.*/}
-                {/*        Carpoolen vermindert het aantal auto's op de weg en zorgt voor minder CO2-uitstoot en*/}
-                {/*        luchtverontreiniging.</p>*/}
-
-                {/*    <p>Gezelligheid: Maak nieuwe vrienden en verminder de stress van het rijden. Carpoolen biedt een*/}
-                {/*        geweldige kans om in contact te komen met anderen en je rit aangenamer te maken. Bovendien kan*/}
-                {/*        carpoolen bijdragen aan het verminderen van stress en vermoeidheid, waardoor je ontspannen op je*/}
-                {/*        bestemming aankomt.</p>*/}
-                {/*</section>*/}
-
-                <section id="intro" className="outer-content-container">
+                <section id="how-it-works" className="outer-content-container">
                     <div className="inner-content-container default-area-padding default-text-restrictor">
                         <div className="expl-box">
-                        <h6>Zo werkt het</h6>
-                        <p>
-                            Hallo carpool-liefhebbers! Weet je wat zo geweldig is aan ons platform? Je kunt niet alleen ritten vinden, maar ook ritten plaatsen! Het is super makkelijk: vul je profiel aan met je ritdetails, kies zelf de prijs en het aantal passagiers dat je wilt meenemen. Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem of telefonisch, en samen delen jullie de kosten van de reis.
-                        </p>
-                        <p>
-                            Ben je op zoek naar een lift? Zoek dan gemakkelijk naar beschikbare ritten die bij jouw planning passen. En voordat je boekt, kan je altijd even contact opnemen met de bestuurder via ons messaging systeem of telefoon om vragen te stellen en elkaar beter te leren kennen. Het betalen van de ritkosten regelen jullie onderling, dus geen zorgen daarover.
-                        </p>
-                        <p>
-                            Eenmaal op weg, leun achterover en geniet van de reis! En als alles goed gaat, laat dan niet na om je chauffeur een beoordeling te geven - wie weet geven ze er wel een voor jou terug!
-                        </p>
+                            <h6>Zo werkt het</h6>
+                            <p>
+                                Hallo carpool-liefhebbers! Weet je wat zo geweldig is aan ons platform? Je kunt niet alleen ritten vinden, maar ook ritten plaatsen! Het is super makkelijk: vul je profiel aan met je ritdetails, kies zelf de prijs en het aantal passagiers dat je wilt meenemen. Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem of telefonisch, en samen delen jullie de kosten van de reis.
+                            </p>
+                            <p>
+                                Ben je op zoek naar een lift? Zoek dan gemakkelijk naar beschikbare ritten die bij jouw planning passen. En voordat je boekt, kan je altijd even contact opnemen met de bestuurder via ons messaging systeem of telefoon om vragen te stellen en elkaar beter te leren kennen. Het betalen van de ritkosten regelen jullie onderling, dus geen zorgen daarover.
+                            </p>
+                            <p>
+                                Eenmaal op weg, leun achterover en geniet van de reis! En als alles goed gaat, laat dan niet na om je chauffeur een beoordeling te geven - wie weet geven ze er wel een voor jou terug!
+                            </p>
                         </div>
-                    </div>
-                </section>
-
-
-                <section id="how-it-works" className="uitleg-box">
-                    <div className="tekst-box">
-                        <h3>Zo werkt het</h3>
-                        <p>Hey, carpool-liefhebbers! Wist je dat je niet alleen ritten kunt vinden, maar ook ritten kunt
-                            plaatsen op ons platform? Het enige wat je hoeft te doen is je profiel aanvullen en je
-                            ritdetails invoeren. Je kunt zelf kiezen welke prijs je wilt vragen voor je rit en hoeveel
-                            passagiers je wilt meenemen.
-                            Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem of
-                            door te bellen. Samen delen jullie dan de kosten van de reis.</p>
-                        <p>Als je juist een passagier bent die een lift nodig heeft, zoek dan gemakkelijk naar
-                            beschikbare ritten die bij jouw planning passen. Voordat je boekt, kan je altijd contact
-                            opnemen met de bestuurder via ons messaging systeem of via je telefoon om eventuele vragen
-                            te stellen en om ze beter te leren kennen.
-                            Het betalen van de ritkosten regelen jullie onderling.
-                        </p>
-                        <p>Als je eenmaal op weg bent, kan je ontspannen en genieten van de reis. En als alles goed
-                            gaat, vergeet dan niet om je chauffeur een beoordeling te geven - wie weet geven ze er wel
-                            een voor jou terug!</p>
                     </div>
                 </section>
 

@@ -130,25 +130,6 @@ button:active {
     /*background-color: #556b2f;*/
     border-color: #333333;
 }
-/*////*/
-.uitleg-box{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*background-color: #4fb3bf;*/
-    /*background-color: darkseagreen;*/
-    /*background-color: #4FB37B;*/
-    background-color: #4CAD98;
-}
-.uitleg-box {
-    text-align: center;
-
-}
-
-.tekst-box h3 {
-    color: #fff;
-}
 
 /* --------------- 4.3 Pros --------------------------- */
 
@@ -217,12 +198,12 @@ button:active {
 
 /* --------------- 4.2 Introduction ------------------- */
 
-#intro {
+#how-it-works {
     background-color: #4CAD98;
     color: #FFFFFF;
 }
 
-.intro__link {
+.how-it-works__link {
     color: #0c0c0c;
     font-weight: 500;
     margin-top: 100px;

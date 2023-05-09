@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import {Link} from "react-router-dom";
-import  './myMessages.css';
+import './myMessages.css';
 
 function MyMessages() {
     const {isAuth, logout, isBestuurder, isPassagier, user} = useContext(AuthContext);
@@ -39,18 +39,21 @@ function MyMessages() {
                     {error ? (
                         <p>Er is een fout opgetreden bij het ophalen van berichten: {error}</p>
                     ) : (
-                        <ul>
-                            {/*{messages.map((message) => (*/}
-                            {/*    <li key={message.id}>{message.text}</li>*/}
-                            {/*))}*/}
-                            {messages.map((message) => (
-                                <li key={message.id}>
-                                    {message.type} {message.sentDate}. Voor meer informatie ga naar <Link
-                                    to="/my-rides">"Mijn ritten"</Link>. afzender: {message.sender.username}
-                                </li>
-                            ))}
-
-                        </ul>
+                        messages.length === 0 ? (
+                            <p>Je hebt nog geen berichten ontvangen</p>
+                        ) : (
+                            <ul>
+                                {/*{messages.map((message) => (*/}
+                                {/*    <li key={message.id}>{message.text}</li>*/}
+                                {/*))}*/}
+                                {messages.map((message) => (
+                                    <li key={message.id}>
+                                        {message.type} {message.sentDate}. Voor meer informatie ga naar <Link
+                                        to="/my-rides">"Mijn ritten"</Link>. afzender: {message.sender.username}
+                                    </li>
+                                ))}
+                            </ul>
+                        )
                     )}
                 </div>
             </div>
