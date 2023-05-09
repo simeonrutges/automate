@@ -32,6 +32,12 @@ home {
 /*}*/
 
 
+
+
+
+/*///*/
+
+
 .home img {
     width: 100%;
     height: auto;
@@ -40,7 +46,7 @@ home {
 
 }
 
-.textvlak {
+.header-text {
     position: absolute;
     top: 65%;
     left: 27%;
@@ -71,7 +77,7 @@ home {
 }
 
 
-.blok {
+.form-container {
     position: absolute;
     top: 55%;
     left: 75%;
@@ -228,6 +234,8 @@ button:active {
     border: 5px solid #FFFFFF;
 }
 /*////*/
+
+
 
 
 

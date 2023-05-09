@@ -23,6 +23,7 @@ import RidePageTest from "./pages/RidePage/RidePageTest";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import MyMessages from "./pages/MyMessages/MyMessages";
 import MyRides from "./pages/MyRides/MyRides";
+import HomeTest from "./pages/home/HomeTest";
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
                 <Switch>
 
                     <Route exact path="/">
-                        <Home/>
+                        <HomeTest/>
                     </Route>
 
                     {/*<Route path="/profile">*/}
