@@ -16,7 +16,6 @@
 .bio-form {
     display: flex;
     flex-direction: column;
-    border: solid black 3px;
     /*background-color: transparent ;*/
 }
 

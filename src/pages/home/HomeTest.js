@@ -11,7 +11,7 @@ import axios, {defaults} from "axios";
 import {AuthContext} from "../../context/AuthContext";
 
 
-function Home() {
+function HomeTest() {
     //aanroepen context:
     const {isAuth, logout, isBestuurder, isPassagier, user} = useContext(AuthContext);
     // const watIsDit = useContext(AuthContext);
@@ -140,8 +140,7 @@ function Home() {
             // Add the current user to the list of users for the ride
             const rideId = result.data.id;
             // const user = isAuth.user;
-            const response = await axios.post(
-                `http://localhost:8080/rides/${rideId}/${username}`
+            const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}`
             );
             // NU DE DELETE AANPASSEN!!!!!
             ////
@@ -270,6 +269,7 @@ function Home() {
 
     return (
         <home className="outer-content-container">
+
             <div className="inner-content-container">
 
                 {/*Waarom heeft de margin 50px? -> App.css */}
@@ -281,16 +281,12 @@ function Home() {
 
 
                     <div className="form-container">
-                        {/*{isAuth ?*/}
                         <div className="form-buttonblock-home">
-                            <button className="form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}"
+                            <button className={`form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}`}
                                 // type="button" onClick={() => setActiveForm('selfDrive')}disabled={!isAuth}>Zelf rijden
-
                                     type="button" onClick={handleSelfDriveClick}>Zelf rijden
-
                             </button>
-
-                            <button className="form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}"
+                            <button className={`form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}`}
                                     type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
                             </button>
                         </div>
@@ -416,16 +412,16 @@ function Home() {
                 <section id="intro" className="outer-content-container">
                     <div className="inner-content-container default-area-padding default-text-restrictor">
                         <div className="expl-box">
-                        <h6>Zo werkt het</h6>
-                        <p>
-                            Hallo carpool-liefhebbers! Weet je wat zo geweldig is aan ons platform? Je kunt niet alleen ritten vinden, maar ook ritten plaatsen! Het is super makkelijk: vul je profiel aan met je ritdetails, kies zelf de prijs en het aantal passagiers dat je wilt meenemen. Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem of telefonisch, en samen delen jullie de kosten van de reis.
-                        </p>
-                        <p>
-                            Ben je op zoek naar een lift? Zoek dan gemakkelijk naar beschikbare ritten die bij jouw planning passen. En voordat je boekt, kan je altijd even contact opnemen met de bestuurder via ons messaging systeem of telefoon om vragen te stellen en elkaar beter te leren kennen. Het betalen van de ritkosten regelen jullie onderling, dus geen zorgen daarover.
-                        </p>
-                        <p>
-                            Eenmaal op weg, leun achterover en geniet van de reis! En als alles goed gaat, laat dan niet na om je chauffeur een beoordeling te geven - wie weet geven ze er wel een voor jou terug!
-                        </p>
+                            <h6>Zo werkt het</h6>
+                            <p>
+                                Hallo carpool-liefhebbers! Weet je wat zo geweldig is aan ons platform? Je kunt niet alleen ritten vinden, maar ook ritten plaatsen! Het is super makkelijk: vul je profiel aan met je ritdetails, kies zelf de prijs en het aantal passagiers dat je wilt meenemen. Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem of telefonisch, en samen delen jullie de kosten van de reis.
+                            </p>
+                            <p>
+                                Ben je op zoek naar een lift? Zoek dan gemakkelijk naar beschikbare ritten die bij jouw planning passen. En voordat je boekt, kan je altijd even contact opnemen met de bestuurder via ons messaging systeem of telefoon om vragen te stellen en elkaar beter te leren kennen. Het betalen van de ritkosten regelen jullie onderling, dus geen zorgen daarover.
+                            </p>
+                            <p>
+                                Eenmaal op weg, leun achterover en geniet van de reis! En als alles goed gaat, laat dan niet na om je chauffeur een beoordeling te geven - wie weet geven ze er wel een voor jou terug!
+                            </p>
                         </div>
                     </div>
                 </section>
@@ -466,4 +462,4 @@ function Home() {
 }
 
 
-export default Home;
+export default HomeTest;

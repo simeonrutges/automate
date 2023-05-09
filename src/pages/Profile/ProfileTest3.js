@@ -261,10 +261,30 @@ function Profile() {
         }
     };
 
-    ///
+    /// 8-5 cardata
+    // Maak een nieuwe functie om de autogegevens op te halen
+    async function fetchCarData() {
+        try {
+            const response = await axios.get(`http://localhost:8080/cars/user/${username}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.data) {
+                setCarData(response.data);
+            } else {
+                console.error("Ongeldige response van de server");
+            }
+        } catch (error) {
+            console.error('Error fetching car data:', error);
+        }
+    }
 
-
-
+// Voeg een useEffect hook toe om de autogegevens op te halen bij het laden van de pagina
+    useEffect(() => {
+        fetchCarData();
+    }, [username]);
 
 
 
