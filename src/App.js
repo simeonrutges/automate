@@ -17,6 +17,7 @@ import RidePageTest from "./pages/RidePage/RidePageTest";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import MyMessages from "./pages/MyMessages/MyMessages";
 import MyRides from "./pages/MyRides/MyRides";
+import RideDetails from "./pages/RideDetails/RideDetails";
 
 
 function App() {
@@ -48,6 +49,12 @@ function App() {
                     <Route exact path="/my-rides">
                         <MyRides/>
                     </Route>
+
+                    {/*///*/}
+                    <Route exact path="/my-rides/:rideId">
+                        <RideDetails/>
+                    </Route>
+                    {/*///*/}
 
                     <Route path="/my-messages">
                         <MyMessages/>

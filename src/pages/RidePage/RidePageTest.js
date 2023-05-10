@@ -10,6 +10,7 @@ function RidePage() {
     const [currentData, setCurrentData] = useState("");
 
     const [driverData, setDriverData] = useState({});
+    const [errorMessage, setErrorMessage] = useState(null); // Nieuwe state variabele voor foutmeldingen
 
     const {id} = useParams();
     //useParams geeft alleen welke rit het is
@@ -89,8 +90,14 @@ function RidePage() {
             await axios.post(`http://localhost:8080/rides/${id}/${user.username}`);
             history.push('/confirmation/reservation/success');
         } catch (error) {
-            console.error(error);
-            history.push('/confirmation/reservation/failure');
+            if (error.response && error.response.status === 409) { // Hier vul je de statuscode in die je backend retourneert voor deze specifieke fout
+                // Je kunt hier een specifiek bericht instellen of een variabele instellen die je later kunt gebruiken om de status van je knop te wijzigen
+                // console.error("Deze rit is al geselecteerd door de gebruiker");
+                setErrorMessage("Deze rit is al geselecteerd door de gebruiker"); // Zet de foutmelding in de state
+            } else {
+                console.error(error);
+                history.push('/confirmation/reservation/failure');
+            }
         }
     }
 
@@ -196,6 +203,9 @@ function RidePage() {
                         )}
                     </div>
                     {/*tot hier weghalen*/}
+                    {errorMessage && (
+                        <p>{errorMessage}</p>
+                    )}
 
 
                     <p className="home-page-link">Terug naar de <Link to="/">Homepagina</Link></p>

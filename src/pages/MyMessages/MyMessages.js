@@ -17,6 +17,7 @@ function MyMessages() {
                 const username = isAuth && user.username ? user.username : '';
                 console.log("username: " + username); // is wel nodig volgens mij
 
+
                 // Voeg eventueel authenticatie headers toe als dat nodig is
                 const response = await axios.get(`http://localhost:8080/notifications/user/${username}`);
                 console.log("response.data fetchMessages: ", response.data);
@@ -31,6 +32,8 @@ function MyMessages() {
         fetchMessages();
     }, []);
 
+    console.log(messages);
+
     return (
         <div className="outer-content-container">
             <div className="inner-content-container">
@@ -44,14 +47,19 @@ function MyMessages() {
                         ) : (
                             <ul>
                                 {/*{messages.map((message) => (*/}
-                                {/*    <li key={message.id}>{message.text}</li>*/}
+                                {/*    <li key={message.id}>*/}
+                                {/*        {message.type} {message.sentDate}. Voor meer informatie ga naar <Link*/}
+                                {/*        // to="/my-rides">"Mijn ritten"</Link>. afzender: {message.sender.username}*/}
+                                {/*        to="/my-rides/:rideId">"Mijn ritten"</Link>. afzender: {message.sender.username}*/}
+                                {/*    </li>*/}
                                 {/*))}*/}
                                 {messages.map((message) => (
                                     <li key={message.id}>
                                         {message.type} {message.sentDate}. Voor meer informatie ga naar <Link
-                                        to="/my-rides">"Mijn ritten"</Link>. afzender: {message.sender.username}
+                                        to={`/my-rides/${message.rideId}`}>"Mijn ritten"</Link>. afzender: {message.sender.username}
                                     </li>
                                 ))}
+
                             </ul>
                         )
                     )}

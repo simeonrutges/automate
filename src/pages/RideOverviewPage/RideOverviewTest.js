@@ -63,67 +63,6 @@ function RideOverviewTest({location}) {
         setRideItemClicked(true);
     }
 
-    // return (
-    //     <rides className="outer-content-container">
-    //         <div className="inner-content-container">
-    //             <div className="rides-overview-page">
-    //                 {rides.length === 0 && (
-    //                     <p>
-    //                         Er zijn op deze dag helaas nog geen ritten geplaatst naar jou
-    //                         bestemming. Probeer het op een later tijdstip opnieuw.
-    //                     </p>
-    //                 )}
-    //
-    //
-    //
-    //                  {rides.length > 0 && (
-    //                   <div>
-    //                     {!rideItemClicked && <h2>Kies een rit</h2>}
-    //                     <div className="rides-container">
-    //
-    //                         {rides.map((ride) => {
-    //                             return (
-    //                                 <React.Fragment key={ride.id}>
-    //                                     {rideItemClicked ? (
-    //                                         <Switch>
-    //                                             <Route path="/rides/:id">
-    //                                                 <RidePage/>
-    //                                             </Route>
-    //                                         </Switch>
-    //                                     ) : (
-    //
-    //                                         <Link
-    //                                             to={`/rides/${ride.id}`}
-    //                                             key={ride.id}
-    //                                             className="ride-item"
-    //                                             onClick={() => setRideItemClicked(true)}
-    //                                         >
-    //                                             <h2>{ride.pickUpLocation} - {ride.destination}</h2>
-    //                                             <p>Datum:{new Date(ride.departureDateTime).toLocaleDateString()}</p>
-    //                                             <p>Vertrek
-    //                                                 tijd: {new Date(ride.departureDateTime).toLocaleTimeString([], {
-    //                                                     hour: '2-digit',
-    //                                                     minute: '2-digit',
-    //                                                     hour12: false
-    //                                                 })}</p>
-    //                                             <p>Aankomst tijd: {ride.eta}</p>
-    //                                             <p>Prijs per persoon: {ride.pricePerPerson} euro</p>
-    //                                             <p>Totaal prijs: {ride.totalRitPrice} euro</p>
-    //                                             <p>Aantal personen: {ride.pax}</p>
-    //                                         </Link>
-    //
-    //                                     )}
-    //                                 </React.Fragment>
-    //                             );
-    //                         })}
-    //                     </div>
-    //                   </div>
-    //                 )}
-    //             </div>
-    //         </div>
-    //     </rides>
-    // );
-
     return (
         <rides className="outer-content-container">
             <div className="inner-content-container">
