@@ -231,6 +231,7 @@ import {AuthContext} from "../../context/AuthContext";
 import {useHistory} from "react-router-dom";
 import axios from "axios";
 import './profile.css';
+import standard_profile_img from '../../assets/sustainability.jpg';
 
 
 import FileUploadForm from './FileUploadForm';
@@ -531,18 +532,21 @@ function Profile() {
 
                             {/*{profileData.fileName && <img src={profileData.fileName.url} alt={profileData.username}/>}*/}
 
-
                             {uploadedImage ? (
                                 <div className="file-upload-container">
                                     <img src={uploadedImage} alt="Profielfoto" className="image-upload" />
                                     <button onClick={handleDelete}>Verwijder</button>
                                 </div>
                             ) : (
-                                //
-                                <FileUploadForm username={username} setToggle={setToggle} toggle={toggle}/>
-
+                                <div className="file-upload-container">
+                                    <FileUploadForm
+                                        username={username}
+                                        setToggle={setToggle}
+                                        toggle={toggle}
+                                        standardImg={standard_profile_img}
+                                    />
+                                </div>
                             )}
-
 
                             <h4>{user.username}</h4>
                         </section>
@@ -634,10 +638,7 @@ function Profile() {
                             </div>
                         )}
                     </section>
-
-
                     )}
-
 
                 </div>
             </div>
