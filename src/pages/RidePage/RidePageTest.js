@@ -84,6 +84,7 @@ function RidePage() {
 
     ///// test hierboven is sowieso  goed!
     const history = useHistory();
+
     async function handleSelectRitClick() {
         console.log("username: " + user.username);
         try {
@@ -111,16 +112,33 @@ function RidePage() {
             history.push('/confirmation/rideRemoved/failure');
         }
     }
+
 /////
 
     console.log(driverData.username);
+
+    ////
+    async function handleCancelRitAlsPassagierClick() {
+        try {
+            await axios.delete(`http://localhost:8080/rides/${rideData.id}/users/${user.username}`);
+            const response = await axios.get(`http://localhost:8080/rides/${rideData.id}`);
+            if (response.status === 200) {
+                setRideData(response.data);
+            }
+            history.push('/confirmation/reservationRemoved/success');
+        } catch (error) {
+            console.error("Er is iets fout gegaan bij het annuleren van de rit: ", error);
+            history.push('/confirmation/reservationRemoved/failure');
+        }
+    }
+
 
     return (
         <ride className="outer-content-container">
             <div className="inner-content-container">
 
                 <div className="product-page">
-                    <h1>Reis details {id}</h1>
+                    <h1>RidePageTestttt {id}</h1>
 
 
                     {Object.keys(rideData).length > 0 &&
@@ -151,9 +169,6 @@ function RidePage() {
                             </span>
                                 </div>
 
-                                {/*{bestuurderUsername && (*/}
-                                {/*    <p>De gebruikersnaam van de bestuurder is: {bestuurderUsername}</p>*/}
-                                {/*)}*/}
 
                                 <p>* Verwachte aankomst tijd</p>
 
@@ -187,37 +202,84 @@ function RidePage() {
                                 <p>Aantal beschikbare plekken:{rideData.availableSpots}</p>
                                 <p>Route: {rideData.route}</p>
                                 <p>Reis omschrijving: {rideData.addRideInfo}</p>
-                                {/*<p>{rideData.automaticAcceptance}</p>*/}
+
+
+
+                                {user && rideData.driverUsername === user.username && (
+                                    <div className="driver-profile-box">
+                                        {/*{driverData.fileName && (*/}
+                                        {/*    <Link to={`/profile/${driverData.username}`}>*/}
+                                        {/*        <img*/}
+                                        {/*            src={`data:image/jpeg;base64,${driverData.docFile}`}*/}
+                                        {/*            alt="Profielfoto van de bestuurder"*/}
+                                        {/*            className="driver-profile-picture"*/}
+                                        {/*        />*/}
+                                        {/*    </Link>*/}
+                                        {/*)}*/}
+                                        {/*<Link to={`/profile/${driverData.username}`}>*/}
+                                        {/*    <p>{driverData.username}</p>*/}
+                                        {/*</Link>*/}
+
+                                        <p>Passagiers:</p>
+
+                                        {rideData.users && rideData.users
+                                            .filter(passenger => passenger.username !== driverData.username)
+                                            .map((passenger) => (
+                                                <div key={passenger.username} className="passenger-profile-box">
+                                                    <Link to={`/profile/${passenger.username}`}>
+                                                        <img
+                                                            src={`data:image/jpeg;base64,${passenger.docFile}`}
+                                                            alt="Profielfoto van passagier"
+                                                            className="driver-profile-picture"
+                                                        />
+                                                        <p>{passenger.username}</p>
+                                                    </Link>
+                                                </div>
+                                            ))}
+                                    </div>
+                                )}
+
+
+
+
+
                             </section>
                         </div>
                     }
 
                     <div className="buttons">
 
+
                         {user && rideData.driverUsername === user.username && (
                             <button onClick={handleAnnuleerRitClick} id="annuleer-rit-btn">Annuleer rit</button>
                         )}
 
-                        {user && rideData.driverUsername !== user.username && (
+                        {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
+                            <button onClick={handleCancelRitAlsPassagierClick} id="cancel-rit-als-passagier-btn">Cancel
+                                rit als passagier</button>
+                        )}
+                        {user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (
                             <button onClick={handleSelectRitClick} id="selecteer-rit-btn">Selecteer Rit!</button>
                         )}
+
+
+                        {/*{user && rideData.driverUsername !== user.username && (*/}
+                        {/*    <button onClick={handleSelectRitClick} id="selecteer-rit-btn">Selecteer Rit!</button>*/}
+                        {/*)}*/}
+
+
                     </div>
-                    {/*tot hier weghalen*/}
+
                     {errorMessage && (
                         <p>{errorMessage}</p>
                     )}
 
-
                     <p className="home-page-link">Terug naar de <Link to="/">Homepagina</Link></p>
 
                 </div>
-
             </div>
         </ride>
-
-
     )
 }
-
 
 export default RidePage;
