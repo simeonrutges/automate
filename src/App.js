@@ -32,11 +32,23 @@ function App() {
                         <Home/>
                     </Route>
 
-                    <Route path="/profile">
+                    {/*11/5exact erbij*/}
+                    <Route exact path="/profile">
                         <PrivateRoute auth={isAuth}>
                             <Profile/>
                         </PrivateRoute>
                     </Route>
+
+                    //////// test 11/5. morgen misschien aparte pag maken
+
+                    <Route exact path="/profile/:username">
+                        <PrivateRoute auth={isAuth}>
+                            <Profile/>
+                        </PrivateRoute>
+                    </Route>
+
+                    //////
+
 
                     <Route exact path="/signin">
                         <SignIn/>
