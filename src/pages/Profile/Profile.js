@@ -270,7 +270,7 @@ function Profile() {
                                         standardImg={standard_profile_img}
                                     />
                                         )}
-                                    {user.user !== username && (
+                                    {user.username !== username && (
                                         <img src={standard_profile_img} alt="Standaard profielfoto" className="image-upload"/>
                                     )}
                                 </div>

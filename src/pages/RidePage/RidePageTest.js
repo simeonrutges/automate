@@ -206,17 +206,46 @@ function RidePage() {
                                 <p>Aantal beschikbare plekken:{rideData.availableSpots}</p>
                                 <p>Route: {rideData.route}</p>
                                 <p>Reis omschrijving: {rideData.addRideInfo}</p>
-                                {user && rideData.driverUsername === user.username && (
+
+
+                                {/*{user && rideData.driverUsername === user.username && (*/}
+                                {/*    <div className="driver-profile-box">*/}
+                                {/*        <p>Passagiers:</p>*/}
+                                {/*        {rideData.users && rideData.users*/}
+                                {/*            .filter(passenger => passenger.username !== driverData.username)*/}
+                                {/*            .map((passenger) => (*/}
+
+                                {/*                <div key={passenger.username} className="passenger-profile-box">*/}
+                                {/*                    <Link to={`/profile/${passenger.username}`}>*/}
+
+                                {/*                        {passengerImages[passenger.username] ? (*/}
+                                {/*                            <img*/}
+                                {/*                                src={passengerImages[passenger.username]} // Gebruik hier de URL van de opgehaalde afbeelding*/}
+                                {/*                                alt="Profielfoto van de passagier"*/}
+                                {/*                                className="driver-profile-picture"*/}
+                                {/*                            />*/}
+                                {/*                        ) : (*/}
+                                {/*                            <img*/}
+                                {/*                                src={standard_profile_img}*/}
+                                {/*                                alt="Standaard profielfoto van de bestuurder"*/}
+                                {/*                                className="driver-profile-picture"*/}
+                                {/*                            />*/}
+                                {/*                        )}*/}
+                                {/*                        <p>{passenger.username}</p>*/}
+                                {/*                    </Link>*/}
+                                {/*                </div>*/}
+                                {/*            ))}*/}
+                                {/*    </div>*/}
+                                {/*)}*/}
+
+                                {user && rideData.driverUsername === user.username && rideData.users && rideData.users.filter(passenger => passenger.username !== driverData.username).length > 0 && (
                                     <div className="driver-profile-box">
                                         <p>Passagiers:</p>
-
-                                        {rideData.users && rideData.users
+                                        {rideData.users
                                             .filter(passenger => passenger.username !== driverData.username)
                                             .map((passenger) => (
-
                                                 <div key={passenger.username} className="passenger-profile-box">
                                                     <Link to={`/profile/${passenger.username}`}>
-
                                                         {passengerImages[passenger.username] ? (
                                                             <img
                                                                 src={passengerImages[passenger.username]} // Gebruik hier de URL van de opgehaalde afbeelding
@@ -236,6 +265,7 @@ function RidePage() {
                                             ))}
                                     </div>
                                 )}
+
 
                             </section>
                         </div>
