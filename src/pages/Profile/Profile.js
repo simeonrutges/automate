@@ -5,10 +5,12 @@ import axios from "axios";
 import './profile.css';
 import standard_profile_img from '../../assets/sustainability.jpg';
 import FileUploadForm from './FileUploadForm';
+import CustomButton from "../../components/Button/CustomButton";
 
 function Profile() {
     const { username: viewedUsername } = useParams();
     console.log("viewedUsername = " + viewedUsername);
+    const history = useHistory();
 
 
     const [profileData, setProfileData] = useState({});
@@ -239,6 +241,14 @@ function Profile() {
         fetchCarData();
     }, [username]);
 
+    // button
+    const handleSendMessage = () => {
+        // Navigeer naar de nieuwe pagina (bijv. '/nieuw-bericht') wanneer er op de knop wordt geklikt
+        history.push(`/my-messages/${username}`);
+    };
+
+
+
     return (
         <div className="outer-content-container">
             <div className="inner-content-container">
@@ -291,6 +301,14 @@ function Profile() {
                             <p>Achternaam: {profileData.lastname}</p>
                             <p>Telefoon:{profileData.phoneNumber}</p>
                             <p>Email: {profileData.email}</p>
+
+
+
+                            {user.username !== username && (
+                                <button onClick={handleSendMessage}>Stuur {profileData.firstname} een bericht</button>
+                            )}
+
+
 
                             {profileData.bio ? (
                                 <div>
