@@ -10,29 +10,67 @@ function MyMessages() {
     const [messages, setMessages] = useState([]);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        async function fetchMessages() {
+    // useEffect(() => {
+    //     async function fetchMessages() {
+    //
+    //         try {
+    //             const username = isAuth && user.username ? user.username : '';
+    //             console.log("username: " + username); // is wel nodig volgens mij
+    //
+    //
+    //             // Voeg eventueel authenticatie headers toe als dat nodig is
+    //             const response = await axios.get(`http://localhost:8080/notifications/user/${username}`);
+    //             console.log("response.data fetchMessages: ", response.data);
+    //             setMessages(response.data);
+    //
+    //
+    //         } catch (e) {
+    //             setError(e.message);
+    //         }
+    //     };
+    //
+    //     fetchMessages();
+    // }, []);
+    //
+    // // user berichten:
+    // useEffect(() => {
+    //     const fetchMessages = async () => {
+    //         try {
+    //             const username = isAuth && user.username ? user.username : '';
+    //             const response = await axios.get(`http://localhost:8080/notifications/user/${username}`);
+    //             setMessages(response.data);
+    //         } catch (e) {
+    //             setError(e.message);
+    //         }
+    //     };
+    //
+    //     fetchMessages();
+    //     const interval = setInterval(fetchMessages, 5000); // Fetch messages every 5 seconds
+    //
+    //     return () => clearInterval(interval); // Clean up the interval on unmount
+    // }, []);
 
+    useEffect(() => {
+        const fetchMessages = async () => {
             try {
                 const username = isAuth && user.username ? user.username : '';
-                console.log("username: " + username); // is wel nodig volgens mij
-
-
-                // Voeg eventueel authenticatie headers toe als dat nodig is
                 const response = await axios.get(`http://localhost:8080/notifications/user/${username}`);
-                console.log("response.data fetchMessages: ", response.data);
                 setMessages(response.data);
-
-
             } catch (e) {
                 setError(e.message);
             }
         };
 
         fetchMessages();
+        const interval = setInterval(fetchMessages, 5000); // Fetch messages every 5 seconds
+
+        return () => clearInterval(interval); // Clean up the interval on unmount
     }, []);
 
-    console.log(messages);
+
+    //formatted date:
+
+
 
     return (
         <div className="outer-content-container">
@@ -48,18 +86,49 @@ function MyMessages() {
                             <ul>
                                 {/*{messages.map((message) => (*/}
                                 {/*    <li key={message.id}>*/}
-                                {/*        {message.type} {message.sentDate}. Voor meer informatie ga naar <Link*/}
-                                {/*        // to="/my-rides">"Mijn ritten"</Link>. afzender: {message.sender.username}*/}
-                                {/*        to="/my-rides/:rideId">"Mijn ritten"</Link>. afzender: {message.sender.username}*/}
+                                {/*        <Link*/}
+                                {/*            to={*/}
+                                {/*                !message.read && message.sender.username === 'System'*/}
+                                {/*                    ? `/my-rides/${message.rideId}`*/}
+                                {/*                    : `/my-messages/${message.sender.username}`*/}
+                                {/*            }*/}
+                                {/*        >*/}
+                                {/*            {message.type} van {message.sender.username} {message.sentDate}*/}
+                                {/*        </Link>*/}
                                 {/*    </li>*/}
                                 {/*))}*/}
-                                {messages.map((message) => (
-                                    <li key={message.id}>
-                                        {message.type} {message.sentDate}. Voor meer informatie ga naar <Link
-                                        to={`/my-rides/${message.rideId}`}>"Mijn ritten"</Link>. afzender: {message.sender.username}
-                                    </li>
-                                ))}
 
+                                {messages.map((message) => {
+                                    const sentDate = new Date(message.sentDate);
+                                    const formattedDate = `${sentDate.getDate().toString().padStart(2, '0')}-${(
+                                        sentDate.getMonth() + 1
+                                    )
+                                        .toString()
+                                        .padStart(2, '0')}-${sentDate.getFullYear().toString().slice(-2)}`;
+                                    const formattedTime = `${sentDate.getHours().toString().padStart(2, '0')}:${sentDate
+                                        .getMinutes()
+                                        .toString()
+                                        .padStart(2, '0')}`;
+
+                                    return (
+                                        <li key={message.id}>
+                                            <Link
+                                                to={
+                                                    !message.read && message.sender.username === 'System'
+                                                        ? `/my-rides/${message.rideId}`
+                                                        : `/my-messages/${message.sender.username}`
+
+                                                    // : `/my-messages/${messages.id}`
+
+
+                                                            // : `/my-messages/${message.id}` // Gebruik hier de juiste ID-eigenschap
+                                                }
+                                            >
+                                                {message.type} van {message.sender.username} {formattedDate} {formattedTime}
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         )
                     )}
