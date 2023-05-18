@@ -5,6 +5,18 @@
     background-color: #FAD57F;
 }
 
+/*.container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    background-color: #FAD57F;*/
+/*    width: 100%; !* De container neemt nu de volledige breedte van het scherm *!*/
+/*    max-width: 800px; !* Maar wordt niet breder dan 800px *!*/
+/*    min-width: 300px; !* En is ten minste 300px breed *!*/
+/*    margin: 0 auto; !* Centreert de container *!*/
+/*}*/
+
+
 .title {
     margin-top: 20px;
     font-size: 24px;
@@ -47,20 +59,53 @@
     margin-left: 10px;
 }
 
+/*.new-content-container{*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: flex-start;*/
+/*    margin-top: 20px;*/
+/*}*/
+
+.new-content-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+}
+
+.new-content-container .content {
+    align-items: flex-start;
+}
+
+/*////*/
+
 .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
 }
 
+.new-content-container form {
+    max-width: none; /* Of welke waarde je ook wilt instellen */
+    padding: 0 200px;
+}
+
+
 .label {
     margin-bottom: 5px;
 }
 
 .input,
+/*.textarea {*/
+/*    padding: 5px;*/
+/*}*/
 .textarea {
     padding: 5px;
+    width: 100%; /* Maak het tekstgebied breder */
+    /*height: 100px; !* Maak het tekstgebied hoger *!*/
 }
+
 
 .button {
     padding: 5px 10px;
@@ -74,4 +119,12 @@
     color: red;
     margin-top: 10px;
 }
+
+/*datum/tijd: */
+.message-item .message-timestamp {
+    margin-top: 5px;
+    font-size: 0.8em;
+    color: grey;
+}
+
 
