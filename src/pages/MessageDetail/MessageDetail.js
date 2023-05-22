@@ -1,95 +1,3 @@
-//
-// import React, { useContext, useState } from 'react';
-// import axios from 'axios';
-// import { useParams } from 'react-router-dom';
-// import { AuthContext } from '../../context/AuthContext';
-// import './messageDetail.css';
-//
-// function MessageForm() {
-//     const [message, setMessage] = useState('');
-//     const [error, setError] = useState(false);
-//
-//     const { username } = useParams();
-//
-//     const { user } = useContext(AuthContext);
-//     const loggedInUsername = user ? user.username : '';
-//
-//     const toggleError = (value) => {
-//         setError(value);
-//     };
-//
-//     async function handleSubmit(e) {
-//         e.preventDefault();
-//         toggleError(false);
-//
-//         const messageData = {
-//             receiverUsername: username,
-//             senderUsername: loggedInUsername,
-//             text: message,
-//         };
-//
-//         try {
-//             const response = await axios.post('/messages', messageData);
-//
-//             console.log('Bericht succesvol verzonden:', response.data);
-//         } catch (error) {
-//             console.error('Error:', error);
-//             toggleError(true);
-//         }
-//     }
-//
-//     return (
-//         <div className="container">
-//             <h3>{username}</h3>
-//             {/*<div className="form-group">*/}
-//             {/*    <label className="label" htmlFor="username">Ontvanger:</label>*/}
-//             {/*    <input*/}
-//             {/*        className="input"*/}
-//             {/*        type="text"*/}
-//             {/*        id="username"*/}
-//             {/*        value={username}*/}
-//             {/*        disabled*/}
-//             {/*    />*/}
-//             {/*</div>*/}
-//             <div className="message-container">
-//                 <div className="message-item">
-//                     <div className="sender-name">{loggedInUsername}</div>
-//                     <div className="sender-message">Dit is een bericht van de ingelogde gebruiker.</div>
-//                 </div>
-//                 <div className="message-item">
-//                     <div className="sender-name">{username}</div>
-//                     <div className="receiver-message">Dit is een antwoord van de ontvanger.</div>
-//                 </div>
-//                 <div className="message-item">
-//                     <div className="sender-message">Nog een bericht van de ingelogde gebruiker.</div>
-//                 </div>
-//                 <div className="message-item">
-//                     <div className="receiver-message">Nog een antwoord van de ontvanger.</div>
-//                 </div>
-//                 {/* Add more message items as needed */}
-//             </div>
-//             <div className="form-group">
-//                 <label className="label" htmlFor="message">Bericht:</label>
-//                 <textarea
-//                     className="textarea"
-//                     id="message"
-//                     value={message}
-//                     onChange={(e) => setMessage(e.target.value)}
-//                 />
-//             </div>
-//             <button className="button" type="submit">Verstuur</button>
-//             {error && <p className="error">Er is een fout opget
-//                 reden bij het verzenden van het bericht.</p>}
-//         </div>
-//     );
-//
-// }
-//
-// export default MessageForm;
-
-
-
-
 import React, {useContext, useState, useEffect} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
@@ -114,7 +22,7 @@ function MessageDetails() {
             const response = await axios.get(`http://localhost:8080/messages/${loggedInUsername}/${username}`);
             const messages = response.data;
             console.log(messages);
-            console.log("messages id: " );
+            console.log("messages id: ");
             setMessages(messages);
         } catch (error) {
             console.error('Error fetching messages:', error);
@@ -122,27 +30,10 @@ function MessageDetails() {
         }
     }
 
-    // async function fetchMessages() {
-    //     try {
-    //
-    //         const response = await axios.get(`http://localhost:8080/messages/${messages.id}`);
-    //         const messages = response.data;
-    //         setMessages(messages);
-    //     } catch (error) {
-    //         console.error('Error fetching messages:', error);
-    //         console.log("messages id: " + messages.id);
-    //     }
-    // }
-
-
-
-
-
     useEffect(() => {
         // Haal bij het mounten van de component de bestaande berichten op
         fetchMessages();
 
-        // Stel een interval in om periodiek de berichten op te halen
         const interval = setInterval(fetchMessages, 5000); // Elke 5 seconden
 
         // Cleanup-functie om het interval te stoppen bij het unmounten van de component
@@ -183,57 +74,97 @@ function MessageDetails() {
             <div className="inner-content-container">
 
 
+                <div className="container">
 
-            <div className="container">
+                    <h3>{username}</h3>
 
-                <h3>{username}</h3>
+                    <div className="message-container">
 
-                <div className="message-container">
-                    <p>messages:...</p>
-                    {/*{messages.map((msg) => (*/}
-                    {/*    <div className="message-item" key={msg.id}>*/}
-                    {/*        <div className="sender-name">{msg.sender}</div>*/}
-                    {/*        <div className="message-text">{msg.content}</div>*/}
+                        {/*{messages.map((msg) => (*/}
+                        {/*    <div*/}
+                        {/*        className={`message-item ${msg.senderUsername === loggedInUsername ? 'sender-message' : 'receiver-message'}`}*/}
+                        {/*        key={msg.id}*/}
+                        {/*    >*/}
+                        {/*        <div className="sender-name">{msg.senderUsername}</div>*/}
+                        {/*        <div className="message-text">{msg.content}</div>*/}
+                        {/*    </div>*/}
+                        {/*))}*/}
+
+                        {/*{messages.map((msg) => (*/}
+                        {/*    <div*/}
+                        {/*        className={`message-item ${msg.senderUsername === loggedInUsername ? 'sender-message' : 'receiver-message'}`}*/}
+                        {/*        key={msg.id}*/}
+                        {/*    >*/}
+                        {/*        <div className="sender-name">{msg.senderUsername}</div>*/}
+                        {/*        <div className="message-text">{msg.content}</div>*/}
+                        {/*        <div className="message-timestamp">{new Date(msg.timestamp).toLocaleString()}</div>*/}
+                        {/*    </div>*/}
+                        {/*))}*/}
+
+                        {messages.map((msg) => {
+                            const messageDate = new Date(msg.timestamp);
+                            const formattedDate = messageDate.toLocaleDateString();
+                            const formattedTime = messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // toon alleen uren en minuten
+
+                            return (
+                                <div
+                                    className={`message-item ${msg.senderUsername === loggedInUsername ? 'sender-message' : 'receiver-message'}`}
+                                    key={msg.id}
+                                >
+                                    <div className="sender-name">{msg.senderUsername}</div>
+                                    <div className="message-text">{msg.content}</div>
+                                    <div className="message-timestamp">{`${formattedTime} ${formattedDate}`}</div>
+                                </div>
+                            );
+                        })}
+
+
+
+                    </div>
+
+
+                    {/*<div className="new-content-container">*/}
+                    {/*<form onSubmit={handleSubmit}>*/}
+                    {/*    <div className="form-group">*/}
+                    {/*        <label className="label" htmlFor="message">Bericht:</label>*/}
+                    {/*        <textarea*/}
+                    {/*            className="textarea"*/}
+                    {/*            id="message"*/}
+                    {/*            value={message}*/}
+                    {/*            onChange={(e) => setMessage(e.target.value)}*/}
+                    {/*        />*/}
                     {/*    </div>*/}
-                    {/*))}*/}
+                    {/*    <button className="button" type="submit">Verstuur</button>*/}
+                    {/*    {error && <p className="error">Er is een fout opgetreden bij het verzenden van het bericht.</p>}*/}
+                    {/*</form>*/}
+                    {/*</div>*/}
 
-                    {messages.map((msg) => (
-                        <div
-                            className={`message-item ${msg.senderUsername === loggedInUsername ? 'sender-message' : 'receiver-message'}`}
-                            key={msg.id}
-                        >
-                            <div className="sender-name">{msg.senderUsername}</div>
-                            <div className="message-text">{msg.content}</div>
+                    <div className="new-content-container">
+                        <div className="content">
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-group">
+                                    <label className="label" htmlFor="message">Bericht:</label>
+                                    <textarea
+                                        className="textarea"
+                                        id="message"
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                    />
+                                </div>
+                                <button className="button" type="submit">Verstuur</button>
+                                {error && <p className="error">Er is een fout opgetreden bij het verzenden van het bericht.</p>}
+                            </form>
                         </div>
-                    ))}
+                    </div>
 
 
 
                 </div>
 
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label className="label" htmlFor="message">Bericht:</label>
-                        <textarea
-                            className="textarea"
-                            id="message"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                        />
-                    </div>
-                    <button className="button" type="submit">Verstuur</button>
-                    {error && <p className="error">Er is een fout opgetreden bij het verzenden van het bericht.</p>}
-                </form>
-
             </div>
-
-
-
-
-            </div>
-</messagedetail>
-)
-    ;
+        </messagedetail>
+    )
+        ;
 }
 
 export default MessageDetails;

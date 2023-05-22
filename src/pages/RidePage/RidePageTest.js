@@ -75,6 +75,37 @@ function RidePage() {
 
     console.log(driverData.username);
 
+    // async function handleAnnuleerRitClick() {
+    //     console.log("idddd: " + id);
+    //     try {
+    //         await axios.delete(`http://localhost:8080/rides/${id}`);
+    //
+    //         // Stuur een notificatie naar elke passagier
+    //         for (const passenger of rideData.users) {
+    //             if (passenger.username !== driverData.username) {
+    //                 // Voorkom dat er een notificatie wordt gestuurd naar de bestuurder van de rit
+    //                 await axios.post(`http://localhost:8080/notifications`, {
+    //                     sender: user.username, // De huidige ingelogde gebruiker is de zender
+    //                     receiver: passenger.username, // De passagier is de ontvanger
+    //                     type: 'RIDE_CANCELLED_BY_DRIVER',
+    //                     sentDate: new Date(),
+    //                     isRead: false,
+    //                     rideId: id,
+    //                 });
+    //             }
+    //         }
+    //
+    //         history.push('/confirmation/rideRemoved/success');
+    //     } catch (error) {
+    //         console.error(error);
+    //         history.push('/confirmation/rideRemoved/failure');
+    //     }
+    // }
+
+    ////////////// hierboven is een test 18-05 nog verder afmaken!!!
+
+
+
     async function handleCancelRitAlsPassagierClick() {
         try {
             await axios.delete(`http://localhost:8080/rides/${rideData.id}/users/${user.username}`);
