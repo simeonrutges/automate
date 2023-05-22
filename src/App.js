@@ -33,22 +33,17 @@ function App() {
                         <Home/>
                     </Route>
 
-                    {/*11/5exact erbij*/}
                     <Route exact path="/profile">
                         <PrivateRoute auth={isAuth}>
                             <Profile/>
                         </PrivateRoute>
                     </Route>
 
-                    //////// test 11/5. morgen misschien aparte pag maken
-
                     <Route exact path="/profile/:username">
                         <PrivateRoute auth={isAuth}>
                             <Profile/>
                         </PrivateRoute>
                     </Route>
-
-                    //////
 
 
                     <Route exact path="/signin">
@@ -81,16 +76,26 @@ function App() {
                         <RidePageTest/>
                     </Route>
 
+                    {/*<Route path="/confirmation/:type/:success" component={Confirmation}/>*/}
+                    <Route path="/confirmation/:type/:success">
+                        <Confirmation />
+                    </Route>
 
-                    <Route path="/confirmation/:type/:success" component={Confirmation}/>
 
+
+
+                    {/*<Route path="/rides">*/}
+                    {/*    <RidesOverview/>*/}
+                    {/*</Route>*/}
+                    <Route path="/rides" render={(props) => <RidesOverview {...props} />}/>
+
+                    {/*<Route path="/rides" render={(props) => <RideOverviewTest {...props} />}/>*/}
 
                     {/*<Route path="/rides" >*/}
-                    {/*  <RidesOverview />*/}
+                    {/*    <RideOverviewTest/>}/>*/}
                     {/*</Route>*/}
 
-                    {/*<Route path="/rides" render={(props) => <RidesOverview {...props} />} />*/}
-                    <Route path="/rides" render={(props) => <RideOverviewTest {...props} />}/>
+
                 </Switch>
             </div>
             <Footer/>
