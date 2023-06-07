@@ -575,18 +575,20 @@ function Home() {
                 driverUsername: username
 
             });
-            console.log(result);
+            console.log("POST-ride:  ", result);
+            // console.log("POST-ride: " + JSON.stringify(result));
 
             ///// test koppeling
             // Add the current user to the list of users for the ride
             const rideId = result.data.id;
             // const user = isAuth.user;
-            const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}`
+            console.log(rideId, username )
+            const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`
             );
             // NU DE DELETE AANPASSEN!!!!!
             ////
 
-
+            console.log("response post/rides/rideId/username: ", response);
             // controle browsertijd:
             const dateTime = new Date();
             const dateTimeString = dateTime.toString();
@@ -630,6 +632,7 @@ function Home() {
         // }
 
         try {
+            console.log("dep.date : ", departureDate);
 
             const result = await axios.get('http://localhost:8080/rides', {
                 params: {
@@ -639,7 +642,7 @@ function Home() {
                     departureDate: departureDate,
                 }
             });
-            console.log(result);
+            console.log("ride GET result.data : ", result.data);
 
             // if everything went well, redirect to the ride-page
             // history.push('/rides');

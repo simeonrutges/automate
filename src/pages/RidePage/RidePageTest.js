@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Link, useHistory, useParams} from "react-router-dom";
+import {Link, useHistory, useLocation, useParams} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 import axios from "axios";
 import './ridePage.css';
@@ -17,17 +17,26 @@ function RidePage() {
     //useParams geeft alleen welke rit het is
     const {rideId} = useParams();
 
+
     let datum = [];
 
     const [uploadedImage, setUploadedImage] = useState(null);
     const [passengerImages, setPassengerImages] = useState({});
-
+// 6-6
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const pax = queryParams.get('pax');
+    console.log("pax: ", rideData.pax);
+//
     useEffect(() => {
         async function fetchData() {
             try {
+                console.log("(useParams) id : ", id)
                 const rideResponse = await axios.get(`http://localhost:8080/rides/${id}`);
+                console.log("riderespondse.data : ", rideResponse.data);
                 setRideData(rideResponse.data);
                 datum = rideResponse.data.departureDateTime.split("T");
+                console.log(datum);
                 setCurrentData(datum[1]);
 
                 if (rideResponse.data.driverUsername) {
@@ -47,8 +56,10 @@ function RidePage() {
 
     async function handleSelectRitClick() {
         console.log("username: " + user.username);
+        console.log("pax : ", pax);
         try {
-            await axios.post(`http://localhost:8080/rides/${id}/${user.username}`);
+            //moet nog PAX bij! vuia Useparams?
+            await axios.post(`http://localhost:8080/rides/${id}/${user.username}/${pax}`);
             history.push('/confirmation/reservation/success');
         } catch (error) {
             if (error.response && error.response.status === 409) { // Hier vul je de statuscode in die je backend retourneert voor deze specifieke fout
@@ -103,8 +114,6 @@ function RidePage() {
     // }
 
     ////////////// hierboven is een test 18-05 nog verder afmaken!!!
-
-
 
     async function handleCancelRitAlsPassagierClick() {
         try {
@@ -171,7 +180,7 @@ function RidePage() {
             <div className="inner-content-container">
 
                 <div className="product-page">
-                    <h1>RidePageTestttt {id}</h1>
+                    <h1>RidePageTest.js {id}</h1>
 
                     {Object.keys(rideData).length > 0 &&
                         <div>
@@ -196,8 +205,18 @@ function RidePage() {
                                         style: 'currency',
                                         currency: 'EUR'
                                     })}</p>
-                                <p>Aantal personen: {rideData.pax}</p>
+
+                                        {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
+                                            <div>
+                                            <p>Mijn gereserveerde plekken: evt</p>
+                                            <p>Totaal prijs: {rideData.totalRitPrice}</p>
+                                            </div>)}
+
+                                        {user && rideData.driverUsername === user.username && (
+                                <div>
+                                    <p>Aantal reserveringen: {rideData.pax}</p>
                                 <p>Totaal prijs: {rideData.totalRitPrice}</p>
+                                </div>)}
                             </span>
                                 </div>
                                 <p>* Verwachte aankomst tijd</p>
@@ -234,40 +253,15 @@ function RidePage() {
                                 })}</p>
                                 <p>Bestemming: {rideData.destination}</p>
                                 <p>{rideData.eta}*</p>
-                                <p>Aantal beschikbare plekken:{rideData.availableSpots}</p>
+                                {/*<p>Aantal beschikbare plekken:{rideData.availableSpots}</p>*/}
+
+
+                                {user && rideData.driverUsername === user.username && (
+
+                                        <p>Vrij stoelen: {rideData.availableSpots}</p>
+                                    )}
                                 <p>Route: {rideData.route}</p>
                                 <p>Reis omschrijving: {rideData.addRideInfo}</p>
-
-
-                                {/*{user && rideData.driverUsername === user.username && (*/}
-                                {/*    <div className="driver-profile-box">*/}
-                                {/*        <p>Passagiers:</p>*/}
-                                {/*        {rideData.users && rideData.users*/}
-                                {/*            .filter(passenger => passenger.username !== driverData.username)*/}
-                                {/*            .map((passenger) => (*/}
-
-                                {/*                <div key={passenger.username} className="passenger-profile-box">*/}
-                                {/*                    <Link to={`/profile/${passenger.username}`}>*/}
-
-                                {/*                        {passengerImages[passenger.username] ? (*/}
-                                {/*                            <img*/}
-                                {/*                                src={passengerImages[passenger.username]} // Gebruik hier de URL van de opgehaalde afbeelding*/}
-                                {/*                                alt="Profielfoto van de passagier"*/}
-                                {/*                                className="driver-profile-picture"*/}
-                                {/*                            />*/}
-                                {/*                        ) : (*/}
-                                {/*                            <img*/}
-                                {/*                                src={standard_profile_img}*/}
-                                {/*                                alt="Standaard profielfoto van de bestuurder"*/}
-                                {/*                                className="driver-profile-picture"*/}
-                                {/*                            />*/}
-                                {/*                        )}*/}
-                                {/*                        <p>{passenger.username}</p>*/}
-                                {/*                    </Link>*/}
-                                {/*                </div>*/}
-                                {/*            ))}*/}
-                                {/*    </div>*/}
-                                {/*)}*/}
 
                                 {user && rideData.driverUsername === user.username && rideData.users && rideData.users.filter(passenger => passenger.username !== driverData.username).length > 0 && (
                                     <div className="driver-profile-box">
