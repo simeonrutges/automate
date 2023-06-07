@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Link, useHistory, useParams} from "react-router-dom";
+import {Link, useHistory, useLocation, useParams} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 import axios from "axios";
 import './ridePage.css';
@@ -17,17 +17,26 @@ function RidePage() {
     //useParams geeft alleen welke rit het is
     const {rideId} = useParams();
 
+
     let datum = [];
 
     const [uploadedImage, setUploadedImage] = useState(null);
     const [passengerImages, setPassengerImages] = useState({});
-
+// 6-6
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const pax = queryParams.get('pax');
+    console.log("pax: ", pax);
+//
     useEffect(() => {
         async function fetchData() {
             try {
+                console.log("(useParams) id : ", id)
                 const rideResponse = await axios.get(`http://localhost:8080/rides/${id}`);
+                console.log("riderespondse.data : ", rideResponse.data);
                 setRideData(rideResponse.data);
                 datum = rideResponse.data.departureDateTime.split("T");
+                console.log(datum);
                 setCurrentData(datum[1]);
 
                 if (rideResponse.data.driverUsername) {
@@ -47,8 +56,10 @@ function RidePage() {
 
     async function handleSelectRitClick() {
         console.log("username: " + user.username);
+        console.log("pax : ", pax);
         try {
-            await axios.post(`http://localhost:8080/rides/${id}/${user.username}`);
+            //moet nog PAX bij! vuia Useparams?
+            await axios.post(`http://localhost:8080/rides/${id}/${user.username}/${pax}`);
             history.push('/confirmation/reservation/success');
         } catch (error) {
             if (error.response && error.response.status === 409) { // Hier vul je de statuscode in die je backend retourneert voor deze specifieke fout
@@ -171,7 +182,7 @@ function RidePage() {
             <div className="inner-content-container">
 
                 <div className="product-page">
-                    <h1>RidePageTestttt {id}</h1>
+                    <h1>RidePageTest.js {id}</h1>
 
                     {Object.keys(rideData).length > 0 &&
                         <div>

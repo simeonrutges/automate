@@ -15,7 +15,7 @@ function MyRides() {
     async function fetchRides() {
         try {
             const username = isAuth && user.username ? user.username : '';
-            console.log("username: " + username);
+            console.log("username: " , username);
 
             const response = await axios.get(`http://localhost:8080/users/${username}/rides`);
             setRides(response.data);
