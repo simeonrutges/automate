@@ -69,7 +69,8 @@ function MyRides() {
                                                 <p>Aankomst tijd: {ride.eta}</p>
                                                 <p>Prijs per persoon: {ride.pricePerPerson} euro</p>
                                                 <p>Totaal prijs: {ride.totalRitPrice} euro</p>
-                                                <p>Aantal personen: {ride.pax}</p>
+                                                <p>Aantal vrije stoelen: {ride.availableSpots}</p>
+                                                <p>Gereserveerde stoelen: {ride.pax}</p>
                                                 {user.username !== ride.driverUsername ? (
                                                     <div>
                                                         <p>Ik ben passagier!</p>

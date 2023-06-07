@@ -26,7 +26,7 @@ function RidePage() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const pax = queryParams.get('pax');
-    console.log("pax: ", pax);
+    console.log("pax: ", rideData.pax);
 //
     useEffect(() => {
         async function fetchData() {
@@ -114,8 +114,6 @@ function RidePage() {
     // }
 
     ////////////// hierboven is een test 18-05 nog verder afmaken!!!
-
-
 
     async function handleCancelRitAlsPassagierClick() {
         try {
@@ -207,8 +205,18 @@ function RidePage() {
                                         style: 'currency',
                                         currency: 'EUR'
                                     })}</p>
-                                <p>Aantal personen: {rideData.pax}</p>
+
+                                        {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
+                                            <div>
+                                            <p>Mijn gereserveerde plekken: evt</p>
+                                            <p>Totaal prijs: {rideData.totalRitPrice}</p>
+                                            </div>)}
+
+                                        {user && rideData.driverUsername === user.username && (
+                                <div>
+                                    <p>Aantal reserveringen: {rideData.pax}</p>
                                 <p>Totaal prijs: {rideData.totalRitPrice}</p>
+                                </div>)}
                             </span>
                                 </div>
                                 <p>* Verwachte aankomst tijd</p>
@@ -245,40 +253,15 @@ function RidePage() {
                                 })}</p>
                                 <p>Bestemming: {rideData.destination}</p>
                                 <p>{rideData.eta}*</p>
-                                <p>Aantal beschikbare plekken:{rideData.availableSpots}</p>
+                                {/*<p>Aantal beschikbare plekken:{rideData.availableSpots}</p>*/}
+
+
+                                {user && rideData.driverUsername === user.username && (
+
+                                        <p>Vrij stoelen: {rideData.availableSpots}</p>
+                                    )}
                                 <p>Route: {rideData.route}</p>
                                 <p>Reis omschrijving: {rideData.addRideInfo}</p>
-
-
-                                {/*{user && rideData.driverUsername === user.username && (*/}
-                                {/*    <div className="driver-profile-box">*/}
-                                {/*        <p>Passagiers:</p>*/}
-                                {/*        {rideData.users && rideData.users*/}
-                                {/*            .filter(passenger => passenger.username !== driverData.username)*/}
-                                {/*            .map((passenger) => (*/}
-
-                                {/*                <div key={passenger.username} className="passenger-profile-box">*/}
-                                {/*                    <Link to={`/profile/${passenger.username}`}>*/}
-
-                                {/*                        {passengerImages[passenger.username] ? (*/}
-                                {/*                            <img*/}
-                                {/*                                src={passengerImages[passenger.username]} // Gebruik hier de URL van de opgehaalde afbeelding*/}
-                                {/*                                alt="Profielfoto van de passagier"*/}
-                                {/*                                className="driver-profile-picture"*/}
-                                {/*                            />*/}
-                                {/*                        ) : (*/}
-                                {/*                            <img*/}
-                                {/*                                src={standard_profile_img}*/}
-                                {/*                                alt="Standaard profielfoto van de bestuurder"*/}
-                                {/*                                className="driver-profile-picture"*/}
-                                {/*                            />*/}
-                                {/*                        )}*/}
-                                {/*                        <p>{passenger.username}</p>*/}
-                                {/*                    </Link>*/}
-                                {/*                </div>*/}
-                                {/*            ))}*/}
-                                {/*    </div>*/}
-                                {/*)}*/}
 
                                 {user && rideData.driverUsername === user.username && rideData.users && rideData.users.filter(passenger => passenger.username !== driverData.username).length > 0 && (
                                     <div className="driver-profile-box">

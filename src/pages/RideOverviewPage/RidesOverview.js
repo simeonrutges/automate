@@ -382,8 +382,9 @@ function RidesOverview({ location }) {
                                                     })}</p>
                                                     <p>Aankomst tijd: {ride.eta}</p>
                                                     <p>Prijs per persoon: {ride.pricePerPerson} euro</p>
-                                                    <p>Totaal prijs: {ride.totalRitPrice} euro</p>
-                                                    <p>Aantal personen: {ride.pax}</p>
+                                                    {/*<p>Totaal prijs: {ride.totalRitPrice} euro</p>*/}
+                                                    <p>Beschikbare stoelen: {ride.availableSpots}</p>
+                                                    <p>Gereserveerde stoelen: {ride.pax}</p>
                                                 </Link>
                                             )}
                                         </React.Fragment>
