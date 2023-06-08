@@ -67,15 +67,29 @@ function MyRides() {
                                                         hour12: false
                                                     })}</p>
                                                 <p>Aankomst tijd: {ride.eta}</p>
-                                                <p>Prijs per persoon: {ride.pricePerPerson} euro</p>
-                                                <p>Totaal prijs: {ride.totalRitPrice} euro</p>
-                                                <p>Aantal vrije stoelen: {ride.availableSpots}</p>
+                                                {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
+                                                {/*<p>Totaal prijs: {ride.totalRitPrice} euro</p>*/}
+                                                <p>Prijs per persoon: {ride.pricePerPerson && ride.pricePerPerson.toLocaleString('nl-NL', {
+                                                    style: 'currency',
+                                                    currency: 'EUR'
+                                                })}</p>
+
+
+                                                <p>Totaal prijs: {ride.totalRitPrice && ride.totalRitPrice.toLocaleString('nl-NL', {
+                                                    style: 'currency',
+                                                    currency: 'EUR'
+                                                })}</p>
+
+                                                ////
+                                                {user.username === ride.driverUsername && (
+                                                <p>Aantal vrije stoelen: {ride.availableSpots}</p>)}
+/////
                                                 <p>Gereserveerde stoelen: {ride.pax}</p>
                                                 {user.username !== ride.driverUsername ? (
-                                                    <div>
+                                                    // <div>
                                                         <p>Ik ben passagier!</p>
-                                                        <p>Stuur {ride.driverUsername} een bericht!</p>
-                                                    </div>
+                                                    //     <p>Stuur {ride.driverUsername} een bericht!</p>
+                                                    // </div>
                                                 ) : (
                                                     <p>Ik rij!</p>
                                                 )}
