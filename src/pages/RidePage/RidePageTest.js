@@ -281,10 +281,11 @@ function RidePage() {
                                 <div>
                                     <p>Aantal passagiers: {rideData.pax}</p>
                                 {/*<p>Totaal prijs: {rideData.totalRitPrice}</p>*/}
-                                    <p>Rit opbrengst: {rideData.totalRitPrice && rideData.totalRitPrice.toLocaleString('nl-NL', {
+                                    <p>Rit opbrengst: {rideData.totalRitPrice > 0 ? rideData.totalRitPrice.toLocaleString('nl-NL', {
                                         style: 'currency',
                                         currency: 'EUR'
-                                    })}</p>
+                                    }) : '€0.00'}</p>
+
 
                                 </div>)}
                             </span>
