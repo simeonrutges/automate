@@ -67,15 +67,48 @@ function MyRides() {
                                                         hour12: false
                                                     })}</p>
                                                 <p>Aankomst tijd: {ride.eta}</p>
-                                                <p>Prijs per persoon: {ride.pricePerPerson} euro</p>
-                                                <p>Totaal prijs: {ride.totalRitPrice} euro</p>
-                                                <p>Aantal vrije stoelen: {ride.availableSpots}</p>
+                                                {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
+                                                {/*<p>Totaal prijs: {ride.totalRitPrice} euro</p>*/}
+                                                <p>Prijs per persoon: {ride.pricePerPerson && ride.pricePerPerson.toLocaleString('nl-NL', {
+                                                    style: 'currency',
+                                                    currency: 'EUR'
+                                                })}</p>
+
+                                                {/*{user.username === ride.driverUsername && (*/}
+                                                {/*<p>Totaal prijs: {ride.totalRitPrice && ride.totalRitPrice.toLocaleString('nl-NL', {*/}
+                                                {/*    style: 'currency',*/}
+                                                {/*    currency: 'EUR'*/}
+                                                {/*})}</p>)}*/}
+                                                {user.username === ride.driverUsername && (
+                                                    <p>Totaal prijs: {ride.totalRitPrice > 0 ? ride.totalRitPrice.toLocaleString('nl-NL', {
+                                                        style: 'currency',
+                                                        currency: 'EUR'
+                                                    }) : "€0.00"}</p>
+                                                )}
+
+
+                                                {/*Deze nog werkend maken*/}
+                                                {/*{user && ride.driverUsername !== user.username && ride.users && ride.users.find(u => u.username === user.username) &&(*/}
+                                                {/*<p>Totaal prijs: {ride.pricePerPerson * (ride.reservedSpotsByUser[user.username] || 0)} </p>*/}
+                                                {/*    )}*/}
+
+                                                {/*Deze nog werkend maken*/}
+                                                {/*{user && ride.driverUsername !== user.username && ride.users && ride.users.find(u => u.username === user.username) &&(*/}
+                                                {/*<p>Gereserveerde stoelen: .... || 0)} </p>*/}
+                                                {/*    )}*/}
+
+                                                ////
+                                                {user.username === ride.driverUsername && (
+                                                <p>Aantal vrije stoelen: {ride.availableSpots}</p>)}
+/////
+                                                {user.username === ride.driverUsername && (
                                                 <p>Gereserveerde stoelen: {ride.pax}</p>
+                                                )}
                                                 {user.username !== ride.driverUsername ? (
-                                                    <div>
+                                                    // <div>
                                                         <p>Ik ben passagier!</p>
-                                                        <p>Stuur {ride.driverUsername} een bericht!</p>
-                                                    </div>
+                                                    //     <p>Stuur {ride.driverUsername} een bericht!</p>
+                                                    // </div>
                                                 ) : (
                                                     <p>Ik rij!</p>
                                                 )}

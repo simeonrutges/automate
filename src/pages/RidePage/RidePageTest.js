@@ -11,6 +11,9 @@ function RidePage() {
     const [currentData, setCurrentData] = useState("");
 
     const [driverData, setDriverData] = useState({});
+    const [reservationInfo, setReservationInfo] = useState(null);
+
+
     const [errorMessage, setErrorMessage] = useState(null);
 
     const {id} = useParams();
@@ -175,6 +178,34 @@ function RidePage() {
         fetchAllPassengerImages();
     }, [rideData.users, driverData.username]);
 
+
+    useEffect(() => {
+        async function fetchReservationInfo() {
+            try {
+                console.log(user.username);
+                console.log("rideId: ", id)
+                const response = await axios.get(`http://localhost:8080/rides/${id}/users/${user.username}/reservationInfo`);
+
+                // Verwerk of stel de ontvangen gegevens in de staat van uw component
+                console.log(response.data);
+                setReservationInfo(response.data);
+            } catch (error) {
+                console.error('Er is een fout opgetreden:', error);
+            }
+        }
+
+        fetchReservationInfo();
+    }, [rideId, user.username]);
+
+    // Nu kun je de reservationInfo overal in deze component gebruiken.
+    // Zorg er wel voor dat je controleert of het nog null is voordat je het gebruikt,
+    // omdat het asynchroon wordt ingesteld.
+    if (reservationInfo) {
+        console.log(reservationInfo.totalPrice);
+        console.log(reservationInfo.reservedSpots);
+    }
+
+
     return (
         <ride className="outer-content-container">
             <div className="inner-content-container">
@@ -206,16 +237,56 @@ function RidePage() {
                                         currency: 'EUR'
                                     })}</p>
 
+                                        {/*//*/}
+                                        {/*test hier in de avond!!!*/}
+                                        {user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) &&(
+                                            <div>
+                                            <p>hier komt de rest van de info VOOR de pass geboekt heeft</p>
+                                                <p>aantal personen: {pax}</p>
+                                                {/*<p>totaal prijs: {rideData.pricePerPerson * pax}</p>*/}
+                                                <p>
+                                                    Totaal prijs: {(rideData.pricePerPerson * pax).toLocaleString('nl-NL', {
+                                                    style: 'currency',
+                                                    currency: 'EUR'
+                                                })}
+                                                </p>
+
+                                            </div>
+                                        )}
+                                        {/*//*/}
+
+
+                                        {/*{user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (*/}
+                                        {/*    <div>*/}
+                                        {/*    <p>Gereserveerde stoelen: {reservationInfo.reservedSpots} </p>*/}
+                                        {/*    /!*<p>Totaal prijs: {reservationInfo.totalPrice}</p>*!/*/}
+                                        {/*        <p>Totaal prijs: {(reservationInfo?.totalPrice).toLocaleString('nl-NL', {*/}
+                                        {/*            style: 'currency',*/}
+                                        {/*            currency: 'EUR'*/}
+                                        {/*        })}</p>*/}
+
+                                        {/*    </div>)}*/}
                                         {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
                                             <div>
-                                            <p>Mijn gereserveerde plekken: evt</p>
-                                            <p>Totaal prijs: {rideData.totalRitPrice}</p>
-                                            </div>)}
+                                                <p>Gereserveerde stoelen: {reservationInfo?.reservedSpots} </p>
+                                                <p>Totaal prijs: {reservationInfo?.totalPrice && reservationInfo.totalPrice.toLocaleString('nl-NL', {
+                                                    style: 'currency',
+                                                    currency: 'EUR'
+                                                })}</p>
+                                            </div>
+                                        )}
+
 
                                         {user && rideData.driverUsername === user.username && (
                                 <div>
-                                    <p>Aantal reserveringen: {rideData.pax}</p>
-                                <p>Totaal prijs: {rideData.totalRitPrice}</p>
+                                    <p>Aantal passagiers: {rideData.pax}</p>
+                                {/*<p>Totaal prijs: {rideData.totalRitPrice}</p>*/}
+                                    <p>Rit opbrengst: {rideData.totalRitPrice > 0 ? rideData.totalRitPrice.toLocaleString('nl-NL', {
+                                        style: 'currency',
+                                        currency: 'EUR'
+                                    }) : '€0.00'}</p>
+
+
                                 </div>)}
                             </span>
                                 </div>
