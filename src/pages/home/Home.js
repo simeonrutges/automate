@@ -12,11 +12,7 @@ import {AuthContext} from "../../context/AuthContext";
 
 
 function Home() {
-    //aanroepen context:
     const {isAuth, logout, isBestuurder, isPassagier, user} = useContext(AuthContext);
-    // const watIsDit = useContext(AuthContext);
-    // console.log(watIsDit);
-
 
     // voor het switchen van de forms
     const [activeForm, setActiveForm] = useState('rideAlong'); // 'rideAlong' of 'selfDrive'
@@ -35,13 +31,9 @@ function Home() {
     const [availableSpots, setAvailableSpots] = useState('');
     const [eta, setEta] = useState('');
 
-    // const [submitDisabled, setSubmitDisabled] = useState(true); // << hier wordt de state-variabele gedefinieerd en standaard ingesteld op true
-    // const [fieldsFilled, setFieldsFilled] = useState(false);
-
-
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    // Voeg een nieuwe state toe om de error message bij te houden
+
     const [dateTimeError, setDateTimeError] = useState(null);
     const [etaError, setEtaError] = useState("");
     const [departureDateError, setDepartureDateError] = useState("");
@@ -86,10 +78,17 @@ function Home() {
         setDepartureDate(e.target.value);
     };
 
+    const padZero = (num) => {
+        return num.toString().padStart(2, '0');
+    }
+
+    const handleEtaChange = (e) => {
+        setEta(e.target.value);
+    };
+
     const setDepartureDateTime = (dateTimeString) => {
         // Parse the datetime string into a Date object
         const dateTime = new Date(dateTimeString);
-
 
         // Get the timezone offset for the user's timezone in minutes
         const timeZoneOffset = dateTime.getTimezoneOffset();
@@ -103,86 +102,8 @@ function Home() {
         const formattedDateTime = `${currentDateTime.getFullYear()}-${padZero(currentDateTime.getMonth() + 1)}-${padZero(currentDateTime.getDate())}T${padZero(currentDateTime.getHours())}:${padZero(currentDateTime.getMinutes())}`;
         console.log(formattedDateTime);
 
-
         setDepartureDateTime(formattedDateTime);
     }
-
-
-    const padZero = (num) => {
-        return num.toString().padStart(2, '0');
-    }
-
-    const handleEtaChange = (e) => {
-        setEta(e.target.value);
-    };
-
-    // async function handleSubmitSelfDrive(e) {
-    //     e.preventDefault();
-    //     toggleError(false);
-    //     toggleLoading(true);
-    //
-    //     if (pricePerPerson < 3.00) {
-    //         setPricePerPersonError("De prijs per persoon moet minimaal 3,00 euro zijn.");
-    //         return;
-    //     } else {
-    //         setPricePerPersonError("");
-    //     }
-    //
-    //     if (availableSpots < 1 || availableSpots > 5) {
-    //         setAvailableSpotsError("Het aantal beschikbare plaatsen moet tussen 1 en 5 zijn.");
-    //         return;
-    //     } else {
-    //         setAvailableSpotsError("");
-    //     }
-    //
-    //     try {
-    //         const username = isAuth && user.username ? user.username : '';
-    //
-    //         const result = await axios.post('http://localhost:8080/rides', {
-    //             pickUpLocation: pickUpLocation,
-    //             destination: destination,
-    //             route: route,
-    //             addRideInfo: addRideInfo,
-    //             // departureTime: departureTime,
-    //             // departureDate: departureDate,
-    //             departureDateTime: departureDateTime,
-    //             pricePerPerson: pricePerPerson,
-    //             availableSpots: availableSpots,
-    //             eta: eta,
-    //
-    //             driverUsername: username
-    //
-    //         });
-    //         console.log("POST-ride:  ", result);
-    //         // console.log("POST-ride: " + JSON.stringify(result));
-    //
-    //         ///// test koppeling
-    //         // Add the current user to the list of users for the ride
-    //         const rideId = result.data.id;
-    //         // const user = isAuth.user;
-    //         console.log(rideId, username )
-    //         const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`
-    //         );
-    //         // NU DE DELETE AANPASSEN!!!!!
-    //         ////
-    //
-    //         console.log("response post/rides/rideId/username: ", response);
-    //         // controle browsertijd:
-    //         const dateTime = new Date();
-    //         const dateTimeString = dateTime.toString();
-    //         console.log(`De huidige datum en tijd zijn: ${dateTimeString}.`);
-    //
-    //         const id = result.data.id;
-    //
-    //         // if everything went well, redirect to the ride-page
-    //         // history.push('/ride/:id');
-    //         history.push(`/ride/${id}`);
-    //     } catch (e) {
-    //         console.error(e);
-    //         toggleError(true);
-    //     }
-    //     toggleLoading(false);
-    // }
 
     async function handleSubmitSelfDrive(e) {
         e.preventDefault();
@@ -205,7 +126,6 @@ function Home() {
 
         // Maak een nieuw Date object voor de huidige tijd
         const now = new Date();
-
         // Maak een nieuw Date object voor de ingevoerde tijd
         const enteredDateTime = new Date(departureDateTime);
 
@@ -223,7 +143,6 @@ function Home() {
         const [etaHours, etaMinutes] = eta.split(':').map(Number);
         const enteredHours = enteredDateTime.getHours();
         const enteredMinutes = enteredDateTime.getMinutes();
-
 // Controleer of de ETA na de vertrektijd ligt
         if (etaHours < enteredHours || (etaHours === enteredHours && etaMinutes <= enteredMinutes)) {
             setEtaError("De geschatte aankomsttijd is ongeldig. Zorg ervoor dat het later is dan de vertrektijd.");
@@ -275,7 +194,6 @@ function Home() {
 
     //RideAlong-form
     const [pax, setPax] = useState('');
-    // const { currentUser } = useAuth(); // haal de huidige gebruiker op uit de AuthContext
 
     const handleSubmitRideAlong = async (e) => {
         e.preventDefault();
@@ -314,10 +232,8 @@ function Home() {
             });
             console.log("ride GET result.data : ", result.data);
 
-            // if everything went well, redirect to the ride-page
-            // history.push('/rides');
             history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDate}`);
-            // history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDateOnly}`);
+
         } catch (e) {
             console.error(e.response.data);
             toggleError(true);
@@ -358,7 +274,6 @@ function Home() {
         }
     }, [location]);
 
-
     return (
         <home className="outer-content-container">
 
@@ -375,7 +290,6 @@ function Home() {
                     <div className="form-container">
                         <div className="form-buttonblock-home">
                             <button className={`form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}`}
-                                // type="button" onClick={() => setActiveForm('selfDrive')}disabled={!isAuth}>Zelf rijden
                                     type="button" onClick={handleSelfDriveClick}>Zelf rijden
                             </button>
                             <button className={`form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}`}
@@ -401,13 +315,11 @@ function Home() {
                                                value={departureDate} onChange={handleDepartureDateChange} required/>
                                     {dateTimeError && <div className="error">{dateTimeError}</div>}
 
-                                    {/*<FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" value={pricePerPerson} onChange={handlePricePerPersonChange} />*/}
                                     <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="3"
                                                step="0.01" value={pricePerPerson} onChange={handlePricePerPersonChange}
                                                required/>
                                     {pricePerPersonError && <div className="error">{pricePerPersonError}</div>}
 
-                                    {/*<FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number" value={availableSpots} onChange={handleAvailableSpotsChange} />*/}
                                     <FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number"
                                                min="1" max="5" step="1" value={availableSpots}
                                                onChange={handleAvailableSpotsChange} required/>
@@ -535,6 +447,5 @@ function Home() {
         </home>
     );
 }
-
 
 export default Home;
