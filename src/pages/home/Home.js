@@ -9,6 +9,8 @@ import FormInput from "../../components/formInput/FormInput";
 import axios, {defaults} from "axios";
 import {AuthContext} from "../../context/AuthContext";
 
+
+
 function Home() {
     //aanroepen context:
     const {isAuth, logout, isBestuurder, isPassagier, user} = useContext(AuthContext);
@@ -39,6 +41,10 @@ function Home() {
 
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
+    // Voeg een nieuwe state toe om de error message bij te houden
+    const [dateTimeError, setDateTimeError] = useState(null);
+    const [etaError, setEtaError] = useState("");
+    const [departureDateError, setDepartureDateError] = useState("");
 
     const history = useHistory();
 
@@ -110,6 +116,74 @@ function Home() {
         setEta(e.target.value);
     };
 
+    // async function handleSubmitSelfDrive(e) {
+    //     e.preventDefault();
+    //     toggleError(false);
+    //     toggleLoading(true);
+    //
+    //     if (pricePerPerson < 3.00) {
+    //         setPricePerPersonError("De prijs per persoon moet minimaal 3,00 euro zijn.");
+    //         return;
+    //     } else {
+    //         setPricePerPersonError("");
+    //     }
+    //
+    //     if (availableSpots < 1 || availableSpots > 5) {
+    //         setAvailableSpotsError("Het aantal beschikbare plaatsen moet tussen 1 en 5 zijn.");
+    //         return;
+    //     } else {
+    //         setAvailableSpotsError("");
+    //     }
+    //
+    //     try {
+    //         const username = isAuth && user.username ? user.username : '';
+    //
+    //         const result = await axios.post('http://localhost:8080/rides', {
+    //             pickUpLocation: pickUpLocation,
+    //             destination: destination,
+    //             route: route,
+    //             addRideInfo: addRideInfo,
+    //             // departureTime: departureTime,
+    //             // departureDate: departureDate,
+    //             departureDateTime: departureDateTime,
+    //             pricePerPerson: pricePerPerson,
+    //             availableSpots: availableSpots,
+    //             eta: eta,
+    //
+    //             driverUsername: username
+    //
+    //         });
+    //         console.log("POST-ride:  ", result);
+    //         // console.log("POST-ride: " + JSON.stringify(result));
+    //
+    //         ///// test koppeling
+    //         // Add the current user to the list of users for the ride
+    //         const rideId = result.data.id;
+    //         // const user = isAuth.user;
+    //         console.log(rideId, username )
+    //         const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`
+    //         );
+    //         // NU DE DELETE AANPASSEN!!!!!
+    //         ////
+    //
+    //         console.log("response post/rides/rideId/username: ", response);
+    //         // controle browsertijd:
+    //         const dateTime = new Date();
+    //         const dateTimeString = dateTime.toString();
+    //         console.log(`De huidige datum en tijd zijn: ${dateTimeString}.`);
+    //
+    //         const id = result.data.id;
+    //
+    //         // if everything went well, redirect to the ride-page
+    //         // history.push('/ride/:id');
+    //         history.push(`/ride/${id}`);
+    //     } catch (e) {
+    //         console.error(e);
+    //         toggleError(true);
+    //     }
+    //     toggleLoading(false);
+    // }
+
     async function handleSubmitSelfDrive(e) {
         e.preventDefault();
         toggleError(false);
@@ -129,6 +203,35 @@ function Home() {
             setAvailableSpotsError("");
         }
 
+        // Maak een nieuw Date object voor de huidige tijd
+        const now = new Date();
+
+        // Maak een nieuw Date object voor de ingevoerde tijd
+        const enteredDateTime = new Date(departureDateTime);
+
+        // Controleer of de ingevoerde tijd in de toekomst ligt
+        if (enteredDateTime <= now) {
+            // Update de error message als de tijd niet in de toekomst ligt
+            setDateTimeError("De gekozen vertrektijd ligt in het verleden. Selecteer een vertrektijd in de toekomst.");
+            return;
+        } else {
+            // Vergeet niet om de error message te resetten als de tijd correct is
+            setDateTimeError("");
+        }
+
+//         // ETA error. Haal de uren en minuten uit de eta
+        const [etaHours, etaMinutes] = eta.split(':').map(Number);
+        const enteredHours = enteredDateTime.getHours();
+        const enteredMinutes = enteredDateTime.getMinutes();
+
+// Controleer of de ETA na de vertrektijd ligt
+        if (etaHours < enteredHours || (etaHours === enteredHours && etaMinutes <= enteredMinutes)) {
+            setEtaError("De geschatte aankomsttijd is ongeldig. Zorg ervoor dat het later is dan de vertrektijd.");
+            return;
+        } else {
+            setEtaError("");
+        }
+
         try {
             const username = isAuth && user.username ? user.username : '';
 
@@ -137,46 +240,38 @@ function Home() {
                 destination: destination,
                 route: route,
                 addRideInfo: addRideInfo,
-                // departureTime: departureTime,
-                // departureDate: departureDate,
                 departureDateTime: departureDateTime,
                 pricePerPerson: pricePerPerson,
                 availableSpots: availableSpots,
                 eta: eta,
-
                 driverUsername: username
-
             });
-            console.log("POST-ride:  ", result);
-            // console.log("POST-ride: " + JSON.stringify(result));
 
-            ///// test koppeling
+            console.log("POST-ride:  ", result);
+
             // Add the current user to the list of users for the ride
             const rideId = result.data.id;
-            // const user = isAuth.user;
-            console.log(rideId, username )
-            const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`
-            );
-            // NU DE DELETE AANPASSEN!!!!!
-            ////
+            console.log(rideId, username)
+            const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`);
+            // klopt: pax = 0 bij bestuurder
 
             console.log("response post/rides/rideId/username: ", response);
-            // controle browsertijd:
-            const dateTime = new Date();
-            const dateTimeString = dateTime.toString();
-            console.log(`De huidige datum en tijd zijn: ${dateTimeString}.`);
 
             const id = result.data.id;
 
             // if everything went well, redirect to the ride-page
-            // history.push('/ride/:id');
             history.push(`/ride/${id}`);
         } catch (e) {
             console.error(e);
+            if (e.response && e.response.data) {
+                console.error('Server response:', e.response.data);
+                // Hier kan je ook de server response tonen in de gebruikersinterface, als je wilt
+            }
             toggleError(true);
         }
         toggleLoading(false);
     }
+
 
     //RideAlong-form
     const [pax, setPax] = useState('');
@@ -190,6 +285,20 @@ function Home() {
         if (pax < 1 || pax > 5) {
             alert("Het aantal reizigers moet tussen 1 en 5 liggen.");
             return;
+        }
+        // Maak een nieuw Date object voor de huidige tijd (zonder tijdstempel)
+        const nowDate = new Date();
+        nowDate.setHours(0, 0, 0, 0);  // Zet de tijd op 00:00:00
+
+        // Maak een nieuw Date object voor de gekozen reisdatum
+        const chosenDate = new Date(departureDate);
+
+        // Controleer of de gekozen reisdatum in het verleden ligt
+        if (chosenDate < nowDate) {
+            setDepartureDateError("De gekozen reisdatum ligt in het verleden. Selecteer een reisdatum die vandaag of in de toekomst ligt.");
+            return;
+        } else {
+            setDepartureDateError("");
         }
 
         try {
@@ -290,6 +399,7 @@ function Home() {
                                                value={departureTime} onChange={handleDepartureTimeChange} required/>
                                     <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
                                                value={departureDate} onChange={handleDepartureDateChange} required/>
+                                    {dateTimeError && <div className="error">{dateTimeError}</div>}
 
                                     {/*<FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" value={pricePerPerson} onChange={handlePricePerPersonChange} />*/}
                                     <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="3"
@@ -304,6 +414,7 @@ function Home() {
                                     {availableSpotsError && <div className="error">{availableSpotsError}</div>}
                                     <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
                                                onChange={handleEtaChange} required/>
+                                    {etaError && <div className="error">{etaError}</div>}
 
 
                                     <button type="submit">Plaats rit</button>
@@ -328,6 +439,7 @@ function Home() {
 
                                     <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
                                                value={departureDate} onChange={e => setDepartureDate(e.target.value)} required/>
+                                    {departureDateError && <div className="error">{departureDateError}</div>}
 
                                     <button type="submit">Zoeken</button>
                                 </form>
