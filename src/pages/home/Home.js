@@ -6,13 +6,13 @@ import picture_save from '../../assets/money-saving-tips-1622109964.jpg';
 import img_environmental_sustainability from '../../assets/sustainability.jpg';
 import img_conviviality from '../../assets/conviviality.jpg';
 import FormInput from "../../components/formInput/FormInput";
-import axios, {defaults} from "axios";
+import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 
 
 
 function Home() {
-    const {isAuth, logout, isBestuurder, isPassagier, user} = useContext(AuthContext);
+    const {isAuth, isBestuurder, isPassagier, user} = useContext(AuthContext);
 
     // voor het switchen van de forms
     const [activeForm, setActiveForm] = useState('rideAlong'); // 'rideAlong' of 'selfDrive'
@@ -135,11 +135,10 @@ function Home() {
             setDateTimeError("De gekozen vertrektijd ligt in het verleden. Selecteer een vertrektijd in de toekomst.");
             return;
         } else {
-            // Vergeet niet om de error message te resetten als de tijd correct is
             setDateTimeError("");
         }
 
-//         // ETA error. Haal de uren en minuten uit de eta
+         // ETA error. Haal de uren en minuten uit de eta
         const [etaHours, etaMinutes] = eta.split(':').map(Number);
         const enteredHours = enteredDateTime.getHours();
         const enteredMinutes = enteredDateTime.getMinutes();
@@ -165,7 +164,6 @@ function Home() {
                 eta: eta,
                 driverUsername: username
             });
-
             console.log("POST-ride:  ", result);
 
             // Add the current user to the list of users for the ride
@@ -173,12 +171,10 @@ function Home() {
             console.log(rideId, username)
             const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`);
             // klopt: pax = 0 bij bestuurder
-
-            console.log("response post/rides/rideId/username: ", response);
+            console.log("response: ",response);
 
             const id = result.data.id;
 
-            // if everything went well, redirect to the ride-page
             history.push(`/ride/${id}`);
         } catch (e) {
             console.error(e);
@@ -307,8 +303,6 @@ function Home() {
                                                onChange={handleRouteChange}/>
                                     <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
                                                value={addRideInfo} onChange={handleAddRideInfoChange}/>
-
-
                                     <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
                                                value={departureTime} onChange={handleDepartureTimeChange} required/>
                                     <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
@@ -328,12 +322,10 @@ function Home() {
                                                onChange={handleEtaChange} required/>
                                     {etaError && <div className="error">{etaError}</div>}
 
-
                                     <button type="submit">Plaats rit</button>
                                 </form>
                             )
                             : (
-
                                 <form onSubmit={handleSubmitRideAlong}>
                                     <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
                                                value={pickUpLocation}
