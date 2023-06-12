@@ -86,21 +86,9 @@ function MyRides() {
                                                     }) : "€0.00"}</p>
                                                 )}
 
-
-                                                {/*Deze nog werkend maken*/}
-                                                {/*{user && ride.driverUsername !== user.username && ride.users && ride.users.find(u => u.username === user.username) &&(*/}
-                                                {/*<p>Totaal prijs: {ride.pricePerPerson * (ride.reservedSpotsByUser[user.username] || 0)} </p>*/}
-                                                {/*    )}*/}
-
-                                                {/*Deze nog werkend maken*/}
-                                                {/*{user && ride.driverUsername !== user.username && ride.users && ride.users.find(u => u.username === user.username) &&(*/}
-                                                {/*<p>Gereserveerde stoelen: .... || 0)} </p>*/}
-                                                {/*    )}*/}
-
-                                                ////
                                                 {user.username === ride.driverUsername && (
                                                 <p>Aantal vrije stoelen: {ride.availableSpots}</p>)}
-/////
+
                                                 {user.username === ride.driverUsername && (
                                                 <p>Gereserveerde stoelen: {ride.pax}</p>
                                                 )}
