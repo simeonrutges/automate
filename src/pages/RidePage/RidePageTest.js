@@ -15,6 +15,7 @@ function RidePage() {
 
 
     const [errorMessage, setErrorMessage] = useState(null);
+    const [error, setError] = useState(null);
 
     const {id} = useParams();
     //useParams geeft alleen welke rit het is
@@ -47,7 +48,11 @@ function RidePage() {
                     setDriverData(driverResponse.data);
                 }
             } catch (error) {
-                console.error(error);
+                if (error.response && error.response.status === 404) {
+                    setError("Deze rit is verwijderd");
+                } else {
+                    console.error(error);
+                }
             }
         }
 
@@ -147,6 +152,7 @@ function RidePage() {
                 }
             }
         }
+
         fetchProfileImage();
     }, [driverData]);
 
@@ -210,15 +216,19 @@ function RidePage() {
         <ride className="outer-content-container">
             <div className="inner-content-container">
 
-                <div className="product-page">
-                    <h1>RidePageTest.js {id}</h1>
+                {error ? (
+                    <h2>{error}</h2>
+                ) : (
 
-                    {Object.keys(rideData).length > 0 &&
-                        <div>
-                            {console.log(rideData)}
-                            <p>reisdatum: {new Date(rideData.departureDateTime).toLocaleDateString()}</p>
-                            <section className="ride-summary">
-                                <div className="top-box">
+                    <div className="product-page">
+                        <h1>RidePageTest.js {id}</h1>
+
+                        {Object.keys(rideData).length > 0 &&
+                            <div>
+                                {console.log(rideData)}
+                                <p>reisdatum: {new Date(rideData.departureDateTime).toLocaleDateString()}</p>
+                                <section className="ride-summary">
+                                    <div className="top-box">
                             <span className="summary-block1">
                                 <p>
                                     {currentData}
@@ -230,164 +240,170 @@ function RidePage() {
 
                                 <p>{rideData.destination}</p>
                             </span>
-                                    <span className="summary-block2">
+                                        <span className="summary-block2">
                                 <p className="ride-page-price">Prijs per
                                     persoon: {(rideData.pricePerPerson).toLocaleString('nl-NL', {
                                         style: 'currency',
                                         currency: 'EUR'
                                     })}</p>
 
-                                        {/*//*/}
-                                        {/*test hier in de avond!!!*/}
-                                        {user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) &&(
-                                            <div>
-                                            <p>hier komt de rest van de info VOOR de pass geboekt heeft</p>
-                                                <p>aantal personen: {pax}</p>
-                                                {/*<p>totaal prijs: {rideData.pricePerPerson * pax}</p>*/}
-                                                <p>
-                                                    Totaal prijs: {(rideData.pricePerPerson * pax).toLocaleString('nl-NL', {
-                                                    style: 'currency',
-                                                    currency: 'EUR'
-                                                })}
-                                                </p>
+                                            {/*//*/}
+                                            {/*test hier in de avond!!!*/}
+                                            {user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (
+                                                <div>
+                                                    <p>hier komt de rest van de info VOOR de pass geboekt heeft</p>
+                                                    <p>aantal personen: {pax}</p>
+                                                    {/*<p>totaal prijs: {rideData.pricePerPerson * pax}</p>*/}
+                                                    <p>
+                                                        Totaal
+                                                        prijs: {(rideData.pricePerPerson * pax).toLocaleString('nl-NL', {
+                                                        style: 'currency',
+                                                        currency: 'EUR'
+                                                    })}
+                                                    </p>
 
-                                            </div>
-                                        )}
-                                        {/*//*/}
-
-
-                                        {/*{user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (*/}
-                                        {/*    <div>*/}
-                                        {/*    <p>Gereserveerde stoelen: {reservationInfo.reservedSpots} </p>*/}
-                                        {/*    /!*<p>Totaal prijs: {reservationInfo.totalPrice}</p>*!/*/}
-                                        {/*        <p>Totaal prijs: {(reservationInfo?.totalPrice).toLocaleString('nl-NL', {*/}
-                                        {/*            style: 'currency',*/}
-                                        {/*            currency: 'EUR'*/}
-                                        {/*        })}</p>*/}
-
-                                        {/*    </div>)}*/}
-                                        {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
-                                            <div>
-                                                <p>Gereserveerde stoelen: {reservationInfo?.reservedSpots} </p>
-                                                <p>Totaal prijs: {reservationInfo?.totalPrice && reservationInfo.totalPrice.toLocaleString('nl-NL', {
-                                                    style: 'currency',
-                                                    currency: 'EUR'
-                                                })}</p>
-                                            </div>
-                                        )}
+                                                </div>
+                                            )}
+                                            {/*//*/}
 
 
-                                        {user && rideData.driverUsername === user.username && (
-                                <div>
-                                    <p>Aantal passagiers: {rideData.pax}</p>
-                                {/*<p>Totaal prijs: {rideData.totalRitPrice}</p>*/}
-                                    <p>Rit opbrengst: {rideData.totalRitPrice > 0 ? rideData.totalRitPrice.toLocaleString('nl-NL', {
-                                        style: 'currency',
-                                        currency: 'EUR'
-                                    }) : '€0.00'}</p>
+                                            {/*{user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (*/}
+                                            {/*    <div>*/}
+                                            {/*    <p>Gereserveerde stoelen: {reservationInfo.reservedSpots} </p>*/}
+                                            {/*    /!*<p>Totaal prijs: {reservationInfo.totalPrice}</p>*!/*/}
+                                            {/*        <p>Totaal prijs: {(reservationInfo?.totalPrice).toLocaleString('nl-NL', {*/}
+                                            {/*            style: 'currency',*/}
+                                            {/*            currency: 'EUR'*/}
+                                            {/*        })}</p>*/}
+
+                                            {/*    </div>)}*/}
+                                            {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
+                                                <div>
+                                                    <p>Gereserveerde stoelen: {reservationInfo?.reservedSpots} </p>
+                                                    <p>Totaal
+                                                        prijs: {reservationInfo?.totalPrice && reservationInfo.totalPrice.toLocaleString('nl-NL', {
+                                                            style: 'currency',
+                                                            currency: 'EUR'
+                                                        })}</p>
+                                                </div>
+                                            )}
 
 
-                                </div>)}
+                                            {user && rideData.driverUsername === user.username && (
+                                                <div>
+                                                    <p>Aantal passagiers: {rideData.pax}</p>
+                                                    {/*<p>Totaal prijs: {rideData.totalRitPrice}</p>*/}
+                                                    <p>Rit
+                                                        opbrengst: {rideData.totalRitPrice > 0 ? rideData.totalRitPrice.toLocaleString('nl-NL', {
+                                                            style: 'currency',
+                                                            currency: 'EUR'
+                                                        }) : '€0.00'}</p>
+
+
+                                                </div>)}
                             </span>
-                                </div>
-                                <p>* Verwachte aankomst tijd</p>
+                                    </div>
+                                    <p>* Verwachte aankomst tijd</p>
 
 
-                                <div className="driver-profile-box">
-                                    <Link to={`/profile/${driverData.username}`}>
-                                        {uploadedImage ? (
-                                            <img
-                                                src={uploadedImage} // Gebruik hier de URL van de opgehaalde afbeelding
-                                                alt="Profielfoto van de bestuurder"
-                                                className="driver-profile-picture"
-                                            />
-                                        ) : (
-                                            <img
-                                                src={standard_profile_img}
-                                                alt="Standaard profielfoto van de bestuurder"
-                                                className="driver-profile-picture"
-                                            />
-                                        )}
-                                    </Link>
-                                    <Link to={`/profile/${driverData.username}`}>
-                                        <p>{driverData.username}</p>
-                                    </Link>
-                                </div>
+                                    <div className="driver-profile-box">
+                                        <Link to={`/profile/${driverData.username}`}>
+                                            {uploadedImage ? (
+                                                <img
+                                                    src={uploadedImage} // Gebruik hier de URL van de opgehaalde afbeelding
+                                                    alt="Profielfoto van de bestuurder"
+                                                    className="driver-profile-picture"
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={standard_profile_img}
+                                                    alt="Standaard profielfoto van de bestuurder"
+                                                    className="driver-profile-picture"
+                                                />
+                                            )}
+                                        </Link>
+                                        <Link to={`/profile/${driverData.username}`}>
+                                            <p>{driverData.username}</p>
+                                        </Link>
+                                    </div>
 
-                            </section>
-                            <section className="ride-info">
-                                <p>Ophaal locatie: {rideData.pickUpLocation}</p>
-                                <p>{new Date(rideData.departureDateTime).toLocaleTimeString([], {
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    hour12: false
-                                })}</p>
-                                <p>Bestemming: {rideData.destination}</p>
-                                <p>{rideData.eta}*</p>
-                                {/*<p>Aantal beschikbare plekken:{rideData.availableSpots}</p>*/}
+                                </section>
+                                <section className="ride-info">
+                                    <p>Ophaal locatie: {rideData.pickUpLocation}</p>
+                                    <p>{new Date(rideData.departureDateTime).toLocaleTimeString([], {
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                        hour12: false
+                                    })}</p>
+                                    <p>Bestemming: {rideData.destination}</p>
+                                    <p>{rideData.eta}*</p>
+                                    {/*<p>Aantal beschikbare plekken:{rideData.availableSpots}</p>*/}
 
 
-                                {user && rideData.driverUsername === user.username && (
+                                    {user && rideData.driverUsername === user.username && (
 
                                         <p>Vrij stoelen: {rideData.availableSpots}</p>
                                     )}
-                                <p>Route: {rideData.route}</p>
-                                <p>Reis omschrijving: {rideData.addRideInfo}</p>
+                                    <p>Route: {rideData.route}</p>
+                                    <p>Reis omschrijving: {rideData.addRideInfo}</p>
 
-                                {user && rideData.driverUsername === user.username && rideData.users && rideData.users.filter(passenger => passenger.username !== driverData.username).length > 0 && (
-                                    <div className="driver-profile-box">
-                                        <p>Passagiers:</p>
-                                        {rideData.users
-                                            .filter(passenger => passenger.username !== driverData.username)
-                                            .map((passenger) => (
-                                                <div key={passenger.username} className="passenger-profile-box">
-                                                    <Link to={`/profile/${passenger.username}`}>
-                                                        {passengerImages[passenger.username] ? (
-                                                            <img
-                                                                src={passengerImages[passenger.username]} // Gebruik hier de URL van de opgehaalde afbeelding
-                                                                alt="Profielfoto van de passagier"
-                                                                className="driver-profile-picture"
-                                                            />
-                                                        ) : (
-                                                            <img
-                                                                src={standard_profile_img}
-                                                                alt="Standaard profielfoto van de bestuurder"
-                                                                className="driver-profile-picture"
-                                                            />
-                                                        )}
-                                                        <p>{passenger.username}</p>
-                                                    </Link>
-                                                </div>
-                                            ))}
-                                    </div>
-                                )}
+                                    {user && rideData.driverUsername === user.username && rideData.users && rideData.users.filter(passenger => passenger.username !== driverData.username).length > 0 && (
+                                        <div className="driver-profile-box">
+                                            <p>Passagiers:</p>
+                                            {rideData.users
+                                                .filter(passenger => passenger.username !== driverData.username)
+                                                .map((passenger) => (
+                                                    <div key={passenger.username} className="passenger-profile-box">
+                                                        <Link to={`/profile/${passenger.username}`}>
+                                                            {passengerImages[passenger.username] ? (
+                                                                <img
+                                                                    src={passengerImages[passenger.username]} // Gebruik hier de URL van de opgehaalde afbeelding
+                                                                    alt="Profielfoto van de passagier"
+                                                                    className="driver-profile-picture"
+                                                                />
+                                                            ) : (
+                                                                <img
+                                                                    src={standard_profile_img}
+                                                                    alt="Standaard profielfoto van de bestuurder"
+                                                                    className="driver-profile-picture"
+                                                                />
+                                                            )}
+                                                            <p>{passenger.username}</p>
+                                                        </Link>
+                                                    </div>
+                                                ))}
+                                        </div>
+                                    )}
 
 
-                            </section>
+                                </section>
+                            </div>
+                        }
+
+                        <div className="buttons">
+                            {user && rideData.driverUsername === user.username && (
+                                <button onClick={handleAnnuleerRitClick} id="annuleer-rit-btn">Annuleer rit</button>
+                            )}
+
+                            {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
+                                <button onClick={handleCancelRitAlsPassagierClick}
+                                        id="cancel-rit-als-passagier-btn">Cancel
+                                    rit als passagier</button>
+                            )}
+                            {user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (
+                                <button onClick={handleSelectRitClick} id="selecteer-rit-btn">Selecteer Rit!</button>
+                            )}
                         </div>
-                    }
 
-                    <div className="buttons">
-                        {user && rideData.driverUsername === user.username && (
-                            <button onClick={handleAnnuleerRitClick} id="annuleer-rit-btn">Annuleer rit</button>
+                        {errorMessage && (
+                            <p>{errorMessage}</p>
                         )}
 
-                        {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
-                            <button onClick={handleCancelRitAlsPassagierClick} id="cancel-rit-als-passagier-btn">Cancel
-                                rit als passagier</button>
-                        )}
-                        {user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (
-                            <button onClick={handleSelectRitClick} id="selecteer-rit-btn">Selecteer Rit!</button>
-                        )}
+                        <p className="home-page-link">Terug naar de <Link to="/">Homepagina</Link></p>
+
                     </div>
+                )}
 
-                    {errorMessage && (
-                        <p>{errorMessage}</p>
-                    )}
-
-                    <p className="home-page-link">Terug naar de <Link to="/">Homepagina</Link></p>
-
-                </div>
             </div>
         </ride>
     )
