@@ -6,6 +6,8 @@ import './ridePage.css';
 import standard_profile_img from '../../assets/sustainability.jpg';
 
 function RidePage() {
+    const token = localStorage.getItem('token');
+
     const [rideData, setRideData] = useState({});
     const {user} = useContext(AuthContext);
     const [currentData, setCurrentData] = useState("");
@@ -36,7 +38,9 @@ function RidePage() {
         async function fetchData() {
             try {
                 console.log("(useParams) id : ", id)
-                const rideResponse = await axios.get(`http://localhost:8080/rides/${id}`);
+                const rideResponse = await axios.get(`http://localhost:8080/rides/${id}`,{
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
                 console.log("riderespondse.data : ", rideResponse.data);
                 setRideData(rideResponse.data);
                 datum = rideResponse.data.departureDateTime.split("T");
@@ -44,7 +48,9 @@ function RidePage() {
                 setCurrentData(datum[1]);
 
                 if (rideResponse.data.driverUsername) {
-                    const driverResponse = await axios.get(`http://localhost:8080/users/${rideResponse.data.driverUsername}`);
+                    const driverResponse = await axios.get(`http://localhost:8080/users/${rideResponse.data.driverUsername}`,{
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
                     setDriverData(driverResponse.data);
                 }
             } catch (error) {
@@ -67,7 +73,12 @@ function RidePage() {
         console.log("pax : ", pax);
         try {
             //moet nog PAX bij! vuia Useparams?
-            await axios.post(`http://localhost:8080/rides/${id}/${user.username}/${pax}`);
+            await axios.post(`http://localhost:8080/rides/${id}/${user.username}/${pax}`, {}, {
+                headers: {
+                    "Content-Type": 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
             history.push('/confirmation/reservation/success');
         } catch (error) {
             if (error.response && error.response.status === 409) { // Hier vul je de statuscode in die je backend retourneert voor deze specifieke fout
@@ -84,7 +95,11 @@ function RidePage() {
     async function handleAnnuleerRitClick() {
         console.log("idddd: " + id);
         try {
-            await axios.delete(`http://localhost:8080/rides/${id}`);
+            await axios.delete(`http://localhost:8080/rides/${id}`,{
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
             history.push('/confirmation/rideRemoved/success');
         } catch (error) {
             console.error(error);
@@ -125,8 +140,17 @@ function RidePage() {
 
     async function handleCancelRitAlsPassagierClick() {
         try {
-            await axios.delete(`http://localhost:8080/rides/${rideData.id}/users/${user.username}`);
-            const response = await axios.get(`http://localhost:8080/rides/${rideData.id}`);
+            await axios.delete(`http://localhost:8080/rides/${rideData.id}/users/${user.username}`,{
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            const response = await axios.get(`http://localhost:8080/rides/${rideData.id}`,{
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+
             if (response.status === 200) {
                 setRideData(response.data);
             }
@@ -143,7 +167,10 @@ function RidePage() {
                 try {
                     const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${driverData.fileName}`, {
                         responseType: 'blob',
-                    });
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }
+                        });
                     const imageUrl = (URL.createObjectURL(response.data));
                     setUploadedImage(imageUrl);
 
@@ -164,12 +191,19 @@ function RidePage() {
                     if (passenger.username !== driverData.username) {
                         try {
                             // Haal eerst de gebruikersinformatie op
-                            const userResponse = await axios.get(`http://localhost:8080/users/${passenger.username}`);
+                            const userResponse = await axios.get(`http://localhost:8080/users/${passenger.username}`,{
+                                headers: {
+                                    'Authorization': `Bearer ${token}`,
+                                }
+                            });
                             const user = userResponse.data;
 
                             // Gebruik de bestandsnaam van de gebruiker om de afbeelding te downloaden
                             const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${user.fileName}`, {
                                 responseType: 'blob',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`,
+                                }
                             });
                             const imageUrl = URL.createObjectURL(response.data);
                             setPassengerImages(prevImages => ({...prevImages, [passenger.username]: imageUrl}));
@@ -190,9 +224,12 @@ function RidePage() {
             try {
                 console.log(user.username);
                 console.log("rideId: ", id)
-                const response = await axios.get(`http://localhost:8080/rides/${id}/users/${user.username}/reservationInfo`);
+                const response = await axios.get(`http://localhost:8080/rides/${id}/users/${user.username}/reservationInfo`,{
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
 
-                // Verwerk of stel de ontvangen gegevens in de staat van uw component
                 console.log(response.data);
                 setReservationInfo(response.data);
             } catch (error) {
@@ -390,9 +427,14 @@ function RidePage() {
                                         id="cancel-rit-als-passagier-btn">Cancel
                                     rit als passagier</button>
                             )}
-                            {user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (
+                            {/*{user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (*/}
+                            {/*    <button onClick={handleSelectRitClick} id="selecteer-rit-btn">Selecteer Rit!</button>*/}
+                            {/*)}*/}
+                            //hiermee bezig testen!! hierboven originel werkende. 15/6
+                            {user && pax && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (
                                 <button onClick={handleSelectRitClick} id="selecteer-rit-btn">Selecteer Rit!</button>
                             )}
+
                         </div>
 
                         {errorMessage && (

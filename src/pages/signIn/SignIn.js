@@ -24,7 +24,7 @@ function SignIn() {
             // console.log(result.data);
             // console.log(result.headers['authorization']);
             // console.log(result.headers.getAuthorization('authorization'));
-            console.log(result);
+            console.log("result: ", result.data);
 
             // geef de JWT token aan de login-functie van de context mee
             // login(result.data.accessToken);

@@ -13,6 +13,7 @@ import {AuthContext} from "../../context/AuthContext";
 
 function Home() {
     const {isAuth, isBestuurder, isPassagier, user} = useContext(AuthContext);
+    const token = localStorage.getItem('token');
 
     // voor het switchen van de forms
     const [activeForm, setActiveForm] = useState('rideAlong'); // 'rideAlong' of 'selfDrive'
@@ -163,13 +164,25 @@ function Home() {
                 availableSpots: availableSpots,
                 eta: eta,
                 driverUsername: username
+            }, {
+                headers: {
+                    "Content-Type": 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
             });
             console.log("POST-ride:  ", result);
 
             // Add the current user to the list of users for the ride
             const rideId = result.data.id;
-            console.log(rideId, username)
-            const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`);
+            console.log(rideId, username, token);
+            // const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`);
+            const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`, {}, {
+                headers: {
+                    "Content-Type": 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+
             // klopt: pax = 0 bij bestuurder
             console.log("response: ",response);
 
@@ -216,7 +229,7 @@ function Home() {
         }
 
         try {
-            console.log("dep.date : ", departureDate);
+            console.log("token : ", token);
 
             const result = await axios.get('http://localhost:8080/rides', {
                 params: {
@@ -224,8 +237,12 @@ function Home() {
                     destination: destination,
                     pax: pax,
                     departureDate: departureDate,
-                }
+                },
+            headers: {"Content-Type": 'application/json',
+                // 'Authorization': `Bearer ${token}`,
+            }
             });
+
             console.log("ride GET result.data : ", result.data);
 
             history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDate}`);

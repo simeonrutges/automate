@@ -4,6 +4,8 @@ import {AuthContext} from "../../context/AuthContext";
 import {Link} from "react-router-dom";
 import './myMessages.css';
 function MyMessages() {
+    const token = localStorage.getItem('token');
+
     const { isAuth, user } = useContext(AuthContext);
     const [messages, setMessages] = useState([]);
     const [error, setError] = useState(null);
@@ -12,7 +14,9 @@ function MyMessages() {
         const fetchMessages = async () => {
             try {
                 const username = isAuth && user.username ? user.username : '';
-                const response = await axios.get(`http://localhost:8080/notifications/user/${username}`);
+                const response = await axios.get(`http://localhost:8080/notifications/user/${username}`,{
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
                 setMessages(response.data);
             } catch (e) {
                 setError(e.message);
