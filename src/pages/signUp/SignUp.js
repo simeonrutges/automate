@@ -66,7 +66,6 @@ function SignUpTest() {
             });
             console.log(result);
 
-            // als alles goed gegaan is, linken we door naar de login-pagina
             history.push("/signin");
         } catch (e) {
             console.error(e);

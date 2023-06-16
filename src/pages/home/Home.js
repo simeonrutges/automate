@@ -125,14 +125,11 @@ function Home() {
             setAvailableSpotsError("");
         }
 
-        // Maak een nieuw Date object voor de huidige tijd
+        // controlle of de departuredate VOOR de huidige tijd is
         const now = new Date();
-        // Maak een nieuw Date object voor de ingevoerde tijd
         const enteredDateTime = new Date(departureDateTime);
 
-        // Controleer of de ingevoerde tijd in de toekomst ligt
         if (enteredDateTime <= now) {
-            // Update de error message als de tijd niet in de toekomst ligt
             setDateTimeError("De gekozen vertrektijd ligt in het verleden. Selecteer een vertrektijd in de toekomst.");
             return;
         } else {
@@ -257,8 +254,7 @@ function Home() {
 
 
     const handleSelfDriveClick = () => {
-        console.log(isAuth);
-        console.log(isAuth.user)
+
         if (!isAuth) {
             history.push('/signin');
             return;

@@ -138,7 +138,7 @@ import  './rideOverViewPage.css';
 import {Route, Switch, useParams} from "react-router-dom";
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import RidePageTest from "../RidePage/RidePageTest";
+import RidePage from "../RidePage/RidePageTest";
 
 // function RidesOverview({ location }) {
 //     const [rides, setRides] = useState([]);

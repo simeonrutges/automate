@@ -1,182 +1,414 @@
-// import React, {useContext, useEffect, useState} from "react";
-// import {Link, useHistory, useParams} from "react-router-dom";
-// import {AuthContext} from "../../context/AuthContext";
-// import axios from "axios";
-// import  './ridePage.css';
-//
-// function RidePage() {
-//     const [rideData, setRideData] = useState({});
-//     const {user} = useContext(AuthContext);
-//     const [currentData, setCurrentData] = useState("");
-//
-//     const {id} = useParams();
-//     //useParams geeft alleen welke rit het is
-//     const { rideId } = useParams();
-// //
-// //     const [bestuurderUsername, setBestuurderUsername] = useState(null);
-// //
-//     let datum = [];
-// // GET request
-//     useEffect(() => {
-//         async function fetchRideData() {
-//             try {
-//                 const response = await axios.get(`http://localhost:8080/rides/${id}`);
-//                 setRideData(response.data);
-//                 datum = response.data.departureDateTime.split("T");
-//                 setCurrentData(datum[1])
-//                 console.log(response.data)
-//
-//                 // Haal de bestuurdersnaam op en sla deze op in de staat
-//                 // const bestuurder = await fetchBestuurder();
-//                 // setBestuurderUsername(bestuurder);
-//                 // console.log("bestuurder: " + bestuurder);
-//                 ////
-//
-//             } catch (error) {
-//                 console.error(error);
-//             }
-//         }
-//
-//         fetchRideData()
-//     }, [id]);
-//
-//     // DELETE ride request
-//     const history = useHistory();
-//     async function handleAnnuleerRitClick() {
-//         try {
-//             await axios.delete(`http://localhost:8080/rides/${id}`);
-//             history.push('/');
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     }
-//
-//     //////// hierboven soweiso goed
-//     // async function handleAnnuleerRitClick() {
-//     //     try {
-//     //         await axios.delete(`http://localhost:8080/rides/${id}`, {
-//     //             headers: {
-//     //                 "Content-Type": "application/json",
-//     //                 Authorization: `Bearer ${token}`,
-//     //             },});
-//     //         history.push('/');
-//     //     } catch (error) {
-//     //         console.error(error);
-//     //     }
-//     // }
-//
-// /////////////
-//     ///// nog implementeren:
-//     // async function handleDeleteUser() {
-//     //     try {
-//     //         // Verwijder eerst alle rides die zijn gekoppeld aan de gebruiker
-//     //         await axios.delete(`http://localhost:8080/users/${username}/rides`);
-//     //
-//     //         // Vervolgens verwijder je de gebruiker zelf
-//     //         await axios.delete(`http://localhost:8080/users/${username}`);
-//     //
-//     //         // Navigeer terug naar de startpagina of een andere pagina
-//     //         history.push('/');
-//     //     } catch (error) {
-//     //         console.error(error);
-//     //     }
-//     // }
-//     //////
-//
-//     // async function fetchBestuurder() {
-//     //     try {
-//     //         const result = await axios.get(`http://localhost:8080/users`, {
-//     //             headers: {
-//     //                 "Content-Type": "application/json",
-//     //             },
-//     //         });
-//     //         console.log(result.data.username);
-//     //         return result.data.username;
-//     //     } catch (e) {
-//     //         console.error(e);
-//     //         return null;
-//     //     }
-//     // }
-//
-//
-//     return (
-//         <ride className="outer-content-container">
-//             <div className="inner-content-container">
-//
-//                 <div className="product-page">
-//                     <h1>Reis details {id}</h1>
-//
-//
-//                     {Object.keys(rideData).length > 0 &&
-//                         <div>
-//                             {console.log(rideData)}
-//                             <p>reisdatum: {new Date(rideData.departureDateTime).toLocaleDateString()}</p>
-//                         <section className="ride-summary">
-//                             <div className="top-box">
-//                             <span className="summary-block1">
-//                                 <p>
-//                                     { currentData }
-//                                 </p>
-//                                 <p>{rideData.pickUpLocation}</p>
-//
-//                                 <p>{rideData.eta}*</p>
-//                                 {/*<p>{rideData.eta.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</p>*/}
-//
-//                                 <p>{rideData.destination}</p>
-//                             </span>
-//                             <span className="summary-block2">
-//                                 <p className="ride-page-price">Prijs per
-//                                     persoon: {(rideData.pricePerPerson).toLocaleString('nl-NL', {
-//                                         style: 'currency',
-//                                         currency: 'EUR'
-//                                     })}</p>
-//                                 <p>Aantal personen: {rideData.pax}</p>
-//                                 <p>Totaal prijs: {rideData.totalRitPrice}</p>
-//                             </span>
-//                             </div>
-//
-//                             {/*{bestuurderUsername && (*/}
-//                             {/*    <p>De gebruikersnaam van de bestuurder is: {bestuurderUsername}</p>*/}
-//                             {/*)}*/}
-//
-//                             <p>* Verwachte aankomst tijd</p>
-//
-//
-//
-//                         </section>
-//                             <section className="ride-info">
-//                                 <p>Ophaal locatie: {rideData.pickUpLocation}</p>
-//                                 <p>{new Date(rideData.departureDateTime).toLocaleTimeString([], {
-//                                     hour: '2-digit',
-//                                     minute: '2-digit',
-//                                     hour12: false
-//                                 })}</p>
-//                                 <p>Bestemming: {rideData.destination}</p>
-//                                 <p>{rideData.eta}*</p>
-//                                 <p>Aantal beschikbare plekken:{rideData.availableSpots}</p>
-//                                 <p>Route: {rideData.route}</p>
-//                                 <p>Reis omschrijving: {rideData.addRideInfo}</p>
-//                                 {/*<p>{rideData.automaticAcceptance}</p>*/}
-//                             </section>
-//                         </div>
-//                     }
-//
-//
-//                     <div className="buttons">
-//                         {/*<button id="wijzig-rit-btn">Wijzig rit</button>*/}
-//                         <button onClick={handleAnnuleerRitClick} id="annuleer-rit-btn">Annuleer rit</button>
-//                     </div>
-//
-//                     <p className="home-page-link">Terug naar de <Link to="/">Homepagina</Link></p>
-//
-//                 </div>
-//
-//             </div>
-//         </ride>
-//
-//
-//     )
-// }
-//
-//
-// export default RidePage;
+import React, {useContext, useEffect, useState} from "react";
+import {Link, useHistory, useLocation, useParams} from "react-router-dom";
+import {AuthContext} from "../../context/AuthContext";
+import axios from "axios";
+import './ridePage.css';
+import standard_profile_img from '../../assets/sustainability.jpg';
+
+function RidePage() {
+    const token = localStorage.getItem('token');
+
+    const [rideData, setRideData] = useState({});
+    const {user} = useContext(AuthContext);
+    const [currentData, setCurrentData] = useState("");
+
+    const [driverData, setDriverData] = useState({});
+    const [reservationInfo, setReservationInfo] = useState(null);
+
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [error, setError] = useState(null);
+
+    const {id} = useParams();
+    const {rideId} = useParams();
+
+    let datum = [];
+
+    const [uploadedImage, setUploadedImage] = useState(null);
+    const [passengerImages, setPassengerImages] = useState({});
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const pax = queryParams.get('pax');
+    console.log("pax: ", rideData.pax);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                console.log("(useParams) id : ", id)
+                const rideResponse = await axios.get(`http://localhost:8080/rides/${id}`, {
+                    headers: {'Authorization': `Bearer ${token}`}
+                });
+                console.log("riderespondse.data : ", rideResponse.data);
+                setRideData(rideResponse.data);
+                datum = rideResponse.data.departureDateTime.split("T");
+                console.log(datum);
+                setCurrentData(datum[1]);
+
+                if (rideResponse.data.driverUsername) {
+                    const driverResponse = await axios.get(`http://localhost:8080/users/${rideResponse.data.driverUsername}`, {
+                        headers: {'Authorization': `Bearer ${token}`}
+                    });
+                    setDriverData(driverResponse.data);
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 404) {
+                    setError("Deze rit is verwijderd");
+                } else {
+                    console.error(error);
+                }
+            }
+        }
+
+        fetchData();
+    }, [id]);
+
+
+    const history = useHistory();
+
+    async function handleSelectRitClick() {
+        console.log("username: " + user.username);
+        console.log("pax : ", pax);
+        try {
+            await axios.post(`http://localhost:8080/rides/${id}/${user.username}/${pax}`, {}, {
+                headers: {
+                    "Content-Type": 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            history.push('/confirmation/reservation/success');
+        } catch (error) {
+            if (error.response && error.response.status === 409) { // Hier vul je de statuscode in die je backend retourneert voor deze specifieke fout
+                // Je kunt hier een specifiek bericht instellen of een variabele instellen die je later kunt gebruiken om de status van je knop te wijzigen
+                // console.error("Deze rit is al geselecteerd door de gebruiker");
+                setErrorMessage("Deze rit is al geselecteerd door de gebruiker"); // Zet de foutmelding in de state
+            } else {
+                console.error(error);
+                history.push('/confirmation/reservation/failure');
+            }
+        }
+    }
+
+    async function handleAnnuleerRitClick() {
+        console.log("idddd: " + id);
+        try {
+            await axios.delete(`http://localhost:8080/rides/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            history.push('/confirmation/rideRemoved/success');
+        } catch (error) {
+            console.error(error);
+            history.push('/confirmation/rideRemoved/failure');
+        }
+    }
+
+    console.log(driverData.username);
+
+    async function handleCancelRitAlsPassagierClick() {
+        try {
+            await axios.delete(`http://localhost:8080/rides/${rideData.id}/users/${user.username}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            const response = await axios.get(`http://localhost:8080/rides/${rideData.id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+
+            if (response.status === 200) {
+                setRideData(response.data);
+            }
+            history.push('/confirmation/reservationRemoved/success');
+        } catch (error) {
+            console.error("Er is iets fout gegaan bij het annuleren van de rit: ", error);
+            history.push('/confirmation/reservationRemoved/failure');
+        }
+    }
+
+    useEffect(() => {
+        async function fetchProfileImage() {
+            if (driverData.fileName) {
+                try {
+                    const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${driverData.fileName}`, {
+                        responseType: 'blob',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }
+                    });
+                    const imageUrl = (URL.createObjectURL(response.data));
+                    setUploadedImage(imageUrl);
+
+                } catch (error) {
+                    console.error('Error fetching profile image:', error);
+                }
+            }
+        }
+
+        fetchProfileImage();
+    }, [driverData]);
+
+    // passagierImage
+    useEffect(() => {
+        async function fetchAllPassengerImages() {
+            if (rideData.users) {
+                for (let passenger of rideData.users) {
+                    if (passenger.username !== driverData.username) {
+                        try {
+                            // Haal eerst de gebruikersinformatie op
+                            const userResponse = await axios.get(`http://localhost:8080/users/${passenger.username}`, {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`,
+                                }
+                            });
+                            const user = userResponse.data;
+
+                            // Gebruik de bestandsnaam van de gebruiker om de afbeelding te downloaden
+                            const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${user.fileName}`, {
+                                responseType: 'blob',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`,
+                                }
+                            });
+                            const imageUrl = URL.createObjectURL(response.data);
+                            setPassengerImages(prevImages => ({...prevImages, [passenger.username]: imageUrl}));
+                        } catch (error) {
+                            console.error('Error fetching passenger image:', error);
+                        }
+                    }
+                }
+            }
+        }
+
+        fetchAllPassengerImages();
+    }, [rideData.users, driverData.username]);
+
+
+    useEffect(() => {
+        async function fetchReservationInfo() {
+            try {
+                console.log(user.username);
+                // console.log("rideId: ", id)
+                const response = await axios.get(`http://localhost:8080/rides/${id}/users/${user.username}/reservationInfo`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+
+                console.log(response.data);
+                setReservationInfo(response.data);
+            } catch (error) {
+                console.error('Er is een fout opgetreden:', error);
+            }
+        }
+
+        fetchReservationInfo();
+    }, [rideId, user.username]);
+
+    // Nu kun je de reservationInfo overal in deze component gebruiken.
+    // Zorg er wel voor dat je controleert of het nog null is voordat je het gebruikt,
+    // omdat het asynchroon wordt ingesteld.
+    if (reservationInfo) {
+        console.log(reservationInfo.totalPrice);
+        console.log(reservationInfo.reservedSpots);
+    }
+
+    return (
+        <ride className="outer-content-container">
+            <div className="inner-content-container">
+
+                {error ? (
+                    <h2>{error}</h2>
+                ) : (
+
+                    <div className="product-page">
+                        <h1>RidePage {id}</h1>
+
+                        {Object.keys(rideData).length > 0 &&
+                            <div>
+                                {console.log(rideData)}
+                                <p>reisdatum: {new Date(rideData.departureDateTime).toLocaleDateString()}</p>
+                                <section className="ride-summary">
+                                    <div className="top-box">
+                            <span className="summary-block1">
+                                <p>
+                                    {currentData}
+                                </p>
+                                <p>{rideData.pickUpLocation}</p>
+
+                                <p>{rideData.eta}*</p>
+                                {/*<p>{rideData.eta.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</p>*/}
+
+                                <p>{rideData.destination}</p>
+                            </span>
+                                        <span className="summary-block2">
+                                <p className="ride-page-price">Prijs per
+                                    persoon: {(rideData.pricePerPerson).toLocaleString('nl-NL', {
+                                        style: 'currency',
+                                        currency: 'EUR'
+                                    })}</p>
+
+                                            {user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (
+                                                <div>
+                                                    <p>hier komt de rest van de info VOOR de pass geboekt heeft</p>
+                                                    <p>aantal personen: {pax}</p>
+                                                    {/*<p>totaal prijs: {rideData.pricePerPerson * pax}</p>*/}
+                                                    <p>
+                                                        Totaal
+                                                        prijs: {(rideData.pricePerPerson * pax).toLocaleString('nl-NL', {
+                                                        style: 'currency',
+                                                        currency: 'EUR'
+                                                    })}
+                                                    </p>
+
+                                                </div>
+                                            )}
+
+                                            {/*{user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (*/}
+                                            {/*    <div>*/}
+                                            {/*    <p>Gereserveerde stoelen: {reservationInfo.reservedSpots} </p>*/}
+                                            {/*    /!*<p>Totaal prijs: {reservationInfo.totalPrice}</p>*!/*/}
+                                            {/*        <p>Totaal prijs: {(reservationInfo?.totalPrice).toLocaleString('nl-NL', {*/}
+                                            {/*            style: 'currency',*/}
+                                            {/*            currency: 'EUR'*/}
+                                            {/*        })}</p>*/}
+
+                                            {/*    </div>)}*/}
+                                            {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
+                                                <div>
+                                                    <p>Gereserveerde stoelen: {reservationInfo?.reservedSpots} </p>
+                                                    <p>Totaal
+                                                        prijs: {reservationInfo?.totalPrice && reservationInfo.totalPrice.toLocaleString('nl-NL', {
+                                                            style: 'currency',
+                                                            currency: 'EUR'
+                                                        })}</p>
+                                                </div>
+                                            )}
+
+
+                                            {user && rideData.driverUsername === user.username && (
+                                                <div>
+                                                    <p>Aantal passagiers: {rideData.pax}</p>
+                                                    {/*<p>Totaal prijs: {rideData.totalRitPrice}</p>*/}
+                                                    <p>Rit
+                                                        opbrengst: {rideData.totalRitPrice > 0 ? rideData.totalRitPrice.toLocaleString('nl-NL', {
+                                                            style: 'currency',
+                                                            currency: 'EUR'
+                                                        }) : '€0.00'}</p>
+                                                </div>)}
+                            </span>
+                                    </div>
+                                    <p>* Verwachte aankomst tijd</p>
+
+
+                                    <div className="driver-profile-box">
+                                        <Link to={`/profile/${driverData.username}`}>
+                                            {uploadedImage ? (
+                                                <img
+                                                    src={uploadedImage}
+                                                    alt="Profielfoto van de bestuurder"
+                                                    className="driver-profile-picture"
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={standard_profile_img}
+                                                    alt="Standaard profielfoto van de bestuurder"
+                                                    className="driver-profile-picture"
+                                                />
+                                            )}
+                                        </Link>
+                                        <Link to={`/profile/${driverData.username}`}>
+                                            <p>{driverData.username}</p>
+                                        </Link>
+                                    </div>
+
+                                </section>
+                                <section className="ride-info">
+                                    <p>Ophaal locatie: {rideData.pickUpLocation}</p>
+                                    <p>{new Date(rideData.departureDateTime).toLocaleTimeString([], {
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                        hour12: false
+                                    })}</p>
+                                    <p>Bestemming: {rideData.destination}</p>
+                                    <p>{rideData.eta}*</p>
+                                    {/*<p>Aantal beschikbare plekken:{rideData.availableSpots}</p>*/}
+
+
+                                    {user && rideData.driverUsername === user.username && (
+
+                                        <p>Vrij stoelen: {rideData.availableSpots}</p>
+                                    )}
+                                    <p>Route: {rideData.route}</p>
+                                    <p>Reis omschrijving: {rideData.addRideInfo}</p>
+
+                                    {user && rideData.driverUsername === user.username && rideData.users && rideData.users.filter(passenger => passenger.username !== driverData.username).length > 0 && (
+                                        <div className="driver-profile-box">
+                                            <p>Passagiers:</p>
+                                            {rideData.users
+                                                .filter(passenger => passenger.username !== driverData.username)
+                                                .map((passenger) => (
+                                                    <div key={passenger.username} className="passenger-profile-box">
+                                                        <Link to={`/profile/${passenger.username}`}>
+                                                            {passengerImages[passenger.username] ? (
+                                                                <img
+                                                                    src={passengerImages[passenger.username]}
+                                                                    alt="Profielfoto van de passagier"
+                                                                    className="driver-profile-picture"
+                                                                />
+                                                            ) : (
+                                                                <img
+                                                                    src={standard_profile_img}
+                                                                    alt="Standaard profielfoto van de bestuurder"
+                                                                    className="driver-profile-picture"
+                                                                />
+                                                            )}
+                                                            <p>{passenger.username}</p>
+                                                        </Link>
+                                                    </div>
+                                                ))}
+                                        </div>
+                                    )}
+
+
+                                </section>
+                            </div>
+                        }
+
+                        <div className="buttons">
+                            {user && rideData.driverUsername === user.username && (
+                                <button onClick={handleAnnuleerRitClick} id="annuleer-rit-btn">Annuleer rit</button>
+                            )}
+
+                            {user && rideData.driverUsername !== user.username && rideData.users && rideData.users.find(u => u.username === user.username) && (
+                                <button onClick={handleCancelRitAlsPassagierClick}
+                                        id="cancel-rit-als-passagier-btn">Cancel
+                                    rit als passagier</button>
+                            )}
+                            {/*{user && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (*/}
+                            {/*    <button onClick={handleSelectRitClick} id="selecteer-rit-btn">Selecteer Rit!</button>*/}
+                            {/*)}*/}
+                            {/*//hiermee bezig testen!! hierboven originel werkende. 15/6*/}
+                            {user && pax && rideData.driverUsername !== user.username && rideData.users && !rideData.users.find(u => u.username === user.username) && (
+                                <button onClick={handleSelectRitClick} id="selecteer-rit-btn">Selecteer Rit!</button>
+                            )}
+
+                        </div>
+
+                        {errorMessage && (
+                            <p>{errorMessage}</p>
+                        )}
+
+                        <p className="home-page-link">Terug naar de <Link to="/">Homepagina</Link></p>
+
+                    </div>
+                )}
+
+            </div>
+        </ride>
+    )
+}
+
+export default RidePage;

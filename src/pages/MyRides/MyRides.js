@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import {Link, Route, Switch} from "react-router-dom";
-import RidePageTest from "../RidePage/RidePageTest";
+import RidePageTest from "../RidePage/RidePage";
 
 function MyRides() {
     const token = localStorage.getItem('token');

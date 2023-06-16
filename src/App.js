@@ -7,13 +7,10 @@ import SignIn from '././pages/signIn/SignIn';
 import SignUp from '././pages/signUp/SignUp';
 import {AuthContext} from './context/AuthContext';
 import './App.css';
-import '././context/modal/modal.css';
 import RidePage from "./pages/RidePage/RidePage";
 import RidesOverview from "./pages/RideOverviewPage/RidesOverview";
 import PrivateRoute from "./components/PrivateRoute";
 import Footer from "./components/footer/Footer";
-import RideOverviewTest from "./pages/RideOverviewPage/RideOverviewTest";
-import RidePageTest from "./pages/RidePage/RidePageTest";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import MyMessages from "./pages/MyMessages/MyMessages";
 import MyRides from "./pages/MyRides/MyRides";
@@ -178,14 +175,14 @@ function App() {
 
                     <Route path="/ride/:id">
                         <PrivateRoute auth={isAuth}>
-                            <RidePageTest/>
+                            <RidePage/>
                         </PrivateRoute>
                     </Route>
 
                     {/*hier een ride s achtergzet*/}
                     <Route exact path="/rides/:id">
                         <PrivateRoute auth={isAuth}>
-                            <RidePageTest/>
+                            <RidePage/>
                         </PrivateRoute>
                     </Route>
 
