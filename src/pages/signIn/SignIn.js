@@ -18,7 +18,6 @@ function SignIn() {
                 username: username,
                 password: password,
             });
-            console.log("result: ", result.data);
 
             login(result.data);
 

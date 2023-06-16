@@ -5,7 +5,6 @@ import axios from "axios";
 import './profile.css';
 import standard_profile_img from '../../assets/sustainability.jpg';
 import FileUploadForm from './FileUploadForm';
-import CustomButton from "../../components/Button/CustomButton";
 
 function Profile() {
     const { username: viewedUsername } = useParams();
@@ -395,20 +394,25 @@ function Profile() {
 
 
                             ) : (
-                                <div>
-                                    {user.username === username ?(
-                                    <h4>Mijn auto:</h4>
-                                        ) : (
-                                            <h4>Auto</h4>
-                                        )}
 
-                                    <p>Kenteken: {carData.licensePlate}</p>
-                                    <p>Model: {carData.model}</p>
-                                    <p>Merk: {carData.brand}</p>
-                                    {user.username === username && (
-                                    <button onClick={handleDeleteVehicle}>Verwijder</button>
-                                        )}
+                                carData && carData.licensePlate && carData.model && carData.brand && (
+                                <div>
+                            {user.username === username ?(
+                                <h4>Mijn auto:</h4>
+                                ) : (
+                                <h4>Auto</h4>
+                                )}
+
+                                <p>Kenteken: {carData.licensePlate}</p>
+                                <p>Model: {carData.model}</p>
+                                <p>Merk: {carData.brand}</p>
+                            {user.username === username && (
+                                <button onClick={handleDeleteVehicle}>Verwijder</button>
+                                )}
                                 </div>
+                                )
+
+
                             )}
                         </section>
                     )}

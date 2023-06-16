@@ -7,9 +7,10 @@ import standard_profile_img from '../../assets/sustainability.jpg';
 
 function RidePage() {
     const token = localStorage.getItem('token');
+    const {user} = useContext(AuthContext);
+    const {id, rideId} = useParams();
 
     const [rideData, setRideData] = useState({});
-    const {user} = useContext(AuthContext);
     const [currentData, setCurrentData] = useState("");
 
     const [driverData, setDriverData] = useState({});
@@ -17,9 +18,6 @@ function RidePage() {
 
     const [errorMessage, setErrorMessage] = useState(null);
     const [error, setError] = useState(null);
-
-    const {id} = useParams();
-    const {rideId} = useParams();
 
     let datum = [];
 
@@ -33,15 +31,14 @@ function RidePage() {
 
     useEffect(() => {
         async function fetchData() {
+            setError(null);
+            setErrorMessage(null);
             try {
-                console.log("(useParams) id : ", id)
                 const rideResponse = await axios.get(`http://localhost:8080/rides/${id}`, {
                     headers: {'Authorization': `Bearer ${token}`}
                 });
-                console.log("riderespondse.data : ", rideResponse.data);
                 setRideData(rideResponse.data);
                 datum = rideResponse.data.departureDateTime.split("T");
-                console.log(datum);
                 setCurrentData(datum[1]);
 
                 if (rideResponse.data.driverUsername) {
@@ -51,11 +48,21 @@ function RidePage() {
                     setDriverData(driverResponse.data);
                 }
             } catch (error) {
-                if (error.response && error.response.status === 404) {
-                    setError("Deze rit is verwijderd");
+                if (error.response) {
+                    switch (error.response.status) {
+                        case 404:
+                            setError("Deze rit is verwijderd");
+                            break;
+                        case 409:
+                            setErrorMessage("Deze rit is al geselecteerd door de gebruiker");
+                            break;
+                        default:
+                            setError("Er is iets fout gegaan, probeer het opnieuw.");
+                    }
                 } else {
-                    console.error(error);
+                    setError("Er is iets fout gegaan, probeer het opnieuw.");
                 }
+                console.error(error);
             }
         }
 
@@ -66,6 +73,9 @@ function RidePage() {
     const history = useHistory();
 
     async function handleSelectRitClick() {
+        setError(null);
+        setErrorMessage(null);
+
         console.log("username: " + user.username);
         console.log("pax : ", pax);
         try {
@@ -77,18 +87,27 @@ function RidePage() {
             });
             history.push('/confirmation/reservation/success');
         } catch (error) {
-            if (error.response && error.response.status === 409) { // Hier vul je de statuscode in die je backend retourneert voor deze specifieke fout
-                // Je kunt hier een specifiek bericht instellen of een variabele instellen die je later kunt gebruiken om de status van je knop te wijzigen
-                // console.error("Deze rit is al geselecteerd door de gebruiker");
-                setErrorMessage("Deze rit is al geselecteerd door de gebruiker"); // Zet de foutmelding in de state
+            if (error.response) {
+                switch (error.response.status) {
+                    case 409:
+                        setErrorMessage("Deze rit is al geselecteerd door de gebruiker");
+                        break;
+                    // Je kunt meer cases toevoegen voor andere statuscodes die je verwacht
+                    default:
+                        setError("Er is iets fout gegaan, probeer het opnieuw.");
+                        history.push('/confirmation/reservation/failure');
+                }
             } else {
-                console.error(error);
+                setError("Er is iets fout gegaan, probeer het opnieuw.");
                 history.push('/confirmation/reservation/failure');
             }
+            console.error(error);
         }
     }
 
     async function handleAnnuleerRitClick() {
+        setError(null);
+        setErrorMessage(null);
         console.log("idddd: " + id);
         try {
             await axios.delete(`http://localhost:8080/rides/${id}`, {
@@ -98,14 +117,15 @@ function RidePage() {
             });
             history.push('/confirmation/rideRemoved/success');
         } catch (error) {
-            console.error(error);
+            setError("Er is iets fout gegaan, probeer het opnieuw.");
             history.push('/confirmation/rideRemoved/failure');
+            console.error(error);
         }
     }
 
-    console.log(driverData.username);
-
     async function handleCancelRitAlsPassagierClick() {
+        setError(null);
+        setErrorMessage(null);
         try {
             await axios.delete(`http://localhost:8080/rides/${rideData.id}/users/${user.username}`, {
                 headers: {
@@ -130,6 +150,8 @@ function RidePage() {
 
     useEffect(() => {
         async function fetchProfileImage() {
+            setError(null);
+            setErrorMessage(null);
             if (driverData.fileName) {
                 try {
                     const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${driverData.fileName}`, {
@@ -153,7 +175,10 @@ function RidePage() {
     // passagierImage
     useEffect(() => {
         async function fetchAllPassengerImages() {
-            if (rideData.users) {
+            setError(null);
+            setErrorMessage(null);
+
+            if (rideData.users.length > 1) {
                 for (let passenger of rideData.users) {
                     if (passenger.username !== driverData.username) {
                         try {
@@ -188,9 +213,10 @@ function RidePage() {
 
     useEffect(() => {
         async function fetchReservationInfo() {
+            setError(null);
+            setErrorMessage(null);
+
             try {
-                console.log(user.username);
-                // console.log("rideId: ", id)
                 const response = await axios.get(`http://localhost:8080/rides/${id}/users/${user.username}/reservationInfo`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -200,6 +226,20 @@ function RidePage() {
                 console.log(response.data);
                 setReservationInfo(response.data);
             } catch (error) {
+                if (error.response) {
+                    switch (error.response.status) {
+                        case 404:
+                            setError("Reserveringsinformatie niet gevonden");
+                            break;
+                        case 403:
+                            setError("Gebruiker niet in de rit");
+                            break;
+                        default:
+                            setError("Er is iets fout gegaan, probeer het opnieuw.");
+                    }
+                } else {
+                    setError("Er is iets fout gegaan, probeer het opnieuw.");
+                }
                 console.error('Er is een fout opgetreden:', error);
             }
         }
