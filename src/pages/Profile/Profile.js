@@ -84,9 +84,13 @@ function Profile() {
                         licensePlate: carData.licensePlate,
                         model: carData.model,
                         brand: carData.brand,
-                    },
-                }
-            );
+                    }
+                    },{
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
 
             if (result.data && result.data.username) {
                 setProfileData(result.data);
@@ -191,6 +195,7 @@ function Profile() {
                 try {
                     const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${profileData.fileName}`, {
                         responseType: 'blob',
+                        headers: { 'Authorization': `Bearer ${token}` }
                     });
                     console.log(response.data);
                     const image = URL.createObjectURL(response.data);

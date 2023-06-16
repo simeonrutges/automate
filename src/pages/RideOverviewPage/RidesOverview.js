@@ -282,6 +282,8 @@ import RidePageTest from "../RidePage/RidePageTest";
 // export default RidesOverview;
 
 function RidesOverview({ location }) {
+    const token = localStorage.getItem('token');
+
     const [rides, setRides] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -315,6 +317,9 @@ function RidesOverview({ location }) {
                         pax,
                         departureDate,
                     },
+                    headers: {"Content-Type": 'application/json',
+                        // 'Authorization': `Bearer ${token}`,
+                    }
                 });
                 console.log('Response:', response);
 

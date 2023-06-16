@@ -5,6 +5,8 @@ import {Link, Route, Switch} from "react-router-dom";
 import RidePageTest from "../RidePage/RidePageTest";
 
 function MyRides() {
+    const token = localStorage.getItem('token');
+
     const {isAuth, logout, isBestuurder, isPassagier, user} = useContext(AuthContext);
 
     const [rides, setRides] = useState([]);
@@ -17,7 +19,11 @@ function MyRides() {
             const username = isAuth && user.username ? user.username : '';
             console.log("username: " , username);
 
-            const response = await axios.get(`http://localhost:8080/users/${username}/rides`);
+            const response = await axios.get(`http://localhost:8080/users/${username}/rides`,{
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
             setRides(response.data);
             console.log(rides);
 

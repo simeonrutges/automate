@@ -21,6 +21,103 @@ import RideDetails from "./pages/RideDetails/RideDetails";
 import MessageDetail from "./pages/MessageDetail/MessageDetail";
 import Notification from "./pages/Notifications/Notification";
 
+// function App() {
+//     const {isAuth} = useContext(AuthContext);
+//
+//     return (
+//         <>
+//             <NavBar/>
+//             <div className="content">
+//                 <Switch>
+//                     <Route exact path="/">
+//                         <Home/>
+//                     </Route>
+//
+//                     <Route exact path="/profile">
+//                         <PrivateRoute auth={isAuth}>
+//                             <Profile/>
+//                         </PrivateRoute>
+//                     </Route>
+//
+//                     <Route exact path="/profile/:username">
+//                         <PrivateRoute auth={isAuth}>
+//                             <Profile/>
+//                         </PrivateRoute>
+//                     </Route>
+//
+//
+//                     <Route exact path="/signin">
+//                         <SignIn/>
+//                     </Route>
+//
+//                     <Route exact path="/signup">
+//                         <SignUp/>
+//                     </Route>
+//
+//                     <Route exact path="/my-rides">
+//                         <MyRides/>
+//                     </Route>
+//
+//                     {/*///*/}
+//                     <Route exact path="/my-rides/:rideId">
+//                         <RideDetails/>
+//                     </Route>
+//                     {/*///*/}
+//
+//                     <Route exact path="/my-messages/:username">
+//                         <MessageDetail/>
+//                     </Route>
+//
+//                     <Route path="/my-messages">
+//                         <MyMessages/>
+//                     </Route>
+//
+//                     <Route path="/ride/:id">
+//                         <RidePageTest/>
+//                     </Route>
+//
+//                     {/*hier een ride s achtergzet*/}
+//                     <Route exact path="/rides/:id">
+//                     <RidePageTest/>
+//                 </Route>
+//
+//                     {/*<Route path="/confirmation/:type/:success" component={Confirmation}/>*/}
+//                     <Route path="/confirmation/:type/:success">
+//                         <Confirmation />
+//                     </Route>
+//
+//
+//
+//
+//                     {/*<Route path="/rides">*/}
+//                     {/*    <RidesOverview/>*/}
+//                     {/*</Route>*/}
+//                     <Route path="/rides" render={(props) => <RidesOverview {...props} />}/>
+//
+//                     {/*<Route path="/rides" render={(props) => <RideOverviewTest {...props} />}/>*/}
+//
+//                     {/*<Route path="/rides" >*/}
+//                     {/*    <RideOverviewTest/>}/>*/}
+//                     {/*</Route>*/}
+//
+//                     {/*<Route exact path="/my-notifications/:id">*/}
+//                     {/*    <PrivateRoute auth={isAuth}>*/}
+//                     {/*        <Notification/>*/}
+//                     {/*    </PrivateRoute>*/}
+//                     {/*</Route>*/}
+//                     <Route exact path="/my-notifications/:id" component={Notification} />
+//
+//
+//
+//                 </Switch>
+//             </div>
+//             <Footer/>
+//         </>
+//     );
+// }
+//
+// export default App;
+// hierboven was het tot 16/6
 function App() {
     const {isAuth} = useContext(AuthContext);
 
@@ -45,7 +142,6 @@ function App() {
                         </PrivateRoute>
                     </Route>
 
-
                     <Route exact path="/signin">
                         <SignIn/>
                     </Route>
@@ -55,59 +151,59 @@ function App() {
                     </Route>
 
                     <Route exact path="/my-rides">
-                        <MyRides/>
+                        <PrivateRoute auth={isAuth}>
+                            <MyRides/>
+                        </PrivateRoute>
                     </Route>
 
                     {/*///*/}
                     <Route exact path="/my-rides/:rideId">
-                        <RideDetails/>
+                        <PrivateRoute auth={isAuth}>
+                            <RideDetails/>
+                        </PrivateRoute>
                     </Route>
                     {/*///*/}
 
                     <Route exact path="/my-messages/:username">
-                        <MessageDetail/>
+                        <PrivateRoute auth={isAuth}>
+                            <MessageDetail/>
+                        </PrivateRoute>
                     </Route>
 
                     <Route path="/my-messages">
-                        <MyMessages/>
+                        <PrivateRoute auth={isAuth}>
+                            <MyMessages/>
+                        </PrivateRoute>
                     </Route>
 
                     <Route path="/ride/:id">
-                        <RidePageTest/>
+                        <PrivateRoute auth={isAuth}>
+                            <RidePageTest/>
+                        </PrivateRoute>
                     </Route>
 
                     {/*hier een ride s achtergzet*/}
                     <Route exact path="/rides/:id">
-                    <RidePageTest/>
-                </Route>
+                        <PrivateRoute auth={isAuth}>
+                            <RidePageTest/>
+                        </PrivateRoute>
+                    </Route>
 
                     {/*<Route path="/confirmation/:type/:success" component={Confirmation}/>*/}
                     <Route path="/confirmation/:type/:success">
-                        <Confirmation />
+                        <PrivateRoute auth={isAuth}>
+                            <Confirmation/>
+                        </PrivateRoute>
                     </Route>
 
-
-
-
-                    {/*<Route path="/rides">*/}
-                    {/*    <RidesOverview/>*/}
-                    {/*</Route>*/}
                     <Route path="/rides" render={(props) => <RidesOverview {...props} />}/>
 
-                    {/*<Route path="/rides" render={(props) => <RideOverviewTest {...props} />}/>*/}
+                    <Route exact path="/my-notifications/:id" component={Notification}/>
 
-                    {/*<Route path="/rides" >*/}
-                    {/*    <RideOverviewTest/>}/>*/}
-                    {/*</Route>*/}
-
-                    {/*<Route exact path="/my-notifications/:id">*/}
-                    {/*    <PrivateRoute auth={isAuth}>*/}
-                    {/*        <Notification/>*/}
-                    {/*    </PrivateRoute>*/}
-                    {/*</Route>*/}
-                    <Route exact path="/my-notifications/:id" component={Notification} />
-
-
+                    {/*TESTEN! 15/6*/}
+                    {/*<PrivateRoute exact path="/my-notifications/:id" auth={isAuth}>*/}
+                    {/*    {props => <Notification {...props} />}*/}
+                    {/*</PrivateRoute>*/}
 
                 </Switch>
             </div>

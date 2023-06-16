@@ -4,6 +4,8 @@ import './fileUploadForm.css';
 import standard_profile_img from '../../assets/sustainability.jpg';
 
 function FileUploadForm({ username, setToggle, toggle }) {
+    const token = localStorage.getItem('token');
+
     const [file, setFile] = useState(null);
 
     const [previewUrl, setPreviewUrl] = useState('');
@@ -42,6 +44,7 @@ function FileUploadForm({ username, setToggle, toggle }) {
             const response = await axios.post('http://localhost:8080/users/single/uploadDb', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`,
                 },
             });
             // contentType!!!

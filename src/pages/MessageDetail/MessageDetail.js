@@ -5,6 +5,8 @@ import {AuthContext} from "../../context/AuthContext";
 import './messageDetail.css';
 
 function MessageDetails() {
+    const token = localStorage.getItem('token');
+
     const [message, setMessage] = useState('');
     const [error, setError] = useState(false);
     const [messages, setMessages] = useState([]);
@@ -19,7 +21,9 @@ function MessageDetails() {
 
     async function fetchMessages() {
         try {
-            const response = await axios.get(`http://localhost:8080/messages/${loggedInUsername}/${username}`);
+            const response = await axios.get(`http://localhost:8080/messages/${loggedInUsername}/${username}`,{
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
             const messages = response.data;
             console.log(messages);
             console.log("messages id: ");
@@ -57,6 +61,7 @@ function MessageDetails() {
             const response = await axios.post('http://localhost:8080/messages/', messageData, {
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 },
             });
 

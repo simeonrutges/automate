@@ -3,13 +3,18 @@ import axios from 'axios';
 import {Link} from "react-router-dom";
 
 function Notification(props) {
+    const token = localStorage.getItem('token');
+
     const [notification, setNotification] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchNotification() {
             try {
-                const response = await axios.get(`http://localhost:8080/notifications/${props.match.params.id}`);
+                const response = await axios.get(`http://localhost:8080/notifications/${props.match.params.id}`,{
+                    headers: {'Authorization': `Bearer ${token}`,
+                    }
+                });
                 console.log("notification: ", response.data);
                 setNotification(response.data);
             } catch (e) {
