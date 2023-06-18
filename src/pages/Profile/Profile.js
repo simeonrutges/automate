@@ -7,7 +7,7 @@ import standard_profile_img from '../../assets/sustainability.jpg';
 import FileUploadForm from './FileUploadForm';
 
 function Profile() {
-    const { username: viewedUsername } = useParams();
+    const {username: viewedUsername} = useParams();
     console.log("viewedUsername = " + viewedUsername);
     const history = useHistory();
 
@@ -84,7 +84,7 @@ function Profile() {
                         model: carData.model,
                         brand: carData.brand,
                     }
-                    },{
+                }, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
@@ -194,7 +194,7 @@ function Profile() {
                 try {
                     const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${profileData.fileName}`, {
                         responseType: 'blob',
-                        headers: { 'Authorization': `Bearer ${token}` }
+                        headers: {'Authorization': `Bearer ${token}`}
                     });
                     console.log(response.data);
                     const image = URL.createObjectURL(response.data);
@@ -252,7 +252,6 @@ function Profile() {
     };
 
 
-
     return (
         <div className="outer-content-container">
             <div className="inner-content-container">
@@ -272,7 +271,6 @@ function Profile() {
                                     {user.username === username && (
                                         <button onClick={handleDelete}>Verwijder</button>
                                         )}
-
                                 </div>
                             ) : (
                                 <div className="file-upload-container">
@@ -290,7 +288,7 @@ function Profile() {
                                 </div>
                             )}
 
-                            <h4>{username}</h4>
+                            <h2 id="myHeader" >{username}</h2>
                         </section>
                     </section>
 
@@ -337,7 +335,8 @@ function Profile() {
                                             <textarea
                                                 cols="30"
                                                 rows="10"
-                                                placeholder="Wie ben ik?"
+                                                placeholder="Wie ben jij als reisgenoot? Geniet je van muziek of podcasts
+                                                 tijdens het rijden? Heb je een voorkeur voor bepaalde gespreksonderwerpen? Vertel het ons hier."
                                                 id="bio-field"
                                                 name="bio"
                                                 value={bio}
@@ -424,3 +423,4 @@ function Profile() {
 }
 
 export default Profile;
+

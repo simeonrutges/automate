@@ -56,3 +56,11 @@
 /*.file-upload-container input[type="file"] {*/
 /*    margin-right: 10px;*/
 /*}*/
+
+#myHeader {
+    margin-left: 40px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: colm;
+    align-items: center;
+}

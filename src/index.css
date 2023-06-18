@@ -7,17 +7,18 @@
     Table of Contents
     1. Global Styles
     2. Typography
-    3. Layout
-        3.1 Reusables
-        3.2 Other
-    4. Areas
+    3. Form Styling
+    4. Button Styles
+    5. Other
+
+    6. Areas
         4.1 Header
         4.2 Introduction
         4.3 Work
         4.4 Services
         4.5 Contact
         4.6 Footer
-    5. Media Queries
+    7. Media Queries
 ////////////////////////*/
 
 /* ------------------------------- 1. Global Styles -------------------------------- */
@@ -116,9 +117,137 @@ p {
   margin: 12px 0;
   font-family: Helvetica;
 }
-  /*!* deze hierboven aangepast!*!*/
 
-/* --------------- 3.2 Other --------------------------- */
+/* ------------------------------- 3. Form Styling ----------------------------------- */
+
+/*Algemene formulier-styling*/
+form {
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F5F5;
+  /*background-color: white;*/
+  padding: 32px;
+  max-width: 300px;
+  border-radius: 4px;
+}
+
+form label {
+  margin: 4px 0;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 4px 8px;
+  margin: 6px 0;
+  /*background-color: #F5F5F5 ;*/
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+h2 {
+  margin: 32px 0 24px 0;
+}
+
+.content {
+  margin: 0px;
+  /*was 32px*/
+}
+
+.form-button {
+  width: 100%;
+}
+
+
+/* ------------------------------- 4. Button Styles ----------------------------------- */
+
+/*Algemene button styling*/
+button {
+  /*background-color: #FFA500;*/
+  background-color: #4CAD98;
+  /*background-color: #4FB37B;*/
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  border-radius: 4px;
+}
+
+/*Zorgt ervoor dat als twee buttons naast elkaar staan, er altijd ruimte tussen blijft*/
+button + button {
+  margin-left: 8px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #FAD57F;
+}
+
+a,
+a:visited,
+a:active {
+  color: #0d3b66;
+}
+
+a:hover {
+  color: #ea7e1f;
+}
+
+/* --------------- 5. Other --------------------------- */
+
+nav a,
+nav a:visited,
+nav a:active {
+  text-decoration: none;
+  color: #333333;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 150px;
+}
+
+.logo-container img {
+  /*width: 40px;*/
+  width: 100px;
+  margin-right: 8px;
+}
+
+section  {
+  margin: 0 0 50px 0;
+}
+
+.error {
+  color: orangered;
+}
+
+/*Zet mij op een element en ik blijf voor altijd draaien!*/
+.loading-icon {
+  width: 16px;
+  height: 16px;
+  animation: rotating 1.5s linear infinite;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /*a,*/
 /*a:visited,*/

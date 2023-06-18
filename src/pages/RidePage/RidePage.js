@@ -264,7 +264,7 @@ function RidePage() {
                 ) : (
 
                     <div className="product-page">
-                        <h1>RidePage {id}</h1>
+                        <h1>Reisdetails (RidePage id: {id})</h1>
 
                         {Object.keys(rideData).length > 0 &&
                             <div>

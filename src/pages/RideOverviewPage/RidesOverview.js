@@ -387,6 +387,8 @@ function RidesOverview({ location }) {
                                                     })}</p>
                                                     <p>Aankomst tijd: {ride.eta}</p>
                                                     {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
+                                                    {/*<p>Beschikbare stoelen: {ride.availableSpots}</p>*/}
+                                                    {/*<p>Gereserveerde stoelen: {ride.pax}</p>*/}
                                                     <p>
                                                         Prijs per persoon: {ride.pricePerPerson.toLocaleString('nl-NL', {
                                                         style: 'currency',

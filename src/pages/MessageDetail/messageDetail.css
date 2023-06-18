@@ -2,20 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #FAD57F;
+    /*background-color: #FAD57F;*/
+    background-color: #4CAD98;
 }
-
-/*.container {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    background-color: #FAD57F;*/
-/*    width: 100%; !* De container neemt nu de volledige breedte van het scherm *!*/
-/*    max-width: 800px; !* Maar wordt niet breder dan 800px *!*/
-/*    min-width: 300px; !* En is ten minste 300px breed *!*/
-/*    margin: 0 auto; !* Centreert de container *!*/
-/*}*/
-
 
 .title {
     margin-top: 20px;
@@ -46,7 +35,7 @@
 }
 
 .sender-message {
-    background-color: lightblue;
+    background-color: #F5F5F5;
     padding: 10px;
     border-radius: 5px;
     margin-right: 10px;
@@ -79,6 +68,10 @@
 }
 
 /*////*/
+.chat-form {
+    border-radius: 0px;
+}
+/*///*/
 
 .form-group {
     display: flex;
