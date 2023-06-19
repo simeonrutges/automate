@@ -252,169 +252,362 @@ function Profile() {
     };
 
 
+//     return (
+//         <div className="outer-content-container">
+//             <div className="inner-content-container">
+//                 <div>
+//
+//                     {user.username === username ?(
+//                     <h1>Mijn Profiel</h1>
+//                         ) : (
+//                             <h1>{username}'s  profiel</h1>
+//                         )}
+//                     <section className="profile-picture">
+//                         <section className="foto-name">
+//
+//                             {uploadedImage ? (
+//                                 <div className="file-upload-container">
+//                                     <img src={uploadedImage} alt="Profielfoto" className="image-upload"/>
+//                                     {user.username === username && (
+//                                         <button onClick={handleDelete}>Verwijder</button>
+//                                         )}
+//                                 </div>
+//                             ) : (
+//                                 <div className="file-upload-container">
+//                                     {user.username === username && (
+//                                     <FileUploadForm
+//                                         username={username}
+//                                         setToggle={setToggle}
+//                                         toggle={toggle}
+//                                         standardImg={standard_profile_img}
+//                                     />
+//                                         )}
+//                                     {user.username !== username && (
+//                                         <img src={standard_profile_img} alt="Standaard profielfoto" className="image-upload"/>
+//                                     )}
+//                                 </div>
+//                             )}
+//
+//                             <h2 id="myHeader" >{username}</h2>
+//                         </section>
+//                     </section>
+//
+//
+//
+//
+//                     {Object.keys(profileData).length > 0 && (
+//                         <section className="bio">
+//                             <h4>Contactgegevens</h4>
+//                             <p>Rol: {profileData.roles}</p>
+//                             <p>Voornaam: {profileData.firstname}</p>
+//                             <p>Achternaam: {profileData.lastname}</p>
+//                             <p>Telefoon:{profileData.phoneNumber}</p>
+//                             <p>Email: {profileData.email}</p>
+//
+//
+//
+//                             {user.username !== username && (
+//                                 <button onClick={handleSendMessage}>Stuur {profileData.firstname} een bericht</button>
+//                             )}
+//
+//
+//
+//                             {profileData.bio ? (
+//                                 <div>
+//                                     {user.username === username ? (
+//                                     <h4>Over mij</h4>
+//                                     ) : (
+//                                         <h4>Over {username}</h4>
+//                                         )}
+//                                     <p>{profileData.bio}</p>
+//                                     {user.username === username && (
+//                                         <button onClick={handleDeleteBio}>Verwijder</button>
+//                                     )}
+//                                 </div>
+//                             ) : (
+//
+//                                 <div>
+//
+//                                     {user.username === username && (
+//                                     <form className="bio-form" onSubmit={handleBioSubmit}>
+//                                         <label className="bio-label" htmlFor="bio-field">
+//                                             <p className="bio-text">Over mij</p>
+//                                             <textarea
+//                                                 cols="30"
+//                                                 rows="10"
+//                                                 placeholder="Wie ben jij als reisgenoot? Geniet je van muziek of podcasts
+//                                                  tijdens het rijden? Heb je een voorkeur voor bepaalde gespreksonderwerpen? Vertel het ons hier."
+//                                                 id="bio-field"
+//                                                 name="bio"
+//                                                 value={bio}
+//                                                 onChange={(e) => setBio(e.target.value)}
+//                                             />
+//                                         </label>
+//                                         <button type="submit" className="form-button">
+//                                             Opslaan
+//                                         </button>
+//                                     </form>
+//                                     )}
+//
+//                                 </div>
+//                             )}
+//                         </section>
+//                     )}
+//
+//                     {profileData.roles && profileData.roles.includes('BESTUURDER') && (
+//
+//                         <section className="vehicle-submit">
+//                             {/*{user.username === username && (*/}
+//                             {Object.keys(carData).length === 0 && user.username === username? (
+//                                 // {Object.keys(carData).length === 0 && user.username === username? (
+//                                 <form onSubmit={handleVehicleSubmit}>
+//                                     <label htmlFor="licensePlate-field">Voertuig toevoegen</label>
+//                                     <input
+//                                         placeholder="Kenteken"
+//                                         type="text"
+//                                         id="licensePlate-field"
+//                                         value={licensePlate}
+//                                         onChange={(e) => setLicensePlate(e.target.value)}
+//                                     />
+//
+//                                     <label htmlFor="model-field">Model</label>
+//                                     <input
+//                                         placeholder="Model"
+//                                         type="text"
+//                                         id="model-field"
+//                                         value={model}
+//                                         onChange={(e) => setModel(e.target.value)}
+//                                     />
+//
+//                                     <label htmlFor="brand-field">Merk</label>
+//                                     <input
+//                                         placeholder="Merk"
+//                                         type="text"
+//                                         id="brand-field"
+//                                         value={brand}
+//                                         onChange={(e) => setBrand(e.target.value)}
+//                                     />
+//
+//                                     <button type="submit">Voertuig toevoegen</button>
+//                                 </form>
+//
+//
+//                             ) : (
+//
+//                                 carData && carData.licensePlate && carData.model && carData.brand && (
+//                                 <div>
+//                             {user.username === username ?(
+//                                 <h4>Mijn auto:</h4>
+//                                 ) : (
+//                                 <h4>Auto</h4>
+//                                 )}
+//
+//                                 <p>Kenteken: {carData.licensePlate}</p>
+//                                 <p>Model: {carData.model}</p>
+//                                 <p>Merk: {carData.brand}</p>
+//                             {user.username === username && (
+//                                 <button onClick={handleDeleteVehicle}>Verwijder</button>
+//                                 )}
+//                                 </div>
+//                                 )
+//
+//
+//                             )}
+//                         </section>
+//                     )}
+//
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
+//
+// export default Profile;
+
     return (
         <div className="outer-content-container">
             <div className="inner-content-container">
                 <div>
 
-                    {user.username === username ?(
-                    <h1>Mijn Profiel</h1>
+                    <header>
+                        {user.username === username ? (
+                            <h1>Mijn Profiel</h1>
                         ) : (
-                            <h1>{username}'s  profiel</h1>
+                            <h1>{username}'s profiel</h1>
                         )}
-                    <section className="profile-picture">
-                        <section className="foto-name">
+                        <section className="profile-picture">
+                            <section className="foto-name">
 
-                            {uploadedImage ? (
-                                <div className="file-upload-container">
-                                    <img src={uploadedImage} alt="Profielfoto" className="image-upload"/>
-                                    {user.username === username && (
-                                        <button onClick={handleDelete}>Verwijder</button>
+                                {uploadedImage ? (
+                                    <div className="file-upload-container">
+                                        <img src={uploadedImage} alt="Profielfoto" className="image-upload"/>
+                                        {user.username === username && (
+                                            <button onClick={handleDelete}>Verwijder</button>
                                         )}
-                                </div>
-                            ) : (
-                                <div className="file-upload-container">
-                                    {user.username === username && (
-                                    <FileUploadForm
-                                        username={username}
-                                        setToggle={setToggle}
-                                        toggle={toggle}
-                                        standardImg={standard_profile_img}
-                                    />
+                                    </div>
+                                ) : (
+                                    <div className="file-upload-container">
+                                        {user.username === username && (
+                                            <FileUploadForm
+                                                username={username}
+                                                setToggle={setToggle}
+                                                toggle={toggle}
+                                                standardImg={standard_profile_img}
+                                            />
                                         )}
-                                    {user.username !== username && (
-                                        <img src={standard_profile_img} alt="Standaard profielfoto" className="image-upload"/>
-                                    )}
-                                </div>
-                            )}
+                                        {user.username !== username && (
+                                            <img src={standard_profile_img} alt="Standaard profielfoto"
+                                                 className="image-upload"/>
+                                        )}
+                                    </div>
+                                )}
 
-                            <h2 id="myHeader" >{username}</h2>
+                                <h2 id="myHeader">{username}</h2>
+                            </section>
                         </section>
-                    </section>
-
-
-
+                    </header>
 
                     {Object.keys(profileData).length > 0 && (
-                        <section className="bio">
-                            <h4>Contactgegevens</h4>
-                            <p>Rol: {profileData.roles}</p>
-                            <p>Voornaam: {profileData.firstname}</p>
-                            <p>Achternaam: {profileData.lastname}</p>
-                            <p>Telefoon:{profileData.phoneNumber}</p>
-                            <p>Email: {profileData.email}</p>
+                        <main className="main-content main-section">
+                            <section className="contact-section">
+
+                                <h4>Contactgegevens</h4>
+                                <div className="contact-details">
+                                    <p>Rijstatus: {profileData.roles}</p>
+                                    <p>Voornaam: {profileData.firstname}</p>
+                                    <p>Achternaam: {profileData.lastname}</p>
+                                    <p>Telefoon:{profileData.phoneNumber}</p>
+                                    <p>Email: {profileData.email}</p>
+                                </div>
 
 
+                                {user.username !== username && (
+                                    <button onClick={handleSendMessage}>Stuur {profileData.firstname} een
+                                        bericht</button>
+                                )}
 
-                            {user.username !== username && (
-                                <button onClick={handleSendMessage}>Stuur {profileData.firstname} een bericht</button>
-                            )}
+                            </section>
 
 
+                            <section className="bio-section">
+                                {!profileData.bio && (
+                                    <h4>Bio</h4>
+                                )}
+                                {profileData.bio ? (
 
-                            {profileData.bio ? (
-                                <div>
-                                    {user.username === username ? (
-                                    <h4>Over mij</h4>
-                                    ) : (
-                                        <h4>Over {username}</h4>
+                                    <div>
+
+                                        {user.username === username ? (
+                                            <h4>Over mij</h4>
+                                        ) : (
+                                            <h4>Over {username}</h4>
                                         )}
-                                    <p>{profileData.bio}</p>
-                                    {user.username === username && (
-                                        <button onClick={handleDeleteBio}>Verwijder</button>
-                                    )}
-                                </div>
-                            ) : (
-
-                                <div>
-
-                                    {user.username === username && (
-                                    <form className="bio-form" onSubmit={handleBioSubmit}>
-                                        <label className="bio-label" htmlFor="bio-field">
-                                            <p className="bio-text">Over mij</p>
-                                            <textarea
-                                                cols="30"
-                                                rows="10"
-                                                placeholder="Wie ben jij als reisgenoot? Geniet je van muziek of podcasts
-                                                 tijdens het rijden? Heb je een voorkeur voor bepaalde gespreksonderwerpen? Vertel het ons hier."
-                                                id="bio-field"
-                                                name="bio"
-                                                value={bio}
-                                                onChange={(e) => setBio(e.target.value)}
-                                            />
-                                        </label>
-                                        <button type="submit" className="form-button">
-                                            Opslaan
-                                        </button>
-                                    </form>
-                                    )}
-
-                                </div>
-                            )}
-                        </section>
-                    )}
-
-                    {profileData.roles && profileData.roles.includes('BESTUURDER') && (
-
-                        <section className="vehicle-submit">
-                            {/*{user.username === username && (*/}
-                            {Object.keys(carData).length === 0 && user.username === username? (
-                                // {Object.keys(carData).length === 0 && user.username === username? (
-                                <form onSubmit={handleVehicleSubmit}>
-                                    <label htmlFor="licensePlate-field">Voertuig toevoegen</label>
-                                    <input
-                                        placeholder="Kenteken"
-                                        type="text"
-                                        id="licensePlate-field"
-                                        value={licensePlate}
-                                        onChange={(e) => setLicensePlate(e.target.value)}
-                                    />
-
-                                    <label htmlFor="model-field">Model</label>
-                                    <input
-                                        placeholder="Model"
-                                        type="text"
-                                        id="model-field"
-                                        value={model}
-                                        onChange={(e) => setModel(e.target.value)}
-                                    />
-
-                                    <label htmlFor="brand-field">Merk</label>
-                                    <input
-                                        placeholder="Merk"
-                                        type="text"
-                                        id="brand-field"
-                                        value={brand}
-                                        onChange={(e) => setBrand(e.target.value)}
-                                    />
-
-                                    <button type="submit">Voertuig toevoegen</button>
-                                </form>
-
-
-                            ) : (
-
-                                carData && carData.licensePlate && carData.model && carData.brand && (
-                                <div>
-                            {user.username === username ?(
-                                <h4>Mijn auto:</h4>
+                                        <p>{profileData.bio}</p>
+                                        {user.username === username && (
+                                            <button onClick={handleDeleteBio}>Verwijder</button>
+                                        )}
+                                    </div>
                                 ) : (
-                                <h4>Auto</h4>
+
+                                    <div>
+
+                                        {user.username === username && (
+                                            <form className="bio-form" onSubmit={handleBioSubmit}>
+                                                <label className="bio-label" htmlFor="bio-field">
+                                                    <p className="bio-text">Over mij</p>
+                                                    <textarea
+                                                        cols="30"
+                                                        rows="10"
+                                                        placeholder="Vertel iets over jezelf. Wat zijn je interesses? Geniet je van stilte tijdens het rijden of hou je van een goed gesprek?
+                                                        Heb je een favoriete podcast of muziekgenre voor tijdens het rijden? Heb je specifieke regels of voorkeuren tijdens het reizen?
+                                                        Deze informatie zal anderen helpen om te beslissen of ze een goede match met je zijn."
+                                                        id="bio-field"
+                                                        name="bio"
+                                                        value={bio}
+                                                        onChange={(e) => setBio(e.target.value)}
+                                                    />
+                                                </label>
+                                                <button type="submit" className="form-button">
+                                                    Opslaan
+                                                </button>
+                                            </form>
+                                        )}
+
+                                    </div>
+
+
                                 )}
-
-                                <p>Kenteken: {carData.licensePlate}</p>
-                                <p>Model: {carData.model}</p>
-                                <p>Merk: {carData.brand}</p>
-                            {user.username === username && (
-                                <button onClick={handleDeleteVehicle}>Verwijder</button>
-                                )}
-                                </div>
-                                )
+                            </section>
 
 
+                            {profileData.roles && profileData.roles.includes('BESTUURDER') && (
+
+                                <section className="vehicle-submit-section">
+                                    {/*{user.username === username && (*/}
+                                    {Object.keys(carData).length === 0 && user.username === username ? (
+                                        // {Object.keys(carData).length === 0 && user.username === username? (
+                                       <div>
+                                        <h4>Voertuig toevoegen</h4>
+                                        <form className="vehicle-form" onSubmit={handleVehicleSubmit}>
+                                            <label htmlFor="licensePlate-field">Kenteken</label>
+                                            <input
+                                                placeholder="Kenteken"
+                                                type="text"
+                                                id="licensePlate-field"
+                                                value={licensePlate}
+                                                onChange={(e) => setLicensePlate(e.target.value)}
+                                            />
+
+                                            <label htmlFor="model-field">Model</label>
+                                            <input
+                                                placeholder="Model"
+                                                type="text"
+                                                id="model-field"
+                                                value={model}
+                                                onChange={(e) => setModel(e.target.value)}
+                                            />
+
+                                            <label htmlFor="brand-field">Merk</label>
+                                            <input
+                                                placeholder="Merk"
+                                                type="text"
+                                                id="brand-field"
+                                                value={brand}
+                                                onChange={(e) => setBrand(e.target.value)}
+                                            />
+
+                                            <button type="submit">Voertuig toevoegen</button>
+                                        </form>
+                                        </div>
+
+
+                                    ) : (
+
+                                        carData && carData.licensePlate && carData.model && carData.brand && (
+                                            <div>
+                                                {user.username === username ? (
+                                                    <h4>Mijn auto</h4>
+                                                ) : (
+                                                    <h4>Auto</h4>
+                                                )}
+
+                                                <p>Kenteken: {carData.licensePlate}</p>
+                                                <p>Model: {carData.model}</p>
+                                                <p>Merk: {carData.brand}</p>
+                                                {user.username === username && (
+                                                    <button onClick={handleDeleteVehicle}>Verwijder</button>
+                                                )}
+                                            </div>
+                                        )
+
+
+                                    )}
+                                </section>
                             )}
-                        </section>
+
+                        </main>
                     )}
+
 
                 </div>
             </div>
