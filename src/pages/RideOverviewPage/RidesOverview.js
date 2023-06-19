@@ -385,7 +385,7 @@ function RidesOverview({ location }) {
                                                         minute: '2-digit',
                                                         hour12: false
                                                     })}</p>
-                                                    <p>Aankomst tijd: {ride.eta}</p>
+                                                    <p>Aankomst tijd: {ride.eta.substring(0, 5)}</p>
                                                     {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
                                                     {/*<p>Beschikbare stoelen: {ride.availableSpots}</p>*/}
                                                     {/*<p>Gereserveerde stoelen: {ride.pax}</p>*/}

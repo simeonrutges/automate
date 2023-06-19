@@ -88,7 +88,7 @@ function Notification(props) {
                     <p>Vertrek: {displayDepartureDateTime}</p>
                     <p>Aankomsttijd: {estimatedArrivalTime}</p>
                     {notification.type !== "RIDE_CANCELLED_BY_DRIVER" &&
-                        <p>Voor meer informatie zie <Link to={`/rides/${rideId}`}>"Mijn ritten"</Link></p>}
+                        <p>BELANGRIJK! Raadpleeg altijd de meest recente updates via <Link to={`/rides/${rideId}`}>"Mijn ritten"</Link></p>}
 
                 </div>
 

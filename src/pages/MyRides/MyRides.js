@@ -72,7 +72,7 @@ function MyRides() {
                                                         minute: '2-digit',
                                                         hour12: false
                                                     })}</p>
-                                                <p>Aankomst tijd: {ride.eta}</p>
+                                                <p>Aankomst tijd: {ride.eta.substring(0, 5)}</p>
                                                 {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
                                                 {/*<p>Totaal prijs: {ride.totalRitPrice} euro</p>*/}
 
