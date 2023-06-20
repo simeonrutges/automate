@@ -933,7 +933,7 @@ function RidePage() {
                                 </p>
                                 <p>{rideData.pickUpLocation}</p>
                                 {/*<p>{rideData.eta}*</p>*/}
-                               <p>{eta}*</p>
+                                <p>{eta}*</p>
 
                                 <p>{rideData.destination}</p>
                             </span>
@@ -995,7 +995,7 @@ function RidePage() {
                             </span>
                                     </div>
                                     <div id="eta">
-                                    <p>* Verwachte aankomst tijd</p>
+                                        <p>* Verwachte aankomst tijd</p>
                                     </div>
 
 
@@ -1031,7 +1031,7 @@ function RidePage() {
                                         hour12: false
                                     })}</p>
                                     <p>Bestemming: {rideData.destination}</p>
-                                    <p>Aankomsttijd: {rideData.eta.substring(0,5)}*</p>
+                                    <p>Aankomsttijd: {rideData.eta.substring(0, 5)}*</p>
                                     {/*<p>Aankomsttijd: {rideData.eta}*</p>*/}
 
                                     {/*<p>Aantal beschikbare plekken:{rideData.availableSpots}</p>*/}
@@ -1045,31 +1045,36 @@ function RidePage() {
                                     <p>Reis omschrijving: {rideData.addRideInfo}</p>
 
                                     {user && rideData.driverUsername === user.username && rideData.users && rideData.users.filter(passenger => passenger.username !== driverData.username).length > 0 && (
-                                        <div className="driver-profile-box">
-                                            <p>Passagiers:</p>
-                                            {rideData.users
-                                                .filter(passenger => passenger.username !== driverData.username)
-                                                .map((passenger) => (
-                                                    <div key={passenger.username} className="passenger-profile-box">
-                                                        <Link to={`/profile/${passenger.username}`}>
-                                                            {passengerImages[passenger.username] ? (
-                                                                <img
-                                                                    src={passengerImages[passenger.username]}
-                                                                    alt="Profielfoto van de passagier"
-                                                                    className="driver-profile-picture"
-                                                                />
-                                                            ) : (
-                                                                <img
-                                                                    src={standard_profile_img}
-                                                                    alt="Standaard profielfoto van de bestuurder"
-                                                                    className="driver-profile-picture"
-                                                                />
-                                                            )}
-                                                            <p>{passenger.username}</p>
-                                                        </Link>
-                                                    </div>
-                                                ))}
+                                        <div>
+                                            <h4>Passagiers:</h4>
+                                            <div className="passenger-profile-box">
+                                                {/*<h4>Passagiers:</h4>*/}
+                                                {rideData.users
+                                                    .filter(passenger => passenger.username !== driverData.username)
+                                                    .map((passenger) => (
+                                                        <div key={passenger.username} className="passenger-profile-box">
+                                                            <Link to={`/profile/${passenger.username}`} className="profile-link">
+                                                                {passengerImages[passenger.username] ? (
+                                                                    <img
+                                                                        src={passengerImages[passenger.username]}
+                                                                        alt="Profielfoto van de passagier"
+                                                                        className="driver-profile-picture"
+                                                                    />
+                                                                ) : (
+                                                                    <img
+                                                                        src={standard_profile_img}
+                                                                        alt="Standaard profielfoto van de bestuurder"
+                                                                        className="driver-profile-picture"
+                                                                    />
+                                                                )}
+                                                                <p>{passenger.username}</p>
+                                                            </Link>
+                                                        </div>
+                                                    ))}
+                                            </div>
                                         </div>
+
+
                                     )}
 
 
