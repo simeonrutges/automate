@@ -95,12 +95,6 @@ function MyRides() {
                                                     }) : "€0.00"}</p>
                                                 )}
 
-                                                {/*{user.username === ride.driverUsername && (*/}
-                                                {/*<p>Aantal vrije stoelen: {ride.availableSpots}</p>)}*/}
-
-                                                {/*{user.username === ride.driverUsername && (*/}
-                                                {/*<p>Gereserveerde stoelen: {ride.pax}</p>*/}
-                                                {/*)}*/}
                                                 {user.username !== ride.driverUsername ? (
                                                     // <div>
                                                         <p>Rijstatus: Passagier</p>

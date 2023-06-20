@@ -7,8 +7,8 @@ function FileUploadForm({ username, setToggle, toggle }) {
     const token = localStorage.getItem('token');
 
     const [file, setFile] = useState(null);
-
     const [previewUrl, setPreviewUrl] = useState('');
+    // const [error, setError] = useState(null);
 
     function handleImageChange(e) {
         setFile(e.target.files[0]);
@@ -31,6 +31,7 @@ function FileUploadForm({ username, setToggle, toggle }) {
 
         if (!isValidFileType(file)) {
             alert('Alleen .jpg en .jpeg bestanden zijn toegestaan.');
+            // setError('Alleen .jpg en .jpeg bestanden zijn toegestaan.');
             return;
         }
 
@@ -51,16 +52,16 @@ function FileUploadForm({ username, setToggle, toggle }) {
             console.log(response.data);
             setToggle(!toggle);
 
-            alert('Bestand geüpload: ' + response.data.fileName);
+
         } catch (error) {
             alert('Er is een fout opgetreden tijdens het uploaden: ' + error);
+            // setError('Er is een fout opgetreden tijdens het uploaden: ' + error);
         }
     }
 
     return (
         <form onSubmit={sendImage} className="file-upload-container">
             <label>
-                {/*Preview:*/}
                 <img
                     src={previewUrl || standard_profile_img}
                     alt="Voorbeeld van de afbeelding die zojuist gekozen is"
@@ -69,7 +70,8 @@ function FileUploadForm({ username, setToggle, toggle }) {
             </label>
             <div className="file-upload-actions">
                 <input type="file" onChange={handleImageChange}/>
-                {file && <button type="submit">Upload preview</button>}
+                {/*{error && <p>{error}</p>}*/}
+                {file && <button type="submit" className="preview-button">Upload preview</button>}
             </div>
         </form>
     );

@@ -50,6 +50,7 @@
 
 .file-upload-actions {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
     margin-top: 10px;
@@ -57,5 +58,17 @@
 
 .file-upload-container input[type="file"] {
     margin-right: 10px;
+}
+
+.preview-button {
+    margin-top: 4px;
+    margin-bottom: 4;
+    margin-left: 2px;
+    margin-right: 116px;
+
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 

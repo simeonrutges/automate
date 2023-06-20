@@ -442,7 +442,7 @@ function Profile() {
                                     <div className="file-upload-container">
                                         <img src={uploadedImage} alt="Profielfoto" className="image-upload"/>
                                         {user.username === username && (
-                                            <button onClick={handleDelete}>Verwijder</button>
+                                            <button onClick={handleDelete} className="delete-button">Verwijder</button>
                                         )}
                                     </div>
                                 ) : (
@@ -519,9 +519,10 @@ function Profile() {
                                                     <textarea
                                                         cols="30"
                                                         rows="10"
-                                                        placeholder="Vertel iets over jezelf. Wat zijn je interesses? Geniet je van stilte tijdens het rijden of hou je van een goed gesprek?
-                                                        Heb je een favoriete podcast of muziekgenre voor tijdens het rijden? Heb je specifieke regels of voorkeuren tijdens het reizen?
-                                                        Deze informatie zal anderen helpen om te beslissen of ze een goede match met je zijn."
+                                                        // placeholder="Vertel iets over jezelf. Wat zijn je interesses? Geniet je van stilte tijdens het rijden of hou je van een goed gesprek?
+                                                        // Heb je een favoriete podcast of muziekgenre voor tijdens het rijden? Heb je specifieke regels of voorkeuren tijdens het reizen?
+                                                        // Laat het weten in je bio en help anderen om te beslissen of ze een goede match met je zijn."
+                                                        placeholder="Beschrijf jezelf kort. Welke interesses heb je? Luister je graag naar muziek of podcasts tijdens het rijden, of geef je de voorkeur aan stilte? Hebben je speciale reisregels? Ben je een fan van koffiepauzes of houd je van de schoonheid van de vroege ochtend? Laat weten dat iedere reis met jou een avontuur is!"
                                                         id="bio-field"
                                                         name="bio"
                                                         value={bio}
