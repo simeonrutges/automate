@@ -31,6 +31,8 @@ function Home() {
     const [pricePerPerson, setPricePerPerson] = useState('');
     const [availableSpots, setAvailableSpots] = useState('');
     const [eta, setEta] = useState('');
+    const [pickUpAddress, setPickUpAddress] = useState('');
+    const [destinationAddress, setDestinationAddress] = useState('');
 
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -86,6 +88,14 @@ function Home() {
     const handleEtaChange = (e) => {
         setEta(e.target.value);
     };
+    const handlePickUpAddressChange = (e) => {
+        setPickUpAddress(e.target.value);
+    };
+
+    const handleDestinationAddressChange = (e) => {
+        setDestinationAddress(e.target.value);
+    };
+
 
     const setDepartureDateTime = (dateTimeString) => {
         // Parse the datetime string into a Date object
@@ -160,7 +170,9 @@ function Home() {
                 pricePerPerson: pricePerPerson,
                 availableSpots: availableSpots,
                 eta: eta,
-                driverUsername: username
+                driverUsername: username,
+                pickUpAddress: pickUpAddress,
+                destinationAddress: destinationAddress
             }, {
                 headers: {
                     "Content-Type": 'application/json',
@@ -303,10 +315,14 @@ function Home() {
 
                         {activeForm === 'selfDrive' ? (
                                 <form onSubmit={handleSubmitSelfDrive}>
-                                    <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
+                                    <FormInput id="pickUpLocation" labelText="Vertrek:" inputType="text"
                                                value={pickUpLocation} onChange={handlePickUpLocationChange} required placeholder="Utrecht "/>
+                                    <FormInput id="pickUpAddress" labelText="Adres:" inputType="text"
+                                               value={pickUpAddress} onChange={handlePickUpAddressChange} required placeholder="Straatweg 16 / Station"/>
                                     <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination}
                                                onChange={handleDestinationChange} required placeholder="Amsterdam"/>
+                                    <FormInput id="destinationAddress" labelText="Adres:" inputType="text" value={destinationAddress}
+                                               onChange={handleDestinationAddressChange} required placeholder="De Boelelaan 519 / Station Zuid"/>
                                     <FormInput id="route" labelText="Route:" inputType="text" value={route}
                                                onChange={handleRouteChange} placeholder="via Hilversum, A27 en A1 "/>
                                     <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
@@ -329,6 +345,11 @@ function Home() {
                                     <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
                                                onChange={handleEtaChange} required placeholder="Utrecht "/>
                                     {etaError && <div className="error">{etaError}</div>}
+
+                                    {/*<FormInput id="pickUpAddress" labelText="Vertrek adres:" inputType="text"*/}
+                                    {/*           value={pickUpAddress} onChange={handlePickUpAddressChange} required placeholder="Straatweg 16 "/>*/}
+                                    {/*<FormInput id="destinationAddress" labelText="Adres Bestemming:" inputType="text" value={destinationAddress}*/}
+                                    {/*           onChange={handleDestinationAddressChange} required placeholder="Brugstaat 4 of Station"/>*/}
 
                                     <button type="submit">Plaats rit</button>
                                 </form>

@@ -486,6 +486,7 @@ function RidePage() {
                 const rideResponse = await axios.get(`http://localhost:8080/rides/${id}`, {
                     headers: {'Authorization': `Bearer ${token}`}
                 });
+                console.log(rideResponse.data);
                 setRideData(rideResponse.data);
                 // datum = rideResponse.data.departureDateTime.split("T");
                 // setCurrentData(datum[1]);
@@ -1024,17 +1025,21 @@ function RidePage() {
 
 
                                 <section className="ride-info">
-                                    <p>Ophaal locatie: {rideData.pickUpLocation}</p>
+                                    {/*<p>Ophaal locatie: {rideData.pickUpLocation}</p>*/}
+                                    {/*<p>Adres: {rideData.pickUpAddress} </p>*/}
                                     <p>Vertrektijd: {new Date(rideData.departureDateTime).toLocaleTimeString([], {
                                         hour: '2-digit',
                                         minute: '2-digit',
                                         hour12: false
                                     })}</p>
-                                    <p>Bestemming: {rideData.destination}</p>
+                                    <p>Vertrekplaats: {rideData.pickUpLocation}</p>
+                                    <p>Adres: {rideData.pickUpAddress} </p>
+                                    {/*<p>Bestemming: {rideData.destination}</p>*/}
+                                    {/*<p>Adres: {rideData.destinationAddress} </p>*/}
                                     <p>Aankomsttijd: {rideData.eta.substring(0, 5)}*</p>
-                                    {/*<p>Aankomsttijd: {rideData.eta}*</p>*/}
+                                    <p>Bestemming: {rideData.destination}</p>
+                                    <p>Adres: {rideData.destinationAddress} </p>
 
-                                    {/*<p>Aantal beschikbare plekken:{rideData.availableSpots}</p>*/}
 
 
                                     {user && rideData.driverUsername === user.username && (

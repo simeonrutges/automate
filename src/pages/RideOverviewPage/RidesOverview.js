@@ -370,7 +370,6 @@ function RidesOverview({ location }) {
                                 {rides.map((ride) => {
                                     return (
                                         <React.Fragment key={ride.id}>
-                                            rideID {ride.id} //later weghalen!
                                             {!rideItemClicked && (
                                                 <Link
                                                     to={`/rides/${ride.id}?pax=${pax}`}
@@ -379,6 +378,7 @@ function RidesOverview({ location }) {
                                                     onClick={handleRideItemClick}
                                                 >
                                                     <h2>{ride.pickUpLocation} - {ride.destination}</h2>
+                                                    {/*<h6>{ride.pickUpAddress}  - {ride.destinationAddress} </h6>*/}
                                                     <p>Datum:{new Date(ride.departureDateTime).toLocaleDateString()}</p>
                                                     <p>Vertrek tijd: {new Date(ride.departureDateTime).toLocaleTimeString([], {
                                                         hour: '2-digit',
@@ -386,19 +386,16 @@ function RidesOverview({ location }) {
                                                         hour12: false
                                                     })}</p>
                                                     <p>Aankomst tijd: {ride.eta.substring(0, 5)}</p>
-                                                    {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
-                                                    {/*<p>Beschikbare stoelen: {ride.availableSpots}</p>*/}
-                                                    {/*<p>Gereserveerde stoelen: {ride.pax}</p>*/}
                                                     <p>
                                                         Prijs per persoon: {ride.pricePerPerson.toLocaleString('nl-NL', {
                                                         style: 'currency',
                                                         currency: 'EUR'
                                                     })}
                                                     </p>
-
-                                                    {/*<p>Totaal prijs: {ride.totalRitPrice} euro</p>*/}
                                                     <p>Beschikbare stoelen: {ride.availableSpots}</p>
-                                                    <p>Gereserveerde stoelen: {ride.pax}</p>
+                                                    {/*<p>Gereserveerde stoelen: {ride.pax}</p>*/}
+                                                    {/*<p>vertrekadres: {ride.pickUpAddress}</p>*/}
+                                                    {/*<p>aankomst: {ride.destinationAddress}</p>*/}
                                                 </Link>
                                             )}
                                         </React.Fragment>
