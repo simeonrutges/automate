@@ -15,6 +15,7 @@ function Notification(props) {
                     headers: {'Authorization': `Bearer ${token}`,
                     }
                 });
+                // console.log("rideId" , response.data.rideDetails[0]);
                 console.log("notification: ", response.data);
                 setNotification(response.data);
             } catch (e) {
@@ -51,8 +52,19 @@ function Notification(props) {
     const formattedTime = date.toLocaleTimeString('nl-NL', {hour: '2-digit', minute: '2-digit'});
     const displayDate = `${formattedDate} om ${formattedTime}`;
 
-    // Maak een object van de ride details, split elke detail op de streep ('-') om key-value paren te krijgen
-    const rideDetails = notification.rideDetails.split(", ");
+//     // Maak een object van de ride details, split elke detail op de streep ('-') om key-value paren te krijgen
+//     const rideDetails = notification.rideDetails.split(", ");
+//
+//     const rideDetailsObj = rideDetails.reduce((obj, detail) => {
+//         const [key, value] = detail.split(" - ");
+//         obj[key] = value;
+//         return obj;
+//     }, {});
+//
+// // Extract de individuele details
+//     const { "Driver" : driver, "Pick Up Location": pickUpLocation, "Destination": destination, "Departure DateTime": departureDateTime, "Pax": pax, "Estimated Arrival Time" : estimatedArrivalTime, } = rideDetailsObj;
+
+    const rideDetails = notification.rideDetails.replace("Rit details: ", "").split(", ");
 
     const rideDetailsObj = rideDetails.reduce((obj, detail) => {
         const [key, value] = detail.split(" - ");
@@ -61,7 +73,9 @@ function Notification(props) {
     }, {});
 
 // Extract de individuele details
-    const { "Driver" : driver, "Pick Up Location": pickUpLocation, "Destination": destination, "Departure DateTime": departureDateTime, "Pax": pax, "Estimated Arrival Time" : estimatedArrivalTime, } = rideDetailsObj;
+    const { "Driver" : driver, "Pick Up Location": pickUpLocation, "Destination": destination, "Departure DateTime": departureDateTime, "Pax": pax, "Estimated Arrival Time" : estimatedArrivalTime } = rideDetailsObj;
+
+///////////
 
     // Haal rideId direct uit notification
     const { rideId } = notification;
@@ -81,8 +95,7 @@ function Notification(props) {
                     {/*<p>Details: {notification.rideDetails}</p>*/}
                     <h1>{displayType}</h1>
                     <p>Bericht datum: {displayDate}</p>
-                    {notification.type === "RIDE_CANCELLED_BY_DRIVER" &&
-                        <p>Bestuurder: {driver}</p>}
+                    {notification.type === "RIDE_CANCELLED_BY_DRIVER" && <p>Bestuurder: <Link to={`/profile/${driver}`}>{driver}</Link></p>}
                     <p>Ophaal locatie: {pickUpLocation}</p>
                     <p>Bestemming: {destination}</p>
                     <p>Vertrek: {displayDepartureDateTime}</p>

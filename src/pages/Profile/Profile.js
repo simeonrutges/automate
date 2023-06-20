@@ -490,9 +490,10 @@ function Profile() {
 
 
                             <section className="bio-section">
-                                {!profileData.bio && (
+                                {user.username === username && !profileData.bio &&(
                                     <h4>Bio</h4>
                                 )}
+
                                 {profileData.bio ? (
 
                                     <div>
