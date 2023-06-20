@@ -40,7 +40,6 @@ function AuthContextProvider({ children }) {
     }, []); // = mounting effect
 
     function login(JWT) {
-        console.log(JWT)
         localStorage.setItem('token', JWT);
         const decoded = jwt_decode(JWT);
         console.log("decoded toke: ", decoded);
@@ -237,7 +236,6 @@ function AuthContextProvider({ children }) {
             });
             console.log('Result:', result);
 
-/////// 1
             const user = {
                 username: result.data.username,
                 email: result.data.email,
@@ -245,25 +243,7 @@ function AuthContextProvider({ children }) {
                 roles: result.data.roles,
                 password: result.data.password, //?14/6
             };
-            console.log('User:', user);
-            // haal de rollen van de gebruiker op
-            // const roles = result.data.roles.map(role => role.rolename);
-            /////////////
 
-
-            // zet de gegevens in de state ---> deze is goed!!!
-            // toggleIsAuth({
-            //     ...auth,
-            //     auth: true,
-            //     user: {
-            //         username: result.data.username,
-            //         email: result.data.email,
-            //         id: result.data.username,
-            //     },
-            //     status: 'done',
-            // });
-
-            /////// 2
             console.log(auth.user)
             toggleAuth({
                 ...auth, //? 14/6

@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import {Link, Route, Switch} from "react-router-dom";
-import RidePageTest from "../RidePage/RidePageTest";
+import RidePageTest from "../RidePage/RidePage";
 
 function MyRides() {
     const token = localStorage.getItem('token');
@@ -72,19 +72,22 @@ function MyRides() {
                                                         minute: '2-digit',
                                                         hour12: false
                                                     })}</p>
-                                                <p>Aankomst tijd: {ride.eta}</p>
+                                                <p>Aankomst tijd: {ride.eta.substring(0, 5)}</p>
                                                 {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
                                                 {/*<p>Totaal prijs: {ride.totalRitPrice} euro</p>*/}
+
+                                                {user.username === ride.driverUsername && (
+                                                    <p>Aantal vrije stoelen: {ride.availableSpots}</p>)}
+
+                                                {user.username === ride.driverUsername && (
+                                                    <p>Gereserveerde stoelen: {ride.pax}</p>
+                                                )}
+
                                                 <p>Prijs per persoon: {ride.pricePerPerson && ride.pricePerPerson.toLocaleString('nl-NL', {
                                                     style: 'currency',
                                                     currency: 'EUR'
                                                 })}</p>
 
-                                                {/*{user.username === ride.driverUsername && (*/}
-                                                {/*<p>Totaal prijs: {ride.totalRitPrice && ride.totalRitPrice.toLocaleString('nl-NL', {*/}
-                                                {/*    style: 'currency',*/}
-                                                {/*    currency: 'EUR'*/}
-                                                {/*})}</p>)}*/}
                                                 {user.username === ride.driverUsername && (
                                                     <p>Totaal prijs: {ride.totalRitPrice > 0 ? ride.totalRitPrice.toLocaleString('nl-NL', {
                                                         style: 'currency',
@@ -92,19 +95,13 @@ function MyRides() {
                                                     }) : "€0.00"}</p>
                                                 )}
 
-                                                {user.username === ride.driverUsername && (
-                                                <p>Aantal vrije stoelen: {ride.availableSpots}</p>)}
-
-                                                {user.username === ride.driverUsername && (
-                                                <p>Gereserveerde stoelen: {ride.pax}</p>
-                                                )}
                                                 {user.username !== ride.driverUsername ? (
                                                     // <div>
-                                                        <p>Ik ben passagier!</p>
+                                                        <p>Rijstatus: Passagier</p>
                                                     //     <p>Stuur {ride.driverUsername} een bericht!</p>
                                                     // </div>
                                                 ) : (
-                                                    <p>Ik rij!</p>
+                                                    <p>Rijstatus: Bestuurder</p>
                                                 )}
 
                                             </Link>

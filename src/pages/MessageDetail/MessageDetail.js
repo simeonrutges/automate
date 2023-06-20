@@ -80,32 +80,10 @@ function MessageDetails() {
 
 
                 <div className="container">
-
                     <h3>{username}</h3>
 
+
                     <div className="message-container">
-
-                        {/*{messages.map((msg) => (*/}
-                        {/*    <div*/}
-                        {/*        className={`message-item ${msg.senderUsername === loggedInUsername ? 'sender-message' : 'receiver-message'}`}*/}
-                        {/*        key={msg.id}*/}
-                        {/*    >*/}
-                        {/*        <div className="sender-name">{msg.senderUsername}</div>*/}
-                        {/*        <div className="message-text">{msg.content}</div>*/}
-                        {/*    </div>*/}
-                        {/*))}*/}
-
-                        {/*{messages.map((msg) => (*/}
-                        {/*    <div*/}
-                        {/*        className={`message-item ${msg.senderUsername === loggedInUsername ? 'sender-message' : 'receiver-message'}`}*/}
-                        {/*        key={msg.id}*/}
-                        {/*    >*/}
-                        {/*        <div className="sender-name">{msg.senderUsername}</div>*/}
-                        {/*        <div className="message-text">{msg.content}</div>*/}
-                        {/*        <div className="message-timestamp">{new Date(msg.timestamp).toLocaleString()}</div>*/}
-                        {/*    </div>*/}
-                        {/*))}*/}
-
                         {messages.map((msg) => {
                             const messageDate = new Date(msg.timestamp);
                             const formattedDate = messageDate.toLocaleDateString();
@@ -122,31 +100,12 @@ function MessageDetails() {
                                 </div>
                             );
                         })}
-
-
-
                     </div>
 
 
-                    {/*<div className="new-content-container">*/}
-                    {/*<form onSubmit={handleSubmit}>*/}
-                    {/*    <div className="form-group">*/}
-                    {/*        <label className="label" htmlFor="message">Bericht:</label>*/}
-                    {/*        <textarea*/}
-                    {/*            className="textarea"*/}
-                    {/*            id="message"*/}
-                    {/*            value={message}*/}
-                    {/*            onChange={(e) => setMessage(e.target.value)}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <button className="button" type="submit">Verstuur</button>*/}
-                    {/*    {error && <p className="error">Er is een fout opgetreden bij het verzenden van het bericht.</p>}*/}
-                    {/*</form>*/}
-                    {/*</div>*/}
-
                     <div className="new-content-container">
                         <div className="content">
-                            <form onSubmit={handleSubmit}>
+                            <form className="chat-form" onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label className="label" htmlFor="message">Bericht:</label>
                                     <textarea
@@ -163,8 +122,8 @@ function MessageDetails() {
                     </div>
 
 
-
                 </div>
+
 
             </div>
         </messagedetail>

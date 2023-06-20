@@ -138,7 +138,7 @@ import  './rideOverViewPage.css';
 import {Route, Switch, useParams} from "react-router-dom";
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import RidePageTest from "../RidePage/RidePageTest";
+import RidePage from "../RidePage/RidePageTest";
 
 // function RidesOverview({ location }) {
 //     const [rides, setRides] = useState([]);
@@ -385,8 +385,10 @@ function RidesOverview({ location }) {
                                                         minute: '2-digit',
                                                         hour12: false
                                                     })}</p>
-                                                    <p>Aankomst tijd: {ride.eta}</p>
+                                                    <p>Aankomst tijd: {ride.eta.substring(0, 5)}</p>
                                                     {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
+                                                    {/*<p>Beschikbare stoelen: {ride.availableSpots}</p>*/}
+                                                    {/*<p>Gereserveerde stoelen: {ride.pax}</p>*/}
                                                     <p>
                                                         Prijs per persoon: {ride.pricePerPerson.toLocaleString('nl-NL', {
                                                         style: 'currency',

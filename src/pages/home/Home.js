@@ -125,14 +125,11 @@ function Home() {
             setAvailableSpotsError("");
         }
 
-        // Maak een nieuw Date object voor de huidige tijd
+        // controlle of de departuredate VOOR de huidige tijd is
         const now = new Date();
-        // Maak een nieuw Date object voor de ingevoerde tijd
         const enteredDateTime = new Date(departureDateTime);
 
-        // Controleer of de ingevoerde tijd in de toekomst ligt
         if (enteredDateTime <= now) {
-            // Update de error message als de tijd niet in de toekomst ligt
             setDateTimeError("De gekozen vertrektijd ligt in het verleden. Selecteer een vertrektijd in de toekomst.");
             return;
         } else {
@@ -170,21 +167,16 @@ function Home() {
                     'Authorization': `Bearer ${token}`,
                 }
             });
-            console.log("POST-ride:  ", result);
 
             // Add the current user to the list of users for the ride
             const rideId = result.data.id;
-            console.log(rideId, username, token);
-            // const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`);
-            const response = await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`, {}, {
+            // klopt: pax = 0 bij bestuurder
+            await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`, {}, {
                 headers: {
                     "Content-Type": 'application/json',
                     'Authorization': `Bearer ${token}`,
                 }
             });
-
-            // klopt: pax = 0 bij bestuurder
-            console.log("response: ",response);
 
             const id = result.data.id;
 
@@ -257,8 +249,7 @@ function Home() {
 
 
     const handleSelfDriveClick = () => {
-        console.log(isAuth);
-        console.log(isAuth.user)
+
         if (!isAuth) {
             history.push('/signin');
             return;
@@ -313,13 +304,13 @@ function Home() {
                         {activeForm === 'selfDrive' ? (
                                 <form onSubmit={handleSubmitSelfDrive}>
                                     <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
-                                               value={pickUpLocation} onChange={handlePickUpLocationChange} required/>
+                                               value={pickUpLocation} onChange={handlePickUpLocationChange} required placeholder="Utrecht "/>
                                     <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination}
-                                               onChange={handleDestinationChange} required/>
+                                               onChange={handleDestinationChange} required placeholder="Amsterdam"/>
                                     <FormInput id="route" labelText="Route:" inputType="text" value={route}
-                                               onChange={handleRouteChange}/>
+                                               onChange={handleRouteChange} placeholder="via Hilversum, A27 en A1 "/>
                                     <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
-                                               value={addRideInfo} onChange={handleAddRideInfoChange}/>
+                                               value={addRideInfo} onChange={handleAddRideInfoChange} placeholder="We stoppen in Hilversum voor koffie"/>
                                     <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
                                                value={departureTime} onChange={handleDepartureTimeChange} required/>
                                     <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
@@ -328,15 +319,15 @@ function Home() {
 
                                     <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="3"
                                                step="0.01" value={pricePerPerson} onChange={handlePricePerPersonChange}
-                                               required/>
+                                               required placeholder="min. 3 euro "/>
                                     {pricePerPersonError && <div className="error">{pricePerPersonError}</div>}
 
                                     <FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number"
                                                min="1" max="5" step="1" value={availableSpots}
-                                               onChange={handleAvailableSpotsChange} required/>
+                                               onChange={handleAvailableSpotsChange} required placeholder="min.1, max.5"/>
                                     {availableSpotsError && <div className="error">{availableSpotsError}</div>}
                                     <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
-                                               onChange={handleEtaChange} required/>
+                                               onChange={handleEtaChange} required placeholder="Utrecht "/>
                                     {etaError && <div className="error">{etaError}</div>}
 
                                     <button type="submit">Plaats rit</button>
@@ -344,17 +335,17 @@ function Home() {
                             )
                             : (
                                 <form onSubmit={handleSubmitRideAlong}>
-                                    <FormInput id="pickUpLocation" labelText="Vertrek locatie:" inputType="text"
+                                    <FormInput id="pickUpLocation" labelText="Vertrekplaats:" inputType="text"
                                                value={pickUpLocation}
-                                               onChange={e => setPickUpLocation(e.target.value)} required/>
+                                               onChange={e => setPickUpLocation(e.target.value)} required placeholder="Utrecht "/>
 
                                     <FormInput id="destination" labelText="Bestemming:" inputType="text"
                                                value={destination} onChange={e => setDestination(e.target.value)}
-                                               required/>
+                                               required placeholder="Alkmaar "/>
 
                                     <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" min="1" max="5"
                                                step="1" value={pax}
-                                               onChange={e => setPax(e.target.value)} required/>
+                                               onChange={e => setPax(e.target.value)} required placeholder="min. 1, max. 5"/>
                                     {pax < 1 || pax > 5 &&
                                         <div className="error">Het aantal reizigers moet tussen 1 en 5 liggen.</div>}
 

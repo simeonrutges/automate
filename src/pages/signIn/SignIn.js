@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
-import Modal from "../../context/modal/Modal";
-
 
 function SignIn() {
     const [username, setUsername] = useState('');
@@ -20,16 +18,7 @@ function SignIn() {
                 username: username,
                 password: password,
             });
-            // log het resultaat in de console
-            // console.log(result.data);
-            // console.log(result.headers['authorization']);
-            // console.log(result.headers.getAuthorization('authorization'));
-            console.log("result: ", result.data);
 
-            // geef de JWT token aan de login-functie van de context mee
-            // login(result.data.accessToken);
-            // login(result.headers['authorization'].substring(7));
-            // login(result.headers.authorization.substring(7));
             login(result.data);
 
         } catch(e) {
@@ -79,7 +68,6 @@ function SignIn() {
             </form>
 
             <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
-            <Modal message="Dit is de inlog pagina!"/>
         </div>
 
             </div>

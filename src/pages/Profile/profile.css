@@ -1,3 +1,77 @@
+.main-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px ;
+    /*background-color: red;*/
+    margin-bottom: 100px
+}
+
+/*.main-content {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: flex-start; !* uitlijnen van items naar de linkerkant *!*/
+/*    width: 100%;*/
+/*    max-width: 1200px;*/
+/*    margin: 0 auto;*/
+/*}*/
+/*.main-content {*/
+/*    width: 100%;*/
+/*    max-width: 1200px;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+
+.bio-form, .vehicle-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* dit zorgt ervoor dat de breedte van de formulieren 100% van hun container is */
+    max-width: 1200px; /* hiermee kun je de maximale breedte van de formulieren instellen, pas deze waarde aan naar wat je nodig hebt */
+    margin: 0 auto; /* deze regel centreert het element horizontaal */
+}
+
+.bio-section, .vehicle-section {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/*.vehicle-form  {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    max-width: 600px;*/
+/*    !*width: 100%; !* of een ander percentage / vaste breedte die je passend vindt *!*!*/
+/*    margin: 0 auto; !* deze regel centreert het element horizontaal *!*/
+/*}*/
+
+#bio-field {
+    width: 100%;
+}
+
+.vehicle-submit-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+/*////*/
 .foto-name{
     display: flex;
     flex-direction: row;
@@ -13,11 +87,11 @@
     border: 2px solid black;
 }
 
-.bio-form {
-    display: flex;
-    flex-direction: column;
-    /*background-color: transparent ;*/
-}
+/*.bio-form {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    !*background-color: transparent ;*!*/
+/*}*/
 
 .bio-label {
     margin-bottom: 16px; /* Adjust this value to add more space between the label and the textarea */
@@ -56,3 +130,28 @@
 /*.file-upload-container input[type="file"] {*/
 /*    margin-right: 10px;*/
 /*}*/
+
+#myHeader {
+    margin-left: 40px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.delete-button {
+    margin-top: 4px;
+    margin-bottom: 4;
+    margin-left: 2px;
+    margin-right: 2px;
+
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    background: #F0F0F0;
+    color: #000000;
+
+
+
+}

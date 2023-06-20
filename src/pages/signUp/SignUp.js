@@ -66,7 +66,6 @@ function SignUpTest() {
             });
             console.log(result);
 
-            // als alles goed gegaan is, linken we door naar de login-pagina
             history.push("/signin");
         } catch (e) {
             console.error(e);
@@ -131,28 +130,59 @@ function SignUpTest() {
                         onChange={handlePhoneNumberChange}
                     />
 
-                    <label htmlFor="driver-radio" className="radio">
-                        <input
-                            type="radio"
-                            id="driver-radio"
-                            value="BESTUURDER"
-                            name="role"
-                            checked={role === "BESTUURDER"}
-                            onChange={handleRoleChange}
-                        />
-                        Bestuurder
-                    </label>
-                    <label htmlFor="passenger-radio" className="radio">
-                        <input
-                            type="radio"
-                            id="passenger-radio"
-                            value="PASSAGIER"
-                            name="role"
-                            checked={role === "PASSAGIER"}
-                            onChange={handleRoleChange}
-                        />
-                        Passagier
-                    </label>
+                    {/*<label htmlFor="driver-radio" className="radio">*/}
+                    {/*    <input*/}
+                    {/*        type="radio"*/}
+                    {/*        id="driver-radio"*/}
+                    {/*        value="BESTUURDER"*/}
+                    {/*        name="role"*/}
+                    {/*        checked={role === "BESTUURDER"}*/}
+                    {/*        onChange={handleRoleChange}*/}
+                    {/*    />*/}
+                    {/*    Bestuurder*/}
+                    {/*</label>*/}
+                    {/*<label htmlFor="passenger-radio" className="radio">*/}
+                    {/*    <input*/}
+                    {/*        type="radio"*/}
+                    {/*        id="passenger-radio"*/}
+                    {/*        value="PASSAGIER"*/}
+                    {/*        name="role"*/}
+                    {/*        checked={role === "PASSAGIER"}*/}
+                    {/*        onChange={handleRoleChange}*/}
+                    {/*    />*/}
+                    {/*    Passagier*/}
+                    {/*</label>*/}
+ <section id="radio-section">
+                    <div className="radio">
+                        <label htmlFor="driver-radio">
+                            Bestuurder
+                            <input
+                                type="radio"
+                                id="driver-radio"
+                                value="BESTUURDER"
+                                name="role"
+                                checked={role === "BESTUURDER"}
+                                onChange={handleRoleChange}
+                            />
+                        </label>
+                    </div>
+                    <div className="radio passenger-radio">
+                        <label htmlFor="passenger-radio">
+                            Passagier
+                            <input
+                                type="radio"
+                                id="passenger-radio"
+                                value="PASSAGIER"
+                                name="role"
+                                checked={role === "PASSAGIER"}
+                                onChange={handleRoleChange}
+                            />
+                        </label>
+                    </div>
+ </section>
+
+
+
 
                     <button type="submit">Sign Up</button>
                 </form>
