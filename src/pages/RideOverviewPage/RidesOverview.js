@@ -317,7 +317,8 @@ function RidesOverview({ location }) {
                         pax,
                         departureDate,
                     },
-                    headers: {"Content-Type": 'application/json',
+                    headers: {
+                        "Content-Type": 'application/json',
                         // 'Authorization': `Bearer ${token}`,
                     }
                 });
@@ -377,17 +378,29 @@ function RidesOverview({ location }) {
                                                     className="ride-item"
                                                     onClick={handleRideItemClick}
                                                 >
-                                                    <h2>{ride.pickUpLocation} - {ride.destination}</h2>
-                                                    {/*<h6>{ride.pickUpAddress}  - {ride.destinationAddress} </h6>*/}
+                                                    <div className="pickup-destination-container">
+                                                        <div className="address-container">
+                                                            <h2 className="city">{ride.pickUpLocation}</h2>
+                                                            <p>{ride.pickUpAddress} </p>
+                                                        </div>
+                                                        <h2 id="divider">-</h2>
+                                                        <div className="address-container">
+                                                            <h2 className="city">{ride.destination}</h2>
+                                                            <p>{ride.destinationAddress}</p>
+                                                        </div>
+                                                    </div>
+
                                                     <p>Datum:{new Date(ride.departureDateTime).toLocaleDateString()}</p>
-                                                    <p>Vertrek tijd: {new Date(ride.departureDateTime).toLocaleTimeString([], {
-                                                        hour: '2-digit',
-                                                        minute: '2-digit',
-                                                        hour12: false
-                                                    })}</p>
+                                                    <p>Vertrek
+                                                        tijd: {new Date(ride.departureDateTime).toLocaleTimeString([], {
+                                                            hour: '2-digit',
+                                                            minute: '2-digit',
+                                                            hour12: false
+                                                        })}</p>
                                                     <p>Aankomst tijd: {ride.eta.substring(0, 5)}</p>
                                                     <p>
-                                                        Prijs per persoon: {ride.pricePerPerson.toLocaleString('nl-NL', {
+                                                        Prijs per
+                                                        persoon: {ride.pricePerPerson.toLocaleString('nl-NL', {
                                                         style: 'currency',
                                                         currency: 'EUR'
                                                     })}
@@ -396,6 +409,7 @@ function RidesOverview({ location }) {
                                                     {/*<p>Gereserveerde stoelen: {ride.pax}</p>*/}
                                                     {/*<p>vertrekadres: {ride.pickUpAddress}</p>*/}
                                                     {/*<p>aankomst: {ride.destinationAddress}</p>*/}
+
                                                 </Link>
                                             )}
                                         </React.Fragment>

@@ -9,7 +9,8 @@
     flex-wrap: wrap;
     border: 1px solid black;
     padding: 20px;
-    margin: 10px;
+    /*margin: 10px;*/
+    margin: 10px 10px 30px 10px;
     text-decoration: none;
     border-radius: 8px;
 }
@@ -31,4 +32,37 @@
 
 .ride-item p {
     margin-right: 20px; /* adjust the value as needed */
+}
+
+.address-container {
+    display: flex;
+    flex-direction: column;
+    /*padding: 0px 15px;*/
+    /*margin-bottom: 12px;*/
+    /*padding-bottom: 0px;*/
+}
+
+.pickup-destination-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+}
+
+.pickup-destination-container p {
+    font-size: 22px;
+    font-weight: bold; 
+
+}
+
+.city{
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+#divider {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
 }
