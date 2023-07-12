@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import FormInput from "../../components/formInput/FormInput";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import "../signUp/signUp.css";
 
 function SignUpTest() {
@@ -15,9 +15,10 @@ function SignUpTest() {
     // state voor radio-buttons
     const [role, setRole] = useState("");
 
-    // state voor functionaliteit
+    const [passwordError, setPasswordError] = useState("");
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
+
 
     const history = useHistory();
 
@@ -42,7 +43,14 @@ function SignUpTest() {
     };
 
     const handlePhoneNumberChange = (e) => {
-        setPhoneNumber(e.target.value);
+        const {value} = e.target;
+        const phoneNumberPattern = /^[0-9]{10}$/;
+        if (!phoneNumberPattern.test(value)) {
+            toggleError('Vul een geldig telefoonnummer in zonder streepjes (-).');
+        } else {
+            toggleError(false);
+        }
+        setPhoneNumber(value);
     };
 
     const handleRoleChange = (e) => {
@@ -53,6 +61,14 @@ function SignUpTest() {
         e.preventDefault();
         toggleError(false);
         toggleLoading(true);
+
+        if (password.length < 8) {
+            setPasswordError('Wachtwoord moet minimaal 8 tekens bevatten');
+            toggleLoading(false);
+            return;  // voorkomt dat de functie verder uitgevoerd wordt
+        } else {
+            setPasswordError(""); // clear error message if validation is passed
+        }
 
         try {
             const result = await axios.post("http://localhost:8080/users", {
@@ -92,20 +108,24 @@ function SignUpTest() {
                         labelText="Gebruikersnaam:"
                         inputType="text"
                         value={username}
+                        required
                         onChange={handleUsernameChange}
                     />
                     <FormInput
                         id="password"
-                        labelText="Wachtwoord:"
+                        labelText="Wachtwoord (min. 8 tekens):"
                         inputType="password"
                         value={password}
+                        required
                         onChange={handlePasswordChange}
                     />
+                    {passwordError && <div className="error-message">{passwordError}</div>}
                     <FormInput
                         id="firstname"
                         labelText="Voornaam:"
                         inputType="text"
                         value={firstname}
+                        required
                         onChange={handleFirstnameChange}
                     />
                     <FormInput
@@ -113,6 +133,7 @@ function SignUpTest() {
                         labelText="Achternaam:"
                         inputType="text"
                         value={lastname}
+                        required
                         onChange={handleLastnameChange}
                     />
                     <FormInput
@@ -120,6 +141,7 @@ function SignUpTest() {
                         labelText="Email:"
                         inputType="email"
                         value={email}
+                        required
                         onChange={handleEmailChange}
                     />
                     <FormInput
@@ -127,61 +149,40 @@ function SignUpTest() {
                         labelText="Telefoon:"
                         inputType="tel"
                         value={phoneNumber}
+                        required
                         onChange={handlePhoneNumberChange}
                     />
+                    {error && <div className="error-message">{error}</div>}
 
-                    {/*<label htmlFor="driver-radio" className="radio">*/}
-                    {/*    <input*/}
-                    {/*        type="radio"*/}
-                    {/*        id="driver-radio"*/}
-                    {/*        value="BESTUURDER"*/}
-                    {/*        name="role"*/}
-                    {/*        checked={role === "BESTUURDER"}*/}
-                    {/*        onChange={handleRoleChange}*/}
-                    {/*    />*/}
-                    {/*    Bestuurder*/}
-                    {/*</label>*/}
-                    {/*<label htmlFor="passenger-radio" className="radio">*/}
-                    {/*    <input*/}
-                    {/*        type="radio"*/}
-                    {/*        id="passenger-radio"*/}
-                    {/*        value="PASSAGIER"*/}
-                    {/*        name="role"*/}
-                    {/*        checked={role === "PASSAGIER"}*/}
-                    {/*        onChange={handleRoleChange}*/}
-                    {/*    />*/}
-                    {/*    Passagier*/}
-                    {/*</label>*/}
- <section id="radio-section">
-                    <div className="radio">
-                        <label htmlFor="driver-radio">
-                            Bestuurder
-                            <input
-                                type="radio"
-                                id="driver-radio"
-                                value="BESTUURDER"
-                                name="role"
-                                checked={role === "BESTUURDER"}
-                                onChange={handleRoleChange}
-                            />
-                        </label>
-                    </div>
-                    <div className="radio passenger-radio">
-                        <label htmlFor="passenger-radio">
-                            Passagier
-                            <input
-                                type="radio"
-                                id="passenger-radio"
-                                value="PASSAGIER"
-                                name="role"
-                                checked={role === "PASSAGIER"}
-                                onChange={handleRoleChange}
-                            />
-                        </label>
-                    </div>
- </section>
-
-
+                    <section id="radio-section">
+                        <div className="radio">
+                            <label htmlFor="driver-radio">
+                                Bestuurder
+                                <input
+                                    type="radio"
+                                    id="driver-radio"
+                                    value="BESTUURDER"
+                                    name="role"
+                                    checked={role === "BESTUURDER"}
+                                    onChange={handleRoleChange}
+                                    required
+                                />
+                            </label>
+                        </div>
+                        <div className="radio passenger-radio">
+                            <label htmlFor="passenger-radio">
+                                Passagier
+                                <input
+                                    type="radio"
+                                    id="passenger-radio"
+                                    value="PASSAGIER"
+                                    name="role"
+                                    checked={role === "PASSAGIER"}
+                                    onChange={handleRoleChange}
+                                />
+                            </label>
+                        </div>
+                    </section>
 
 
                     <button type="submit">Sign Up</button>
