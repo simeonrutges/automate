@@ -8,9 +8,6 @@ import img_conviviality from '../../assets/conviviality.jpg';
 import FormInput from "../../components/formInput/FormInput";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
-
-
-
 function Home() {
     const {isAuth, isBestuurder, isPassagier, user} = useContext(AuthContext);
     const token = localStorage.getItem('token');
@@ -345,11 +342,6 @@ function Home() {
                                     <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
                                                onChange={handleEtaChange} required placeholder="Utrecht "/>
                                     {etaError && <div className="error">{etaError}</div>}
-
-                                    {/*<FormInput id="pickUpAddress" labelText="Vertrek adres:" inputType="text"*/}
-                                    {/*           value={pickUpAddress} onChange={handlePickUpAddressChange} required placeholder="Straatweg 16 "/>*/}
-                                    {/*<FormInput id="destinationAddress" labelText="Adres Bestemming:" inputType="text" value={destinationAddress}*/}
-                                    {/*           onChange={handleDestinationAddressChange} required placeholder="Brugstaat 4 of Station"/>*/}
 
                                     <button type="submit">Plaats rit</button>
                                 </form>

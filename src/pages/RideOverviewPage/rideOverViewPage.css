@@ -1,27 +1,12 @@
-/*.ride-item {*/
-/*    padding: 10px;*/
-/*    border: 1px solid black;*/
-/*    margin-bottom: 10px;*/
-/*}*/
-
 .ride-item {
     display: flex;
     flex-wrap: wrap;
     border: 1px solid black;
     padding: 20px;
-    /*margin: 10px;*/
     margin: 10px 10px 30px 10px;
     text-decoration: none;
     border-radius: 8px;
 }
-
-/*.ride-item a {*/
-/*    text-decoration: none;*/
-/*    color: black;*/
-/*    font-weight: bold;*/
-/*    margin-top: 10px;*/
-/*    align-self: flex-end;*/
-/*}*/
 
 .rides-container {
     border: none;
@@ -37,9 +22,6 @@
 .address-container {
     display: flex;
     flex-direction: column;
-    /*padding: 0px 15px;*/
-    /*margin-bottom: 12px;*/
-    /*padding-bottom: 0px;*/
 }
 
 .pickup-destination-container {

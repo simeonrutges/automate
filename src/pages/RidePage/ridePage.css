@@ -1,73 +1,5 @@
-/*.ride-page-price {*/
-/*    !*font-size: 18px;*!*/
-/*    !*font-weight: bold;*!*/
-/*    !*color: green;*!*/
-/*}*/
-
-/*.ride-summary {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    border-radius: 4px;*/
-/*    border: none;*/
-/*    !*color: white;*!*/
-/*    padding: 0px 0px;*/
-/*    margin-bottom: 15px;*/
-/*    background-color: #f5ab00;*/
-/*    color: white;*/
-/*    font-weight: bold;*/
-
-/*    border: 2px solid black;*/
-/*}*/
-
-/*.summary-block1 {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    border-radius: 4px;*/
-/*    border: 1px solid black ;*/
-
-/*}*/
-
-/*.summary-block2 {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    border-radius: 7px;*/
-/*    border: 3px solid black ;*/
-
-/*}*/
-/*.top-box {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    width: 100%;*/
-
-/*}*/
-
-/*.home-page-link {*/
-/*    margin: 32px;*/
-/*    padding: 40px;*/
-/*}*/
-
-
-
-/*.driver-profile-picture {*/
-/*    width: 100px; !* Stel de gewenste breedte in *!*/
-/*    height: 100px; !* Stel de gewenste hoogte in *!*/
-/*    object-fit: cover; !* Zorgt ervoor dat de afbeelding proportioneel wordt geschaald *!*/
-/*    border-radius: 50%; !* Maakt de afbeelding rond *!*/
-/*}*/
-
-/*.driver-profile-box {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*}*/
-
-
-/*--------------------*/
-
 .ride-page-price {
-    /*font-size: 18px;*/
-    /*font-weight: bold;*/
-    /*color: green;*/
+
 }
 
 .ride-summary {
@@ -75,15 +7,12 @@
     flex-direction: row;
     border-radius: 4px;
     border: none;
-    /*color: white;*/
     padding: 0px 0px;
     margin-bottom: 15px;
-    background-color: #f5ab00;
+    background: linear-gradient(to bottom, #4cad98, rgba(76, 173, 152, 0.3));
     color: white;
     font-weight: bold;
     align-items: center;
-
-    border: 1px solid black;
 }
 
 #eta {
@@ -96,7 +25,6 @@
     display: flex;
     flex-direction: column;
     border-radius: 4px;
-    /*border: 1px solid black ;*/
     margin: 10px 10px;
     padding: 0 10px;
 }
@@ -105,7 +33,6 @@
     display: flex;
     flex-direction: column;
     border-radius: 7px;
-    /*border: 3px solid black ;*/
     margin: 10px 50px;
     padding: 0 50px;
 
@@ -136,12 +63,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*border: 2px solid black;*/
     margin-right: 15px;
     margin-top: 10px;
 }
 .ride-info{
-    /*border: 2px solid black;*/
     padding-top: 25px;
     margin-top: 10px;
 }
@@ -150,7 +75,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    /*border: 2px solid black;*/
     margin-right: 40px;
     margin-top: 10px;
 }

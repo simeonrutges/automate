@@ -6,10 +6,5 @@ function PrivateRoute({auth, children, ...rest }) {
         return <Redirect to="/signin"/>
     }
     return children;
-    //     <Route {...rest}>
-    //         {auth === true ? {children} : <Redirect to="/signin"/>}
-    //     </Route>
-    // );
-
 }
 export default PrivateRoute;

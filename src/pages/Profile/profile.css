@@ -7,7 +7,6 @@
     margin-bottom: 100px
 }
 
-
 .bio-form, .vehicle-form {
     display: flex;
     flex-direction: column;
@@ -31,13 +30,6 @@
     margin: 0 auto;
 }
 
-/*.vehicle-form  {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    max-width: 600px;*/
-/*    !*width: 100%; !* of een ander percentage / vaste breedte die je passend vindt *!*!*/
-/*    margin: 0 auto; !* deze regel centreert het element horizontaal *!*/
-/*}*/
 
 #bio-field {
     width: 100%;
@@ -52,28 +44,18 @@
     margin: 0 auto;
 }
 
-
-
-
-
-
-
 .foto-name{
     display: flex;
     flex-direction: row;
     border-radius: 4px;
     border: none;
-    /*color: white;*/
     padding: 0px 0px;
     margin-bottom: 15px;
-    background-color: #f5ab00;
+    background: linear-gradient(to bottom, #4cad98, rgba(76, 173, 152, 0.3));
     color: white;
     font-weight: bold;
-
-    border: 2px solid black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 }
-
-
 
 .bio-label {
     margin-bottom: 16px; /* Adjust this value to add more space between the label and the textarea */
@@ -88,7 +70,6 @@
 }
 
 
-/*///hieronder de copy van form css*/
 .image-upload {
     width: 100px; /* Stel de gewenste breedte in */
     height: 100px; /* Stel de gewenste hoogte in */

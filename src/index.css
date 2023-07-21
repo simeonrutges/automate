@@ -30,15 +30,6 @@
   box-sizing: border-box;
 }
 
-/*body {*/
-/*  margin: 0;*/
-/*  font-family: 'Roboto', 'Oxygen',*/
-/*  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*  color: #051524;*/
-/*}*/
-
 body {
   font-family: Roboto, Arial, Helvetica, sans-serif;
   color: #051524;
@@ -124,8 +115,7 @@ p {
 form {
   display: flex;
   flex-direction: column;
-  background-color: #F5F5F5;
-  /*background-color: white;*/
+  background: linear-gradient(to bottom, #F5F5F5, #E0E0E0);
   padding: 32px;
   max-width: 300px;
   border-radius: 4px;
@@ -140,7 +130,6 @@ form input {
   width: 100%;
   padding: 4px 8px;
   margin: 6px 0;
-  /*background-color: #F5F5F5 ;*/
   background-color: white;
   border: none;
   border-radius: 4px;
@@ -165,7 +154,6 @@ h2 {
 /*Algemene button styling*/
 button {
   background-color: #4CAD98;
-  /*background-color: #48A391;*/
   border: none;
   color: white;
   padding: 15px 32px;
@@ -176,7 +164,7 @@ button {
   margin: 4px 2px;
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 /*Zorgt ervoor dat als twee buttons naast elkaar staan, er altijd ruimte tussen blijft*/
@@ -219,7 +207,6 @@ nav a:active {
 }
 
 .logo-container img {
-  /*width: 40px;*/
   width: 100px;
   margin-right: 8px;
 }
@@ -247,13 +234,6 @@ section  {
     transform: rotate(360deg);
   }
 }
-
-/*a,*/
-/*a:visited,*/
-/*a:link {*/
-/*  text-decoration: none;*/
-/*  color: #5722CD;*/
-/*}*/
 
 /* --------------- 4.6 Footer ------------------------- */
 
