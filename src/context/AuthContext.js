@@ -8,15 +8,11 @@ export const AuthContext = createContext({});
 
 function AuthContextProvider({ children }) {
     const [auth, toggleAuth] = useState({
-        //  de "verzamelbak"
         isAuth: false,
         user: null,
         status: 'pending',
-        // dit is de state voor de dynamische comp. uit de het context objecT)
-        ///// 0
         isBestuurder: false,
         isPassagier: false,
-        //////
     });
     const history = useHistory();
 
@@ -64,140 +60,12 @@ function AuthContextProvider({ children }) {
         history.push('/');
     }
 
-    // Omdat we deze functie in login- en het mounting-effect gebruiken, staat hij hier gedeclareerd!
-    // async function fetchUserData(id, token, redirectUrl) {
-    //     try {
-    //         // haal gebruikersdata op met de token en id van de gebruiker
-    //         // const result = await axios.get(`http://localhost:3000/600/users/${id}`, {
-    //         const result = await axios.get(`http://localhost:8080/users/${id}`, {
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 Authorization: `Bearer ${token}`,
-    //             },
-    //         });
-    //
-    //         // zet de gegevens in de state
-    //         toggleIsAuth({
-    //             ...auth,
-    //             auth: true,
-    //             user: {
-    //                 username: result.data.username,
-    //                 email: result.data.email,
-    //                 id: result.data.id,
-    //             },
-    //             status: 'done',
-    //         });
-    //
-    //         // als er een redirect URL is meegegeven (bij het mount-effect doen we dit niet) linken we hiernnaartoe door
-    //         // als we de history.push in de login-functie zouden zetten, linken we al door voor de gebuiker is opgehaald!
-    //         if (redirectUrl) {
-    //             history.push(redirectUrl);
-    //         }
-    //
-    //     } catch (e) {
-    //         console.error(e);
-    //         // ging er iets mis? Plaatsen we geen data in de state
-    //         toggleIsAuth({
-    //             auth: false,
-    //             user: null,
-    //             status: 'done',
-    //         });
-    //     }
-    // }
-
-    // Hieronder was de juiste 14/6!!!!!
-//     async function fetchUserData(username, token, redirectUrl) {
-//         try {
-//             // haal gebruikersdata op met de token en id van de gebruiker
-//             // const result = await axios.get(`http://localhost:3000/600/users/${id}`, {
-//             const result = await axios.get(`http://localhost:8080/users/${username}`, {
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                     Authorization: `Bearer ${token}`,
-//                 },
-//             });
-//             console.log('Result:', result);
-//
-// /////// 1
-//             const user = {
-//                 username: result.data.username,
-//                 email: result.data.email,
-//                 id: result.data.username,
-//                 roles: result.data.roles,
-//                 password : result.data.password, //?14/6
-//             };
-//             console.log('User:', user);
-//             // haal de rollen van de gebruiker op
-//             // const roles = result.data.roles.map(role => role.rolename);
-//             /////////////
-//
-//
-//             // zet de gegevens in de state ---> deze is goed!!!
-//             // toggleIsAuth({
-//             //     ...auth,
-//             //     auth: true,
-//             //     user: {
-//             //         username: result.data.username,
-//             //         email: result.data.email,
-//             //         id: result.data.username,
-//             //     },
-//             //     status: 'done',
-//             // });
-//
-//             /////// 2
-//             console.log(auth.user)
-//             toggleAuth({
-//                 ...auth, //? 14/6
-//                 isAuth: true,
-//                 user: {
-//                     username: result.data.username,
-//                     email: result.data.email,
-//                     id: result.data.username,
-//                     roles: result.data.roles,
-//                     password : result.data.password, //?14/6
-//                 },
-//                 status: "done",
-//                 isBestuurder: result.data.roles.includes("BESTUURDER"),
-//                 isPassagier: result.data.roles.includes("PASSAGIER"),
-//
-//                 // Deze later proberen:
-//                 // const roleNames = result.data.roles.map(role => role.rolename);
-//                 // isBestuurder: roleNames.includes("BESTUURDER"),
-//                 // isPassagier: roleNames.includes("PASSAGIER"),
-//
-//             });
-//             /////////
-//
-//             // als er een redirect URL is meegegeven (bij het mount-effect doen we dit niet) linken we hiernnaartoe door
-//             // als we de history.push in de login-functie zouden zetten, linken we al door voor de gebuiker is opgehaald!
-//             if (redirectUrl) {
-//                 history.push(redirectUrl);
-//             }
-//
-//         } catch (e) {
-//             console.error(e);
-//             // ging er iets mis? Plaatsen we geen data in de state
-//             toggleAuth({
-//                 isAuth: false,
-//                 user: null,
-//                 status: 'done',
-//                 ///////3  evt. weer weghalen
-//                 isBestuurder: false,
-//                 isPassagier: false,
-//                 /////////
-//             });
-//
-//         }
-//     }
-
-//nieuw ipv van hierboven: refresh on persist
     useEffect(()=> {
         console.log("De context is zojuist opnieuw opgestart")
         const token = localStorage.getItem("token");
         console.log("token:  ", token);
 
         if (token) {
-            // geldig? zelf nog opzoeken! is de token nog geldig? -> decodeden en timestamp vergelijken met duidige datum
         const decodedToken = jwtDecode(token);
             const usernameToken = decodedToken.sub;
             console.log(usernameToken);
@@ -298,7 +166,7 @@ function AuthContextProvider({ children }) {
         ///// 3
         isBestuurder: auth.isBestuurder,
         isPassagier: auth.isPassagier,
-        /////
+        ///
     };
 
     return (

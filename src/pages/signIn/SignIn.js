@@ -43,6 +43,7 @@ function SignIn() {
                         id="username-field"
                         name="username"
                         value={username}
+                        required
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </label>
@@ -54,6 +55,7 @@ function SignIn() {
                         id="password-field"
                         name="password"
                         value={password}
+                        required
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>

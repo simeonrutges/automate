@@ -115,7 +115,7 @@ function MessageDetails() {
                                         onChange={(e) => setMessage(e.target.value)}
                                     />
                                 </div>
-                                <button className="button" type="submit">Verstuur</button>
+                                <button className="button" type="submit">Verzenden</button>
                                 {error && <p className="error">Er is een fout opgetreden bij het verzenden van het bericht.</p>}
                             </form>
                         </div>

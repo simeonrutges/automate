@@ -11,8 +11,9 @@ function Notification(props) {
     useEffect(() => {
         async function fetchNotification() {
             try {
-                const response = await axios.get(`http://localhost:8080/notifications/${props.match.params.id}`,{
-                    headers: {'Authorization': `Bearer ${token}`,
+                const response = await axios.get(`http://localhost:8080/notifications/${props.match.params.id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
                     }
                 });
                 // console.log("rideId" , response.data.rideDetails[0]);
@@ -38,7 +39,7 @@ function Notification(props) {
     const typeMapping = {
         "RIDE_CONFIRMATION": "De rit is bevestigd!",
         "RIDE_CANCELLED_BY_DRIVER": "De bestuurder heeft de rit geannuleerd",
-        "PASSENGER_JOINED_RIDE":"Je hebt een nieuwe passagier!",
+        "PASSENGER_JOINED_RIDE": "Je hebt een nieuwe passagier!",
         "PASSENGER_LEFT_RIDE": "Een passagier heeft zijn reis geannuleerd ",
     };
 
@@ -52,18 +53,6 @@ function Notification(props) {
     const formattedTime = date.toLocaleTimeString('nl-NL', {hour: '2-digit', minute: '2-digit'});
     const displayDate = `${formattedDate} om ${formattedTime}`;
 
-//     // Maak een object van de ride details, split elke detail op de streep ('-') om key-value paren te krijgen
-//     const rideDetails = notification.rideDetails.split(", ");
-//
-//     const rideDetailsObj = rideDetails.reduce((obj, detail) => {
-//         const [key, value] = detail.split(" - ");
-//         obj[key] = value;
-//         return obj;
-//     }, {});
-//
-// // Extract de individuele details
-//     const { "Driver" : driver, "Pick Up Location": pickUpLocation, "Destination": destination, "Departure DateTime": departureDateTime, "Pax": pax, "Estimated Arrival Time" : estimatedArrivalTime, } = rideDetailsObj;
-
     const rideDetails = notification.rideDetails.replace("Rit details: ", "").split(", ");
 
     const rideDetailsObj = rideDetails.reduce((obj, detail) => {
@@ -73,16 +62,25 @@ function Notification(props) {
     }, {});
 
 // Extract de individuele details
-    const { "Driver" : driver, "Pick Up Location": pickUpLocation, "Destination": destination, "Departure DateTime": departureDateTime, "Pax": pax, "Estimated Arrival Time" : estimatedArrivalTime } = rideDetailsObj;
-
-///////////
+    const {
+        "Driver": driver,
+        "Pick Up Location": pickUpLocation,
+        "Destination": destination,
+        "Departure DateTime": departureDateTime,
+        "Pax": pax,
+        "Estimated Arrival Time": estimatedArrivalTime
+    } = rideDetailsObj;
 
     // Haal rideId direct uit notification
-    const { rideId } = notification;
+    const {rideId} = notification;
 
     // Parse de vertrektijd en formatteer het
     const departureDate = new Date(departureDateTime);
-    const formattedDepartureDate = departureDate.toLocaleDateString('nl-NL', {day: '2-digit', month: '2-digit', year: 'numeric'});
+    const formattedDepartureDate = departureDate.toLocaleDateString('nl-NL', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
     const formattedDepartureTime = departureDate.toLocaleTimeString('nl-NL', {hour: '2-digit', minute: '2-digit'});
     const displayDepartureDateTime = `${formattedDepartureDate} om ${formattedDepartureTime}`;
 
@@ -92,16 +90,17 @@ function Notification(props) {
 
 
                 <div>
-                    {/*<p>Details: {notification.rideDetails}</p>*/}
                     <h1>{displayType}</h1>
                     <p>Bericht datum: {displayDate}</p>
-                    {notification.type === "RIDE_CANCELLED_BY_DRIVER" && <p>Bestuurder: <Link to={`/profile/${driver}`}>{driver}</Link></p>}
+                    {notification.type === "RIDE_CANCELLED_BY_DRIVER" &&
+                        <p>Bestuurder: <Link to={`/profile/${driver}`}>{driver}</Link></p>}
                     <p>Ophaal locatie: {pickUpLocation}</p>
                     <p>Bestemming: {destination}</p>
                     <p>Vertrek: {displayDepartureDateTime}</p>
                     <p>Aankomsttijd: {estimatedArrivalTime}</p>
                     {notification.type !== "RIDE_CANCELLED_BY_DRIVER" &&
-                        <p>BELANGRIJK! Raadpleeg altijd de meest recente updates via <Link to={`/rides/${rideId}`}>"Mijn ritten"</Link></p>}
+                        <p>BELANGRIJK! Raadpleeg altijd de meest recente updates via <Link to={`/rides/${rideId}`}>"Mijn
+                            ritten"</Link></p>}
 
                 </div>
 

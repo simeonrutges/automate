@@ -73,8 +73,6 @@ function MyRides() {
                                                         hour12: false
                                                     })}</p>
                                                 <p>Aankomst tijd: {ride.eta.substring(0, 5)}</p>
-                                                {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
-                                                {/*<p>Totaal prijs: {ride.totalRitPrice} euro</p>*/}
 
                                                 {user.username === ride.driverUsername && (
                                                     <p>Aantal vrije stoelen: {ride.availableSpots}</p>)}
@@ -96,10 +94,7 @@ function MyRides() {
                                                 )}
 
                                                 {user.username !== ride.driverUsername ? (
-                                                    // <div>
                                                         <p>Rijstatus: Passagier</p>
-                                                    //     <p>Stuur {ride.driverUsername} een bericht!</p>
-                                                    // </div>
                                                 ) : (
                                                     <p>Rijstatus: Bestuurder</p>
                                                 )}
