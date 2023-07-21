@@ -476,7 +476,7 @@ function Profile() {
                                     <p>Rijstatus: {profileData.roles}</p>
                                     <p>Voornaam: {profileData.firstname}</p>
                                     <p>Achternaam: {profileData.lastname}</p>
-                                    <p>Telefoon:{profileData.phoneNumber}</p>
+                                    <p>Telefoon: 0{profileData.phoneNumber}</p>{/*in volgende versie 'tel' veranderen naar String en '0' verwijderen*/}
                                     <p>Email: {profileData.email}</p>
                                 </div>
 

@@ -391,13 +391,12 @@ function RidesOverview({ location }) {
                                                     </div>
 
                                                     <p>Datum:{new Date(ride.departureDateTime).toLocaleDateString()}</p>
-                                                    <p>Vertrek
-                                                        tijd: {new Date(ride.departureDateTime).toLocaleTimeString([], {
+                                                    <p>Vertrektijd: {new Date(ride.departureDateTime).toLocaleTimeString([], {
                                                             hour: '2-digit',
                                                             minute: '2-digit',
                                                             hour12: false
                                                         })}</p>
-                                                    <p>Aankomst tijd: {ride.eta.substring(0, 5)}</p>
+                                                    <p>Aankomsttijd: {ride.eta.substring(0, 5)}</p>
                                                     <p>
                                                         Prijs per
                                                         persoon: {ride.pricePerPerson.toLocaleString('nl-NL', {
