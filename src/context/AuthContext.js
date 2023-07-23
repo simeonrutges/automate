@@ -56,19 +56,16 @@ function AuthContextProvider({ children }) {
             status: 'done',
         });
 
-        console.log('Gebruiker is uitgelogd!');
         history.push('/');
     }
 
     useEffect(()=> {
-        console.log("De context is zojuist opnieuw opgestart")
         const token = localStorage.getItem("token");
-        console.log("token:  ", token);
 
         if (token) {
         const decodedToken = jwtDecode(token);
             const usernameToken = decodedToken.sub;
-            console.log(usernameToken);
+
 
             // controleer of het token is verlopen
             const currentTime = Date.now().valueOf() / 1000;
