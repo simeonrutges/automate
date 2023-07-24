@@ -80,7 +80,6 @@ function SignUpTest() {
                 phoneNumber: phoneNumber,
                 roles: [role],
             });
-            console.log(result);
 
             history.push("/signin");
         } catch (e) {
@@ -183,7 +182,6 @@ function SignUpTest() {
                             </label>
                         </div>
                     </section>
-
 
                     <button type="submit">Sign Up</button>
                 </form>

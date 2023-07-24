@@ -21,12 +21,10 @@ function MessageDetails() {
 
     async function fetchMessages() {
         try {
-            const response = await axios.get(`http://localhost:8080/messages/${loggedInUsername}/${username}`,{
-                headers: { 'Authorization': `Bearer ${token}` }
+            const response = await axios.get(`http://localhost:8080/messages/${loggedInUsername}/${username}`, {
+                headers: {'Authorization': `Bearer ${token}`}
             });
             const messages = response.data;
-            console.log(messages);
-            console.log("messages id: ");
             setMessages(messages);
         } catch (error) {
             console.error('Error fetching messages:', error);
@@ -65,29 +63,28 @@ function MessageDetails() {
                 },
             });
 
-            console.log('Bericht succesvol verzonden:', response.data);
-            setMessage(''); // Wis het ingevoerde bericht na verzending
+            setMessage('');
         } catch (error) {
             console.error('Error:', error);
             toggleError(true);
         }
     }
 
-
     return (
-        <messagedetail className="outer-content-container">
+        <div className="outer-content-container">
             <div className="inner-content-container">
-
 
                 <div className="container">
                     <h3>{username}</h3>
-
 
                     <div className="message-container">
                         {messages.map((msg) => {
                             const messageDate = new Date(msg.timestamp);
                             const formattedDate = messageDate.toLocaleDateString();
-                            const formattedTime = messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // toon alleen uren en minuten
+                            const formattedTime = messageDate.toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            }); // toon alleen uren en minuten
 
                             return (
                                 <div
@@ -102,7 +99,6 @@ function MessageDetails() {
                         })}
                     </div>
 
-
                     <div className="new-content-container">
                         <div className="content">
                             <form className="chat-form" onSubmit={handleSubmit}>
@@ -116,17 +112,16 @@ function MessageDetails() {
                                     />
                                 </div>
                                 <button className="button" type="submit">Verzenden</button>
-                                {error && <p className="error">Er is een fout opgetreden bij het verzenden van het bericht.</p>}
+                                {error && <p className="error">Er is een fout opgetreden bij het verzenden van het
+                                    bericht.</p>}
                             </form>
                         </div>
                     </div>
 
-
                 </div>
 
-
             </div>
-        </messagedetail>
+        </div>
     )
         ;
 }

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import  './rideOverViewPage.css';
+import './rideOverViewPage.css';
 import {useParams} from "react-router-dom";
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import axios from "axios";
 
-function RidesOverview({ location }) {
+function RidesOverview({location}) {
     const token = localStorage.getItem('token');
 
     const [rides, setRides] = useState([]);
@@ -13,12 +13,12 @@ function RidesOverview({ location }) {
     const [rideItemClicked, setRideItemClicked] = useState(false);
 
     const params = useParams();
-    const [pax, setPax] = useState(null);  // nieuwe state variabele
+    const [pax, setPax] = useState(null);
     const searchParams = new URLSearchParams(location.search);
 
     useEffect(() => {
-        const paxParam = searchParams.get('pax'); // gebruik nieuwe variabele hier
-        setPax(paxParam);  // bewaar de waarde van pax in de state
+        const paxParam = searchParams.get('pax');
+        setPax(paxParam);
     }, [location.search]);
 
     useEffect(() => {
@@ -28,8 +28,6 @@ function RidesOverview({ location }) {
         const departureDate = searchParams.get('departureDate');
 
         async function fetchRides() {
-            console.log("location: ", location);
-            console.log(departureDate, pickUpLocation, destination, pax);
 
             try {
                 setLoading(true);
@@ -44,10 +42,9 @@ function RidesOverview({ location }) {
                         "Content-Type": 'application/json',
                     }
                 });
-                console.log('Response:', response);
 
                 const matchingRides = response.data.filter(ride => ride.departureDateTime.split("T")[0] === departureDate);
-                console.log("matchingRide: ", matchingRides);
+
                 if (matchingRides.length > 0) {
                     setRides(matchingRides);
                 } else {
@@ -114,10 +111,10 @@ function RidesOverview({ location }) {
 
                                                     <p>Datum:{new Date(ride.departureDateTime).toLocaleDateString()}</p>
                                                     <p>Vertrektijd: {new Date(ride.departureDateTime).toLocaleTimeString([], {
-                                                            hour: '2-digit',
-                                                            minute: '2-digit',
-                                                            hour12: false
-                                                        })}</p>
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                        hour12: false
+                                                    })}</p>
                                                     <p>Aankomsttijd: {ride.eta.substring(0, 5)}</p>
                                                     <p>
                                                         Prijs per

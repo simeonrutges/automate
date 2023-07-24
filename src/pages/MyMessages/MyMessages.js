@@ -3,10 +3,11 @@ import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import {Link} from "react-router-dom";
 import './myMessages.css';
+
 function MyMessages() {
     const token = localStorage.getItem('token');
 
-    const { isAuth, user } = useContext(AuthContext);
+    const {isAuth, user} = useContext(AuthContext);
     const [messages, setMessages] = useState([]);
     const [error, setError] = useState(null);
 
@@ -14,8 +15,8 @@ function MyMessages() {
         const fetchMessages = async () => {
             try {
                 const username = isAuth && user.username ? user.username : '';
-                const response = await axios.get(`http://localhost:8080/notifications/user/${username}`,{
-                    headers: { 'Authorization': `Bearer ${token}` }
+                const response = await axios.get(`http://localhost:8080/notifications/user/${username}`, {
+                    headers: {'Authorization': `Bearer ${token}`}
                 });
                 setMessages(response.data);
             } catch (e) {
@@ -43,7 +44,7 @@ function MyMessages() {
                             <ul>
                                 {messages.map((message) => {
                                     const sentDate = new Date(message.sentDate);
-                                    const formattedDate = `${sentDate.getDate().toString().padStart(2, '0')}-${(sentDate.getMonth()+1).toString().padStart(2, '0')}-${sentDate.getFullYear()}`;
+                                    const formattedDate = `${sentDate.getDate().toString().padStart(2, '0')}-${(sentDate.getMonth() + 1).toString().padStart(2, '0')}-${sentDate.getFullYear()}`;
                                     const formattedTime = `${sentDate.getHours().toString().padStart(2, '0')}:${sentDate.getMinutes().toString().padStart(2, '0')}`;
 
                                     return (

@@ -3,7 +3,7 @@ import axios from "axios";
 import {Link, useParams} from "react-router-dom";
 
 function RideDetails() {
-    const { rideId } = useParams();
+    const {rideId} = useParams();
     const [ride, setRide] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -11,10 +11,9 @@ function RideDetails() {
     useEffect(() => {
         async function fetchRide() {
             try {
-                console.log("rideId : ", rideId);
                 const response = await axios.get(`http://localhost:8080/rides/${rideId}`);
                 setRide(response.data);
-                console.log(response.data);
+
             } catch (e) {
                 setError(e.message);
             } finally {
@@ -31,7 +30,7 @@ function RideDetails() {
     }
 
     if (error) {
-        if (error.includes("500")){
+        if (error.includes("500")) {
             return <p>Sorry, deze rit is niet meer beschikbaar</p>
         } else {
             return <p>Error fetching ride: {error}</p>;
@@ -44,7 +43,7 @@ function RideDetails() {
 
     return (
         <div>
-            <h2>Rit Overzicht/ RIDEDETAILPAGE</h2>
+            <h2>Rit Overzicht</h2>
 
             <h2>{ride.pickUpLocation} - {ride.destination}</h2>
             <p>Datum:{new Date(ride.departureDateTime).toLocaleDateString()}</p>

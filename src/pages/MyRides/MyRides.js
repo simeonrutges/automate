@@ -10,27 +10,25 @@ function MyRides() {
     const {isAuth, logout, isBestuurder, isPassagier, user} = useContext(AuthContext);
 
     const [rides, setRides] = useState([]);
-    // const username = 'yourUserId'; // Replace this with the actual user ID you want to use
     const [rideItemClicked, setRideItemClicked] = useState(false);
 
     useEffect(() => {
-    async function fetchRides() {
-        try {
-            const username = isAuth && user.username ? user.username : '';
-            console.log("username: " , username);
+        async function fetchRides() {
+            try {
+                const username = isAuth && user.username ? user.username : '';
 
-            const response = await axios.get(`http://localhost:8080/users/${username}/rides`,{
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            });
-            setRides(response.data);
-            console.log(rides);
+                const response = await axios.get(`http://localhost:8080/users/${username}/rides`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                setRides(response.data);
 
-        } catch (error) {
-            console.error(error);
+            } catch (error) {
+                console.error(error);
+            }
         }
-    }
+
         fetchRides();
     }, []);
 
@@ -40,7 +38,7 @@ function MyRides() {
                 <div className="rides-overview-page">
                     <Switch>
                         <Route path="/rides/:id">
-                            <RidePageTest />
+                            <RidePageTest/>
                         </Route>
                     </Switch>
 
@@ -81,20 +79,22 @@ function MyRides() {
                                                     <p>Gereserveerde stoelen: {ride.pax}</p>
                                                 )}
 
-                                                <p>Prijs per persoon: {ride.pricePerPerson && ride.pricePerPerson.toLocaleString('nl-NL', {
-                                                    style: 'currency',
-                                                    currency: 'EUR'
-                                                })}</p>
-
-                                                {user.username === ride.driverUsername && (
-                                                    <p>Totaal prijs: {ride.totalRitPrice > 0 ? ride.totalRitPrice.toLocaleString('nl-NL', {
+                                                <p>Prijs per
+                                                    persoon: {ride.pricePerPerson && ride.pricePerPerson.toLocaleString('nl-NL', {
                                                         style: 'currency',
                                                         currency: 'EUR'
-                                                    }) : "€0.00"}</p>
+                                                    })}</p>
+
+                                                {user.username === ride.driverUsername && (
+                                                    <p>Totaal
+                                                        prijs: {ride.totalRitPrice > 0 ? ride.totalRitPrice.toLocaleString('nl-NL', {
+                                                            style: 'currency',
+                                                            currency: 'EUR'
+                                                        }) : "€0.00"}</p>
                                                 )}
 
                                                 {user.username !== ride.driverUsername ? (
-                                                        <p>Rijstatus: Passagier</p>
+                                                    <p>Rijstatus: Passagier</p>
                                                 ) : (
                                                     <p>Rijstatus: Bestuurder</p>
                                                 )}

@@ -28,7 +28,6 @@ function RidePage() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const pax = queryParams.get('pax');
-    console.log("pax: ", rideData.pax);
 
     useEffect(() => {
         async function fetchData() {
@@ -38,15 +37,14 @@ function RidePage() {
                 const rideResponse = await axios.get(`http://localhost:8080/rides/${id}`, {
                     headers: {'Authorization': `Bearer ${token}`}
                 });
-                console.log(rideResponse.data);
+
                 setRideData(rideResponse.data);
-                // datum = rideResponse.data.departureDateTime.split("T");
-                // setCurrentData(datum[1]);
+
                 const departureTime = rideResponse.data.departureDateTime.split("T")[1].slice(0, 5);
                 setCurrentData(departureTime);
 
                 const etaTime = rideResponse.data.eta.substring(0, 5);
-                console.log(etaTime)
+
                 setETA(etaTime);
 
                 if (rideResponse.data.driverUsername) {
@@ -77,15 +75,12 @@ function RidePage() {
         fetchData();
     }, [id]);
 
-
     const history = useHistory();
 
     async function handleSelectRitClick() {
         setError(null);
         setErrorMessage(null);
 
-        console.log("username: " + user.username);
-        console.log("pax : ", pax);
         try {
             await axios.post(`http://localhost:8080/rides/${id}/${user.username}/${pax}`, {}, {
                 headers: {
@@ -100,7 +95,7 @@ function RidePage() {
                     case 409:
                         setErrorMessage("Deze rit is al geselecteerd door de gebruiker");
                         break;
-                    // Je kunt meer cases toevoegen voor andere statuscodes die je verwacht
+
                     default:
                         setError("Er is iets fout gegaan, probeer het opnieuw.");
                         history.push('/confirmation/reservation/failure');
@@ -116,7 +111,7 @@ function RidePage() {
     async function handleAnnuleerRitClick() {
         setError(null);
         setErrorMessage(null);
-        console.log("idddd: " + id);
+
         try {
             await axios.delete(`http://localhost:8080/rides/${id}`, {
                 headers: {
@@ -190,7 +185,7 @@ function RidePage() {
                 for (let passenger of rideData.users) {
                     if (passenger.username !== driverData.username) {
                         try {
-                            // Haal eerst de gebruikersinformatie op
+
                             const userResponse = await axios.get(`http://localhost:8080/users/${passenger.username}`, {
                                 headers: {
                                     'Authorization': `Bearer ${token}`,
@@ -231,7 +226,6 @@ function RidePage() {
                     }
                 });
 
-                console.log(response.data);
                 setReservationInfo(response.data);
             } catch (error) {
                 if (error.response) {
@@ -255,14 +249,6 @@ function RidePage() {
         fetchReservationInfo();
     }, [rideId, user.username]);
 
-    // Nu kun je de reservationInfo overal in deze component gebruiken.
-    // Zorg er wel voor dat je controleert of het nog null is voordat je het gebruikt,
-    // omdat het asynchroon wordt ingesteld.
-    if (reservationInfo) {
-        console.log(reservationInfo.totalPrice);
-        console.log(reservationInfo.reservedSpots);
-    }
-
 
     return (
         <ride className="outer-content-container">
@@ -277,7 +263,6 @@ function RidePage() {
 
                         {Object.keys(rideData).length > 0 &&
                             <div>
-                                {console.log(rideData)}
                                 <h4>reisdatum: {new Date(rideData.departureDateTime).toLocaleDateString()}</h4>
                                 <section className="ride-summary">
                                     <div className="top-box">
@@ -286,7 +271,6 @@ function RidePage() {
                                     {currentData}
                                 </p>
                                 <p>{rideData.pickUpLocation}</p>
-                                {/*<p>{rideData.eta}*</p>*/}
                                 <p>{eta}*</p>
 
                                 <p>{rideData.destination}</p>
@@ -360,9 +344,7 @@ function RidePage() {
                                             <p>{driverData.username}</p>
                                         </Link>
                                     </div>
-
                                 </section>
-
 
                                 <section className="ride-info">
                                     <p>Vertrektijd: {new Date(rideData.departureDateTime).toLocaleTimeString([], {
@@ -376,10 +358,7 @@ function RidePage() {
                                     <p>Bestemming: {rideData.destination}</p>
                                     <p>Adres: {rideData.destinationAddress} </p>
 
-
-
                                     {user && rideData.driverUsername === user.username && (
-
                                         <p>Beschikbare stoelen: {rideData.availableSpots}</p>
                                     )}
                                     <p>Route: {rideData.route}</p>
@@ -393,7 +372,8 @@ function RidePage() {
                                                     .filter(passenger => passenger.username !== driverData.username)
                                                     .map((passenger) => (
                                                         <div key={passenger.username} className="passenger-profile-box">
-                                                            <Link to={`/profile/${passenger.username}`} className="profile-link">
+                                                            <Link to={`/profile/${passenger.username}`}
+                                                                  className="profile-link">
                                                                 {passengerImages[passenger.username] ? (
                                                                     <img
                                                                         src={passengerImages[passenger.username]}
@@ -414,9 +394,7 @@ function RidePage() {
                                             </div>
                                         </div>
 
-
                                     )}
-
 
                                 </section>
                             </div>

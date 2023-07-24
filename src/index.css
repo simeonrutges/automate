@@ -62,7 +62,8 @@ Hij mag krimpen als het scherm minder breed wordt, maar niet groeien als er meer
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  /*24/7 was hierboven maar veranderd naar hieronder*/
+/*align-items: center;*/
   /*background-color: #ea7e1f;*/
 }
 
