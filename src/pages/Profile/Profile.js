@@ -246,14 +246,13 @@ function Profile() {
         <div className="outer-content-container">
             <div className="inner-content-container">
                 <div>
-
                     <header>
                         {user.username === username ? (
                             <h1>Mijn Profiel</h1>
                         ) : (
                             <h1>{username}'s profiel</h1>
                         )}
-                        <section className="profile-picture">
+                        <figure className="profile-picture">
                             <section className="foto-name">
 
                                 {uploadedImage ? (
@@ -279,10 +278,9 @@ function Profile() {
                                         )}
                                     </div>
                                 )}
-
                                 <h2 id="myHeader">{username}</h2>
                             </section>
-                        </section>
+                        </figure>
                     </header>
 
                     {Object.keys(profileData).length > 0 && (
@@ -416,6 +414,7 @@ function Profile() {
                     )}
 
                 </div>
+
             </div>
         </div>
     );

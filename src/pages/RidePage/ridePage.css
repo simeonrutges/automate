@@ -85,3 +85,8 @@
     align-items: center;
     text-decoration: none;
 }
+
+.ridepage-buttons {
+    padding-top: 25px;
+    margin-top: 20px;
+}

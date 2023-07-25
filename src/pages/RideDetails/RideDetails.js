@@ -44,19 +44,20 @@ function RideDetails() {
     return (
         <div>
             <h2>Rit Overzicht</h2>
+            <p> Kan deze pagina weg ????</p>
 
-            <h2>{ride.pickUpLocation} - {ride.destination}</h2>
-            <p>Datum:{new Date(ride.departureDateTime).toLocaleDateString()}</p>
-            <p>Vertrek
-                tijd: {new Date(ride.departureDateTime).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false
-                })}</p>
-            <p>Aankomst tijd: {ride.eta}</p>
-            <p>Prijs per persoon: {ride.pricePerPerson} euro</p>
-            <p>Totaal prijs: {ride.totalRitPrice} euro</p>
-            <p>Aantal personen: {ride.pax}</p>
+            {/*<h2>{ride.pickUpLocation} - {ride.destination}</h2>*/}
+            {/*<p>Datum:{new Date(ride.departureDateTime).toLocaleDateString()}</p>*/}
+            {/*<p>Vertrek*/}
+            {/*    tijd: {new Date(ride.departureDateTime).toLocaleTimeString([], {*/}
+            {/*        hour: '2-digit',*/}
+            {/*        minute: '2-digit',*/}
+            {/*        hour12: false*/}
+            {/*    })}</p>*/}
+            {/*<p>Aankomst tijd: {ride.eta}</p>*/}
+            {/*<p>Prijs per persoon: {ride.pricePerPerson} euro</p>*/}
+            {/*<p>Totaal prijs: {ride.totalRitPrice} euro</p>*/}
+            {/*<p>Aantal personen: {ride.pax}</p>*/}
 
         </div>
     );

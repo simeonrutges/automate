@@ -1,9 +1,167 @@
 
+/*home {*/
+/*    background-color: white;*/
+/*}*/
+
+/*.header-section{*/
+/*    display: flex;*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*.home img {*/
+/*    width: 100%;*/
+/*    height: auto;*/
+
+/*    object-fit: cover;*/
+
+/*}*/
+
+/*.header-text {*/
+/*    position: absolute;*/
+/*    top: 65%;*/
+/*    left: 27%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    padding: 20px;*/
+/*    text-align: center;*/
+/*    background-color: rgba(255, 255, 255, 0);*/
+/*    color: white;*/
+/*}*/
+
+
+
+/*.home h1 {*/
+/*    font-size: 32px;*/
+/*    margin-bottom: 10px;*/
+/*    border: 3px solid black;*/
+/*}*/
+
+/*.home p {*/
+/*    font-size: 18px;*/
+/*    margin-bottom: 0;*/
+/*    border: 3px solid black;*/
+/*}*/
+
+
+/*.form-container {*/
+/*    position: absolute;*/
+/*    top: 55%;*/
+/*    left: 75%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    padding: 0px;*/
+/*    text-align: center;*/
+/*    background-color: white;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*.form-buttonblock-home {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    border-radius: 4px;*/
+/*    border: none;*/
+/*    padding: 0px 0px;*/
+/*    margin-bottom: 0px;*/
+/*    background-color: #f5ab00;*/
+/*    color: white;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.form-button-home {*/
+/*    border: 3px solid #F5F5F5;*/
+/*    margin: 0px;*/
+/*    border-radius: 0%;*/
+/*    flex: 1;*/
+/*    flex-grow: 1;*/
+/*    padding: 13px;*/
+
+/*}*/
+/*button:active {*/
+/*    background-color: #333333;*/
+/*    border-color: #333333;*/
+/*}*/
+
+/*!* --------------- 4.3 Pros --------------------------- *!*/
+
+/*#pros {*/
+/*    background-color: #F3F6F9;*/
+/*}*/
+
+/*.work-article {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    margin: 0 0 100px 0;*/
+/*}*/
+
+/*!*Draai de volgorde van de afbeelding en tekst om bij de 1e, 3e, etc.*!*/
+/*.work-article:nth-of-type(odd) {*/
+/*    flex-direction: row-reverse;*/
+/*}*/
+
+/*.work-article__image-wrapper {*/
+/*    !*De afbeelding-wrapper moet in de basis 800px breed zijn...*!*/
+/*    flex-basis: 800px;*/
+/*    !*Als er meer ruimte is, mag hij NIET groter worden*!*/
+/*    flex-grow: 0;*/
+/*    !*Als er minder ruimte is, krimpt hij 1 fractie (dus alles) van de ingeleverde ruimte*!*/
+/*    flex-shrink: 1;*/
+/*}*/
+
+/*.work-article__image-wrapper img {*/
+/*    !*Om afbeeldingen goed mee te laten schalen met de wrapper, zet je de afbeelding zelf altijd op 100% breedte.*/
+/*    Zo past de afbeelding zich telkens aan, aan zijn omgeving*!*/
+/*    width: 100%;*/
+/*    box-shadow: 0 32px 28px -10px rgba(0, 0, 0, 0.22);*/
+/*}*/
+
+/*.work-article__info-container {*/
+/*    !*De content moet in de basis 480 breed zijn*!*/
+/*    flex-basis: 480px;*/
+/*    !*Als er meer ruimte is, mag hij NIET groter worden*!*/
+/*    flex-grow: 0;*/
+/*    !*Als er minder ruimte is, mag hij NIET kleiner worden*!*/
+/*    flex-shrink: 0;*/
+/*    padding: 0 50px 50px 50px;*/
+/*}*/
+
+/*.work-article__title-squiggle {*/
+/*    margin-top: 24px;*/
+/*    width: 57px;*/
+/*    height: 6px;*/
+/*    !*background-image: url(./assets/squiggle_line.svg);*!*/
+/*}*/
+
+/*.work-article__info-container p {*/
+/*    font-weight: 400;*/
+/*    margin: 50px 0;*/
+/*}*/
+
+/*!* --------------- 4.2 Introduction ------------------- *!*/
+
+/*#how-it-works {*/
+/*    background-color: #4CAD98;*/
+/*    color: #FFFFFF;*/
+/*}*/
+
+/*.how-it-works__link {*/
+/*    color: #0c0c0c;*/
+/*    font-weight: 500;*/
+/*    margin-top: 100px;*/
+/*}*/
+/*.expl-box{*/
+/*    margin: 125px;*/
+/*    padding: 25px;*/
+/*    border: 5px solid #FFFFFF;*/
+
+--------------------
+
 home {
     background-color: white;
 }
 
-.home-page{
+.header-section{
     display: flex;
     position: relative;
     width: 100%;
@@ -87,20 +245,20 @@ button:active {
     background-color: #F3F6F9;
 }
 
-.work-article {
+.benefit {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 100px 0;
+    margin: 70px 0 70px 0;
 }
 
 /*Draai de volgorde van de afbeelding en tekst om bij de 1e, 3e, etc.*/
-.work-article:nth-of-type(odd) {
+.benefit:nth-of-type(odd) {
     flex-direction: row-reverse;
 }
 
-.work-article__image-wrapper {
+.benefit__image-wrapper {
     /*De afbeelding-wrapper moet in de basis 800px breed zijn...*/
     flex-basis: 800px;
     /*Als er meer ruimte is, mag hij NIET groter worden*/
@@ -109,14 +267,14 @@ button:active {
     flex-shrink: 1;
 }
 
-.work-article__image-wrapper img {
+.benefit__image-wrapper img {
     /*Om afbeeldingen goed mee te laten schalen met de wrapper, zet je de afbeelding zelf altijd op 100% breedte.
     Zo past de afbeelding zich telkens aan, aan zijn omgeving*/
     width: 100%;
     box-shadow: 0 32px 28px -10px rgba(0, 0, 0, 0.22);
 }
 
-.work-article__info-container {
+.benefit__info-container {
     /*De content moet in de basis 480 breed zijn*/
     flex-basis: 480px;
     /*Als er meer ruimte is, mag hij NIET groter worden*/
@@ -126,14 +284,8 @@ button:active {
     padding: 0 50px 50px 50px;
 }
 
-.work-article__title-squiggle {
-    margin-top: 24px;
-    width: 57px;
-    height: 6px;
-    /*background-image: url(./assets/squiggle_line.svg);*/
-}
 
-.work-article__info-container p {
+.benefit__info-container p {
     font-weight: 400;
     margin: 50px 0;
 }
@@ -155,6 +307,7 @@ button:active {
     padding: 25px;
     border: 5px solid #FFFFFF;
 }
+
 
 
 

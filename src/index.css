@@ -218,9 +218,10 @@ nav a:active {
   margin-right: 8px;
 }
 
-section  {
-  margin: 0 0 50px 0;
-}
+/*section  {*/
+/*  margin: 0 0 50px 0;*/
+/*}*/
+/*24/7 uitgecomment*/
 
 .error {
   color: orangered;

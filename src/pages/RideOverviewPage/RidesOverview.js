@@ -78,14 +78,14 @@ function RidesOverview({location}) {
             <div className="inner-content-container">
                 <div className="rides-overview-page">
                     {rides.length === 0 && (
-                        <p>
+                        <h6 id="no-rides-found-message">
                             Er zijn op deze dag helaas nog geen ritten geplaatst naar jouw
                             bestemming. Probeer het op een later tijdstip opnieuw.
-                        </p>
+                        </h6>
                     )}
                     {rides.length > 0 && (
                         <div>
-                            {!rideItemClicked && <h2>Kies een rit (RidesOverview)</h2>}
+                            {!rideItemClicked && <h2>Kies een rit</h2>}
                             <div className="rides-container">
                                 {rides.map((ride) => {
                                     return (

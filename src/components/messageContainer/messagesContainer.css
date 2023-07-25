@@ -1,0 +1,13 @@
+/*.message-container {*/
+/*    max-height: 450px;*/
+/*    overflow-y: auto;*/
+/*}*/
+
+
+
+.message-container {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+

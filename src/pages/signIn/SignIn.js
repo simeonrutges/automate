@@ -27,53 +27,104 @@ function SignIn() {
         }
     }
 
+//     return (
+//         <div className="outer-content-container">
+//             <div className="inner-content-container">
+//
+//         <div>
+//             <h1>Inloggen</h1>
+//             <p>Welkom terug! Log in om je ritten te bekijken en te beheren. Op je persoonlijke dashboard kun je ook je profiel bijwerken, nieuwe ritten boeken en communiceren met andere gebruikers.</p>
+//
+//             <form onSubmit={handleSubmit}>
+//                 <label htmlFor="username-field">
+//                     Gebruikersnaam:
+//                     <input
+//                         type="username"
+//                         id="username-field"
+//                         name="username"
+//                         value={username}
+//                         required
+//                         onChange={(e) => setUsername(e.target.value)}
+//                     />
+//                 </label>
+//
+//                 <label htmlFor="password-field">
+//                     Wachtwoord:
+//                     <input
+//                         type="password"
+//                         id="password-field"
+//                         name="password"
+//                         value={password}
+//                         required
+//                         onChange={(e) => setPassword(e.target.value)}
+//                     />
+//                 </label>
+//                 {error && <p className="error">Combinatie van username en wachtwoord is onjuist</p>}
+//
+//                 <button
+//                     type="submit"
+//                     className="form-button"
+//                 >
+//                     Inloggen
+//                 </button>
+//             </form>
+//
+//             <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
+//         </div>
+//
+//             </div>
+//         </div>
+//     );
+// }
+
     return (
-        <signin className="outer-content-container">
+        <div className="signin outer-content-container">
             <div className="inner-content-container">
+                <header>
+                    <h1>Inloggen</h1>
+                    <p>Welkom terug! Log in om je ritten te bekijken en te beheren. Op je persoonlijke dashboard kun je ook je profiel bijwerken, nieuwe ritten boeken en communiceren met andere gebruikers.</p>
+                </header>
 
-        <div>
-            <h1>Inloggen</h1>
-            <p>Welkom terug! Log in om je ritten te bekijken en te beheren. Op je persoonlijke dashboard kun je ook je profiel bijwerken, nieuwe ritten boeken en communiceren met andere gebruikers.</p>
+                <main>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="username-field">
+                            Gebruikersnaam:
+                            <input
+                                type="username"
+                                id="username-field"
+                                name="username"
+                                value={username}
+                                required
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </label>
 
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username-field">
-                    Gebruikersnaam:
-                    <input
-                        type="username"
-                        id="username-field"
-                        name="username"
-                        value={username}
-                        required
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </label>
+                        <label htmlFor="password-field">
+                            Wachtwoord:
+                            <input
+                                type="password"
+                                id="password-field"
+                                name="password"
+                                value={password}
+                                required
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </label>
+                        {error && <p className="error">Combinatie van username en wachtwoord is onjuist</p>}
 
-                <label htmlFor="password-field">
-                    Wachtwoord:
-                    <input
-                        type="password"
-                        id="password-field"
-                        name="password"
-                        value={password}
-                        required
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </label>
-                {error && <p className="error">Combinatie van username en wachtwoord is onjuist</p>}
-
-                <button
-                    type="submit"
-                    className="form-button"
-                >
-                    Inloggen
-                </button>
-            </form>
-
-            <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
-        </div>
-
+                        <button
+                            type="submit"
+                            className="form-button"
+                        >
+                            Inloggen
+                        </button>
+                    </form>
+                </main>
+                <aside>
+                    <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
+                </aside>
             </div>
-        </signin>
+        </div>
     );
 }
 

@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import {Link} from "react-router-dom";
-import './myMessages.css';
+
 
 function MyMessages() {
     const token = localStorage.getItem('token');
@@ -31,16 +31,61 @@ function MyMessages() {
     }, [isAuth, user]);
 
     return (
+//         <div className="outer-content-container">
+//             <div className="inner-content-container">
+//                 <div>
+//                     <h1>Berichten</h1>
+//                     {error ? (
+//                         <p>Er is een fout opgetreden bij het ophalen van berichten: {error}</p>
+//                     ) : (
+//                         messages.length === 0 ? (
+//                             <p>Je hebt nog geen berichten ontvangen</p>
+//                         ) : (
+//                             <ul>
+//                                 {messages.map((message) => {
+//                                     const sentDate = new Date(message.sentDate);
+//                                     const formattedDate = `${sentDate.getDate().toString().padStart(2, '0')}-${(sentDate.getMonth() + 1).toString().padStart(2, '0')}-${sentDate.getFullYear()}`;
+//                                     const formattedTime = `${sentDate.getHours().toString().padStart(2, '0')}:${sentDate.getMinutes().toString().padStart(2, '0')}`;
+//
+//                                     return (
+//                                         <li key={message.id}>
+//                                             <Link
+//                                                 to={
+//                                                     message.sender.username === 'System'
+//                                                         ? `/my-notifications/${message.id}`
+//                                                         : `/my-messages/${message.sender.username}`
+//                                                 }
+//                                             >
+//                                                 {message.type} van {message.sender.username} {formattedDate} om {formattedTime}
+//                                             </Link>
+//                                         </li>
+//                                     );
+//                                 })}
+//                             </ul>
+//                         )
+//                     )}
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
+
         <div className="outer-content-container">
-            <div className="inner-content-container">
-                <div>
+            <main className="inner-content-container">
+                <header>
                     <h1>Berichten</h1>
-                    {error ? (
+                </header>
+                {error ? (
+                    <section>
                         <p>Er is een fout opgetreden bij het ophalen van berichten: {error}</p>
-                    ) : (
-                        messages.length === 0 ? (
+                    </section>
+                ) : (
+                    messages.length === 0 ? (
+                        <section>
                             <p>Je hebt nog geen berichten ontvangen</p>
-                        ) : (
+                        </section>
+                    ) : (
+                        <section>
                             <ul>
                                 {messages.map((message) => {
                                     const sentDate = new Date(message.sentDate);
@@ -49,23 +94,25 @@ function MyMessages() {
 
                                     return (
                                         <li key={message.id}>
-                                            <Link
-                                                to={
-                                                    message.sender.username === 'System'
-                                                        ? `/my-notifications/${message.id}`
-                                                        : `/my-messages/${message.sender.username}`
-                                                }
-                                            >
-                                                {message.type} van {message.sender.username} {formattedDate} om {formattedTime}
-                                            </Link>
+                                            <article>
+                                                <Link
+                                                    to={
+                                                        message.sender.username === 'System'
+                                                            ? `/my-notifications/${message.id}`
+                                                            : `/my-messages/${message.sender.username}`
+                                                    }
+                                                >
+                                                    {message.type} van {message.sender.username} {formattedDate} om {formattedTime}
+                                                </Link>
+                                            </article>
                                         </li>
                                     );
                                 })}
                             </ul>
-                        )
-                    )}
-                </div>
-            </div>
+                        </section>
+                    )
+                )}
+            </main>
         </div>
     );
 }
