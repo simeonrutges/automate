@@ -1,12 +1,12 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {createContext, useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import jwtDecode from "jwt-decode";
 
 export const AuthContext = createContext({});
 
-function AuthContextProvider({ children }) {
+function AuthContextProvider({children}) {
     const [auth, toggleAuth] = useState({
         isAuth: false,
         user: null,
@@ -16,7 +16,6 @@ function AuthContextProvider({ children }) {
     });
     const history = useHistory();
 
-    // MOUNTING EFFECT
     useEffect(() => {
 
         const token = localStorage.getItem('token');
@@ -54,15 +53,14 @@ function AuthContextProvider({ children }) {
         history.push('/');
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         const token = localStorage.getItem("token");
 
         if (token) {
-        const decodedToken = jwtDecode(token);
+            const decodedToken = jwtDecode(token);
             const usernameToken = decodedToken.sub;
 
-
-            // controleer of het token is verlopen
+            // controleert of het token verlopen is
             const currentTime = Date.now().valueOf() / 1000;
             if (decodedToken.exp < currentTime) {
 
@@ -80,7 +78,7 @@ function AuthContextProvider({ children }) {
                 status: 'done',
             });
         }
-    },[]);
+    }, []);
 
     async function fetchUserData(username, token, redirectUrl) {
         try {
@@ -113,7 +111,6 @@ function AuthContextProvider({ children }) {
                 isBestuurder: result.data.roles.includes("BESTUURDER"),
                 isPassagier: result.data.roles.includes("PASSAGIER"),
 
-
             });
 
             if (redirectUrl) {
@@ -133,7 +130,6 @@ function AuthContextProvider({ children }) {
                 isPassagier: false,
 
             });
-
         }
     }
 
@@ -145,7 +141,6 @@ function AuthContextProvider({ children }) {
 
         isBestuurder: auth.isBestuurder,
         isPassagier: auth.isPassagier,
-
     };
 
     return (
