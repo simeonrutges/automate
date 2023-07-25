@@ -16,7 +16,7 @@
 }
 
 .ride-item p {
-    margin-right: 20px; /* adjust the value as needed */
+    margin-right: 20px;
 }
 
 .address-container {
@@ -47,4 +47,9 @@
     padding-right: 15px;
     margin-left: 15px;
     margin-right: 15px;
+}
+
+#no-rides-found-message {
+    padding-top: 35px;
+    margin-top: 35px;
 }

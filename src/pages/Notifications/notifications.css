@@ -1,0 +1,22 @@
+.timestamp {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    padding-top: 0px;
+
+    color: #4CAD98;
+}
+
+.notification-message {
+    padding-bottom: 10px;
+}
+
+.important-message {
+    margin-top: 10px;
+    padding-top: 20px;
+    color: #4CAD98;
+}
+
+#notification-message {
+    display: flex;
+    flex-direction: column;
+}

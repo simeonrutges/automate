@@ -8,6 +8,7 @@ import img_conviviality from '../../assets/conviviality.jpg';
 import FormInput from "../../components/formInput/FormInput";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
+
 function Home() {
     const {isAuth, isBestuurder, isPassagier, user} = useContext(AuthContext);
     const token = localStorage.getItem('token');
@@ -95,7 +96,6 @@ function Home() {
 
 
     const setDepartureDateTime = (dateTimeString) => {
-        // Parse the datetime string into a Date object
         const dateTime = new Date(dateTimeString);
 
         // Get the timezone offset for the user's timezone in minutes
@@ -132,7 +132,6 @@ function Home() {
             setAvailableSpotsError("");
         }
 
-        // controlle of de departuredate VOOR de huidige tijd is
         const now = new Date();
         const enteredDateTime = new Date(departureDateTime);
 
@@ -143,11 +142,11 @@ function Home() {
             setDateTimeError("");
         }
 
-         // ETA error. Haal de uren en minuten uit de eta
+        // ETA error. Haal de uren en minuten uit de eta
         const [etaHours, etaMinutes] = eta.split(':').map(Number);
         const enteredHours = enteredDateTime.getHours();
         const enteredMinutes = enteredDateTime.getMinutes();
-// Controleer of de ETA na de vertrektijd ligt
+
         if (etaHours < enteredHours || (etaHours === enteredHours && etaMinutes <= enteredMinutes)) {
             setEtaError("De geschatte aankomsttijd is ongeldig. Zorg ervoor dat het later is dan de vertrektijd.");
             return;
@@ -194,7 +193,7 @@ function Home() {
             console.error(e);
             if (e.response && e.response.data) {
                 console.error('Server response:', e.response.data);
-                // Hier kan je ook de server response tonen in de gebruikersinterface, als je wilt
+
             }
             toggleError(true);
         }
@@ -214,14 +213,12 @@ function Home() {
             alert("Het aantal reizigers moet tussen 1 en 5 liggen.");
             return;
         }
-        // Maak een nieuw Date object voor de huidige tijd (zonder tijdstempel)
+        // Controleer of de gekozen reisdatum in het verleden ligt:
         const nowDate = new Date();
         nowDate.setHours(0, 0, 0, 0);  // Zet de tijd op 00:00:00
 
-        // Maak een nieuw Date object voor de gekozen reisdatum
         const chosenDate = new Date(departureDate);
 
-        // Controleer of de gekozen reisdatum in het verleden ligt
         if (chosenDate < nowDate) {
             setDepartureDateError("De gekozen reisdatum ligt in het verleden. Selecteer een reisdatum die vandaag of in de toekomst ligt.");
             return;
@@ -230,7 +227,6 @@ function Home() {
         }
 
         try {
-            console.log("token : ", token);
 
             const result = await axios.get('http://localhost:8080/rides', {
                 params: {
@@ -239,12 +235,10 @@ function Home() {
                     pax: pax,
                     departureDate: departureDate,
                 },
-            headers: {"Content-Type": 'application/json',
-                // 'Authorization': `Bearer ${token}`,
-            }
+                headers: {
+                    "Content-Type": 'application/json',
+                }
             });
-
-            console.log("ride GET result.data : ", result.data);
 
             history.push(`/rides?pickUpLocation=${pickUpLocation}&destination=${destination}&pax=${pax}&departureDate=${departureDate}`);
 
@@ -288,17 +282,15 @@ function Home() {
     }, [location]);
 
     return (
-        <home className="outer-content-container">
 
+        <div className="outer-content-container">
             <div className="inner-content-container">
 
-                {/*Waarom heeft de margin 50px? -> App.css */}
-                <section className="home-page">
+                <header className="header-section">
                     <img src={picture} alt="auto door bos" className="cover-img"/>
                     <div className="header-text">
                         <h1>De slimme keuze voor milieubewuste reizigers</h1>
                     </div>
-
 
                     <div className="form-container">
                         <div className="form-buttonblock-home">
@@ -313,17 +305,22 @@ function Home() {
                         {activeForm === 'selfDrive' ? (
                                 <form onSubmit={handleSubmitSelfDrive}>
                                     <FormInput id="pickUpLocation" labelText="Vertrek:" inputType="text"
-                                               value={pickUpLocation} onChange={handlePickUpLocationChange} required placeholder="Utrecht "/>
+                                               value={pickUpLocation} onChange={handlePickUpLocationChange} required
+                                               placeholder="Utrecht "/>
                                     <FormInput id="pickUpAddress" labelText="Adres:" inputType="text"
-                                               value={pickUpAddress} onChange={handlePickUpAddressChange} required placeholder="Straatweg 16 / Station"/>
+                                               value={pickUpAddress} onChange={handlePickUpAddressChange} required
+                                               placeholder="Straatweg 16 / Station"/>
                                     <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination}
                                                onChange={handleDestinationChange} required placeholder="Amsterdam"/>
-                                    <FormInput id="destinationAddress" labelText="Adres:" inputType="text" value={destinationAddress}
-                                               onChange={handleDestinationAddressChange} required placeholder="De Boelelaan 519 / Station Zuid"/>
+                                    <FormInput id="destinationAddress" labelText="Adres:" inputType="text"
+                                               value={destinationAddress}
+                                               onChange={handleDestinationAddressChange} required
+                                               placeholder="De Boelelaan 519 / Station Zuid"/>
                                     <FormInput id="route" labelText="Route:" inputType="text" value={route}
                                                onChange={handleRouteChange} placeholder="via Hilversum, A27 en A1 "/>
                                     <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
-                                               value={addRideInfo} onChange={handleAddRideInfoChange} placeholder="We stoppen in Hilversum voor koffie"/>
+                                               value={addRideInfo} onChange={handleAddRideInfoChange}
+                                               placeholder="We stoppen in Hilversum voor koffie"/>
                                     <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
                                                value={departureTime} onChange={handleDepartureTimeChange} required/>
                                     <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
@@ -350,7 +347,8 @@ function Home() {
                                 <form onSubmit={handleSubmitRideAlong}>
                                     <FormInput id="pickUpLocation" labelText="Vertrekplaats:" inputType="text"
                                                value={pickUpLocation}
-                                               onChange={e => setPickUpLocation(e.target.value)} required placeholder="Utrecht "/>
+                                               onChange={e => setPickUpLocation(e.target.value)} required
+                                               placeholder="Utrecht "/>
 
                                     <FormInput id="destination" labelText="Bestemming:" inputType="text"
                                                value={destination} onChange={e => setDestination(e.target.value)}
@@ -358,12 +356,14 @@ function Home() {
 
                                     <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" min="1" max="5"
                                                step="1" value={pax}
-                                               onChange={e => setPax(e.target.value)} required placeholder="min. 1, max. 5"/>
+                                               onChange={e => setPax(e.target.value)} required
+                                               placeholder="min. 1, max. 5"/>
                                     {pax < 1 || pax > 5 &&
                                         <div className="error">Het aantal reizigers moet tussen 1 en 5 liggen.</div>}
 
                                     <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
-                                               value={departureDate} onChange={e => setDepartureDate(e.target.value)} required/>
+                                               value={departureDate} onChange={e => setDepartureDate(e.target.value)}
+                                               required/>
                                     {departureDateError && <div className="error">{departureDateError}</div>}
 
                                     <button type="submit">Zoeken</button>
@@ -371,47 +371,43 @@ function Home() {
                             )}
 
                     </div>
+                </header>
 
 
-                </section>
                 <section id="pros" className="outer-content-container">
                     <div className="inner-content-container default-area-padding">
 
-                        <article className="work-article">
-                <span className="work-article__image-wrapper">
-                     <img src={picture_save} alt="Portfolio work"/>
+                        <article className="benefit cost-saving">
+                <span className="benefit__image-wrapper">
+                     <img src={picture_save} alt="4 stacks of coins with the word 'save' on them"/>
                 </span>
 
-                            <div className="work-article__info-container">
+                            <div className="benefit__info-container">
                                 <h4>Kostenbesparend</h4>
-                                <div className="work-article__title-squiggle"></div>
                                 <p>Bespaar geld en deel je rit met anderen. Carpoolen is de perfecte manier om je
                                     uitgaven voor brandstof te verminderen en de kosten voor het onderhoud van je auto
                                     te delen.</p>
                             </div>
                         </article>
-                        <article className="work-article">
-                <span className="work-article__image-wrapper">
-                    <img src={img_environmental_sustainability} alt="Portfolio work"/>
+                        <article className="benefit sustainability">
+                <span className="benefit__image-wrapper">
+                    <img src={img_environmental_sustainability} alt="Footprint in forest"/>
                 </span>
-
-                            <div className="work-article__info-container">
+                            <div className="benefit__info-container">
                                 <h4>Milieuvriendelijk</h4>
-                                <div className="work-article__title-squiggle"></div>
                                 <p>Draag bij aan een beter milieu en verminder je ecologische voetafdruk.
                                     Carpoolen vermindert het aantal auto's op de weg en zorgt voor minder CO2-uitstoot
                                     en
                                     luchtverontreiniging.</p>
                             </div>
                         </article>
-                        <article className="work-article">
-                <span className="work-article__image-wrapper">
-                    <img src={img_conviviality} alt="Portfolio work"/>
+                        <article className="benefit stress-reduction">
+                <span className="benefit__image-wrapper">
+                    <img src={img_conviviality} alt="People having fun while carpooling"/>
                 </span>
 
-                            <div className="work-article__info-container">
+                            <div className="benefit__info-container">
                                 <h4>Stress verminderend</h4>
-                                <div className="work-article__title-squiggle"></div>
                                 <p>Maak nieuwe vrienden en verminder de stress van het rijden. Carpoolen biedt een
                                     geweldige kans om in contact te komen met anderen en je rit aangenamer te maken.
                                     Bovendien kan carpoolen bijdragen aan het verminderen van stress en vermoeidheid,
@@ -420,7 +416,6 @@ function Home() {
                         </article>
                     </div>
                 </section>
-
                 <section id="how-it-works" className="outer-content-container">
                     <div className="inner-content-container default-area-padding default-text-restrictor">
                         <div className="expl-box">
@@ -447,7 +442,6 @@ function Home() {
                         </div>
                     </div>
                 </section>
-
                 <section>
                     <p>Enthousiast geworden? <Link to="/signup">Registreer</Link> je nu om te beginnen met het delen van
                         ritten, geld te besparen en nieuwe mensen te ontmoeten. Of bekijk onze Veelgestelde Vragen (FAQ)
@@ -457,7 +451,7 @@ function Home() {
                 </section>
 
             </div>
-        </home>
+        </div>
     );
 }
 

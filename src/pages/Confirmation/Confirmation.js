@@ -26,13 +26,11 @@ function Confirmation({action}){
        <div className="outer-content-container">
            <div className="inner-content-container">
 
-
-               <div className="confirmation-container">
+               <section className="confirmation-container">
                    <h3>{isSuccess ? 'Succes!' : 'Mislukt'}</h3>
                    <p>{isSuccess ? messages.success[type] : messages.failure[type]}</p>
                    <p className="home-page-link">Terug naar de <Link to="/">Homepagina</Link></p>
-               </div>
-
+               </section>
 
            </div>
        </div>

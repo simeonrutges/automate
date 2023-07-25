@@ -1,9 +1,8 @@
-
 home {
     background-color: white;
 }
 
-.home-page{
+.header-section{
     display: flex;
     position: relative;
     width: 100%;
@@ -27,7 +26,6 @@ home {
     text-align: center;
     background-color: rgba(255, 255, 255, 0);
     color: white;
-
 }
 
 .home h1 {
@@ -86,20 +84,20 @@ button:active {
     background-color: #F3F6F9;
 }
 
-.work-article {
+.benefit {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 100px 0;
+    margin: 70px 0 70px 0;
 }
 
 /*Draai de volgorde van de afbeelding en tekst om bij de 1e, 3e, etc.*/
-.work-article:nth-of-type(odd) {
+.benefit:nth-of-type(odd) {
     flex-direction: row-reverse;
 }
 
-.work-article__image-wrapper {
+.benefit__image-wrapper {
     /*De afbeelding-wrapper moet in de basis 800px breed zijn...*/
     flex-basis: 800px;
     /*Als er meer ruimte is, mag hij NIET groter worden*/
@@ -108,14 +106,14 @@ button:active {
     flex-shrink: 1;
 }
 
-.work-article__image-wrapper img {
+.benefit__image-wrapper img {
     /*Om afbeeldingen goed mee te laten schalen met de wrapper, zet je de afbeelding zelf altijd op 100% breedte.
     Zo past de afbeelding zich telkens aan, aan zijn omgeving*/
     width: 100%;
     box-shadow: 0 32px 28px -10px rgba(0, 0, 0, 0.22);
 }
 
-.work-article__info-container {
+.benefit__info-container {
     /*De content moet in de basis 480 breed zijn*/
     flex-basis: 480px;
     /*Als er meer ruimte is, mag hij NIET groter worden*/
@@ -125,14 +123,8 @@ button:active {
     padding: 0 50px 50px 50px;
 }
 
-.work-article__title-squiggle {
-    margin-top: 24px;
-    width: 57px;
-    height: 6px;
-    /*background-image: url(./assets/squiggle_line.svg);*/
-}
 
-.work-article__info-container p {
+.benefit__info-container p {
     font-weight: 400;
     margin: 50px 0;
 }
@@ -154,6 +146,7 @@ button:active {
     padding: 25px;
     border: 5px solid #FFFFFF;
 }
+
 
 
 

@@ -8,16 +8,13 @@ import FileUploadForm from './FileUploadForm';
 
 function Profile() {
     const {username: viewedUsername} = useParams();
-    console.log("viewedUsername = " + viewedUsername);
     const history = useHistory();
-
 
     const [profileData, setProfileData] = useState({});
     const {user} = useContext(AuthContext);
     const username = viewedUsername ? viewedUsername : user.username;
-    // const history = useHistory();
-    const token = localStorage.getItem("token");
 
+    const token = localStorage.getItem("token");
 
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -40,17 +37,16 @@ function Profile() {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                console.log(result);
+
                 if (result.data && result.data.username) {
                     setProfileData(result.data);
-                    console.log("profileData : " + profileData.fileName);
+
                 } else {
                     console.error("Ongeldige response van de server");
                 }
             } catch (e) {
                 console.error(e);
-                // alle error informatie die je nodig hebt staat hier:
-                console.log(e.response);
+
                 setFetchProfileDataError(e.response.status);
             }
         }
@@ -93,8 +89,7 @@ function Profile() {
 
             if (result.data && result.data.username) {
                 setProfileData(result.data);
-                console.log(result.data);
-                console.log(carData);
+
             } else {
                 console.error("Ongeldige response van de server");
             }
@@ -106,7 +101,6 @@ function Profile() {
     };
 
     async function handleDeleteBio() {
-        // const handleDeleteBio = async () => {
         toggleError(false);
         toggleLoading(true);
 
@@ -136,7 +130,7 @@ function Profile() {
             );
 
             setProfileData({...profileData, bio: null});
-            setBio(""); // Reset bio state to clear the textarea
+            setBio("");
         } catch (e) {
             console.error(e);
             toggleError(true);
@@ -159,10 +153,8 @@ function Profile() {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log(result.data);
 
             setCarData(result.data);
-            console.log(result.data)
 
         } catch (error) {
             console.error('Error submitting the vehicle data:', error);
@@ -189,16 +181,15 @@ function Profile() {
 
     useEffect(() => {
         async function fetchProfileImage() {
-            console.log("profileData filename: " + profileData.fileName);
+
             if (profileData.fileName) {
                 try {
                     const response = await axios.get(`http://localhost:8080/users/downloadFromDB/${profileData.fileName}`, {
                         responseType: 'blob',
                         headers: {'Authorization': `Bearer ${token}`}
                     });
-                    console.log(response.data);
+
                     const image = URL.createObjectURL(response.data);
-                    console.log('Image URL:', image);
                     setUploadedImage(image);
                 } catch (error) {
                     console.error('Error fetching profile image:', error);
@@ -251,19 +242,17 @@ function Profile() {
         history.push(`/my-messages/${username}`);
     };
 
-
     return (
         <div className="outer-content-container">
             <div className="inner-content-container">
                 <div>
-
                     <header>
                         {user.username === username ? (
                             <h1>Mijn Profiel</h1>
                         ) : (
                             <h1>{username}'s profiel</h1>
                         )}
-                        <section className="profile-picture">
+                        <figure className="profile-picture">
                             <section className="foto-name">
 
                                 {uploadedImage ? (
@@ -289,10 +278,9 @@ function Profile() {
                                         )}
                                     </div>
                                 )}
-
                                 <h2 id="myHeader">{username}</h2>
                             </section>
-                        </section>
+                        </figure>
                     </header>
 
                     {Object.keys(profileData).length > 0 && (
@@ -309,14 +297,12 @@ function Profile() {
                                     <p>Email: {profileData.email}</p>
                                 </div>
 
-
                                 {user.username !== username && (
                                     <button onClick={handleSendMessage}>Stuur {profileData.firstname} een
                                         bericht</button>
                                 )}
 
                             </section>
-
 
                             <section className="bio-section">
                                 {user.username === username && !profileData.bio && (
@@ -363,10 +349,8 @@ function Profile() {
 
                                     </div>
 
-
                                 )}
                             </section>
-
 
                             {profileData.roles && profileData.roles.includes('BESTUURDER') && (
 
@@ -429,8 +413,8 @@ function Profile() {
                         </main>
                     )}
 
-
                 </div>
+
             </div>
         </div>
     );

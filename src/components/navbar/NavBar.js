@@ -1,11 +1,11 @@
 import React, {useContext, useEffect} from 'react';
 import logo from '../../assets/log met doorz achter 1000.png'
 import {useHistory, Link, useLocation} from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import {AuthContext} from '../../context/AuthContext';
 import './navbar.css';
 
 function NavBar() {
-    const { isAuth, logout } = useContext(AuthContext);
+    const {isAuth, logout} = useContext(AuthContext);
     const history = useHistory();
     const location = useLocation();
     const isHomePage = location.pathname === '/';
@@ -19,18 +19,18 @@ function NavBar() {
     );
 
     return (
-        <navbar className="outer-content-container">
+        <div className="outer-content-container">
             <div className="inner-content-container">
                 <nav className="nav">
                     <Link to="/">
-            <span className="logo-container">
-              <img src={logo} alt="logo" />
-              <h3 className="brand">AutoMate</h3>
-            </span>
+                    <span className="logo-container">
+                        <img src={logo} alt="logo"/>
+                        <h3 className="brand">AutoMate</h3>
+                    </span>
                     </Link>
 
-                    <span className="nav-buttons">
-            {!isHomePage && navButton('/', 'Homepagina')}
+                    <div className="nav-buttons">
+                        {!isHomePage && navButton('/', 'Homepagina')}
                         {isHomePage && (
                             <>
                                 {isAuth ? (
@@ -71,10 +71,10 @@ function NavBar() {
                                 </>
                             )
                         )}
-          </span>
+                    </div>
                 </nav>
             </div>
-        </navbar>
+        </div>
     );
 }
 

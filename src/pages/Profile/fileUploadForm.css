@@ -1,8 +1,8 @@
 .image-preview {
-    width: 100px; /* Stel de gewenste breedte in */
-    height: 100px; /* Stel de gewenste hoogte in */
-    object-fit: cover; /* Zorgt ervoor dat de afbeelding proportioneel wordt geschaald */
-    border-radius: 50%; /* Maakt de afbeelding rond */
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .file-upload-container {
@@ -25,14 +25,7 @@
 }
 
 .preview-button {
-    margin-top: 4px;
-    margin-bottom: 4;
-    margin-left: 2px;
-    margin-right: 116px;
-
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 0px;
-    padding-right: 0px;
+    margin: 4px 116px 4px 2px;
+    padding: 4px 0px;
 }
 

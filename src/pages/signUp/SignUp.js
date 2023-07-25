@@ -4,7 +4,9 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 import "../signUp/signUp.css";
 
-function SignUpTest() {
+
+
+function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [firstname, setFirstname] = useState("");
@@ -12,7 +14,6 @@ function SignUpTest() {
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
 
-    // state voor radio-buttons
     const [role, setRole] = useState("");
 
     const [passwordError, setPasswordError] = useState("");
@@ -65,9 +66,9 @@ function SignUpTest() {
         if (password.length < 8) {
             setPasswordError('Wachtwoord moet minimaal 8 tekens bevatten');
             toggleLoading(false);
-            return;  // voorkomt dat de functie verder uitgevoerd wordt
+            return;
         } else {
-            setPasswordError(""); // clear error message if validation is passed
+            setPasswordError("");
         }
 
         try {
@@ -80,7 +81,6 @@ function SignUpTest() {
                 phoneNumber: phoneNumber,
                 roles: [role],
             });
-            console.log(result);
 
             history.push("/signin");
         } catch (e) {
@@ -90,18 +90,18 @@ function SignUpTest() {
 
         toggleLoading(false);
     };
-
     return (
-        <signup className="outer-content-container">
+        <div className="outer-content-container">
             <div className="inner-content-container">
-                <h1>Aanmelden</h1>
-                <p>
-                    Registreer je nu als AutoMate gebruiker! Vul hieronder je persoonlijke
-                    gegevens in en kies of je als bestuurder of passagier wilt deelnemen
-                    aan de carpoolcommunity. Samen kunnen we files verminderen en duurzamer
-                    reizen!
-                </p>
-
+                <header>
+                    <h1>Aanmelden</h1>
+                    <p>
+                        Registreer je nu als AutoMate gebruiker! Vul hieronder je persoonlijke
+                        gegevens in en kies of je als bestuurder of passagier wilt deelnemen
+                        aan de carpoolcommunity. Samen kunnen we files verminderen en duurzamer
+                        reizen!
+                    </p>
+                </header>
                 <form onSubmit={handleSubmit}>
                     <FormInput
                         id="username"
@@ -119,7 +119,7 @@ function SignUpTest() {
                         required
                         onChange={handlePasswordChange}
                     />
-                    {passwordError && <div className="error-message">{passwordError}</div>}
+                    {passwordError && <div className="error">{passwordError}</div>}
                     <FormInput
                         id="firstname"
                         labelText="Voornaam:"
@@ -184,13 +184,10 @@ function SignUpTest() {
                         </div>
                     </section>
 
-
                     <button type="submit">Sign Up</button>
                 </form>
             </div>
-        </signup>
+        </div>
     );
 }
-
-export default SignUpTest;
-
+export default SignUp;
