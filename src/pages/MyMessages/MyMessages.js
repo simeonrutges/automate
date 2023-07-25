@@ -31,44 +31,6 @@ function MyMessages() {
     }, [isAuth, user]);
 
     return (
-//         <div className="outer-content-container">
-//             <div className="inner-content-container">
-//                 <div>
-//                     <h1>Berichten</h1>
-//                     {error ? (
-//                         <p>Er is een fout opgetreden bij het ophalen van berichten: {error}</p>
-//                     ) : (
-//                         messages.length === 0 ? (
-//                             <p>Je hebt nog geen berichten ontvangen</p>
-//                         ) : (
-//                             <ul>
-//                                 {messages.map((message) => {
-//                                     const sentDate = new Date(message.sentDate);
-//                                     const formattedDate = `${sentDate.getDate().toString().padStart(2, '0')}-${(sentDate.getMonth() + 1).toString().padStart(2, '0')}-${sentDate.getFullYear()}`;
-//                                     const formattedTime = `${sentDate.getHours().toString().padStart(2, '0')}:${sentDate.getMinutes().toString().padStart(2, '0')}`;
-//
-//                                     return (
-//                                         <li key={message.id}>
-//                                             <Link
-//                                                 to={
-//                                                     message.sender.username === 'System'
-//                                                         ? `/my-notifications/${message.id}`
-//                                                         : `/my-messages/${message.sender.username}`
-//                                                 }
-//                                             >
-//                                                 {message.type} van {message.sender.username} {formattedDate} om {formattedTime}
-//                                             </Link>
-//                                         </li>
-//                                     );
-//                                 })}
-//                             </ul>
-//                         )
-//                     )}
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
 
         <div className="outer-content-container">
             <main className="inner-content-container">

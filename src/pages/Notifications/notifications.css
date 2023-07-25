@@ -1,6 +1,5 @@
 .timestamp {
     margin-bottom: 25px;
-    padding-top: 0px;
     padding-bottom: 20px;
     padding-top: 0px;
 
@@ -12,8 +11,12 @@
 }
 
 .important-message {
-    padding-top: 15px;
+    margin-top: 10px;
     padding-top: 20px;
     color: #4CAD98;
 }
 
+#notification-message {
+    display: flex;
+    flex-direction: column;
+}

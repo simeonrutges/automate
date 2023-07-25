@@ -6,7 +6,6 @@ import Home from '././pages/home/Home';
 import SignIn from '././pages/signIn/SignIn';
 import SignUp from '././pages/signUp/SignUp';
 import {AuthContext} from './context/AuthContext';
-import './App.css';
 import RidePage from "./pages/RidePage/RidePage";
 import RidesOverview from "./pages/RideOverviewPage/RidesOverview";
 import PrivateRoute from "./components/PrivateRoute";

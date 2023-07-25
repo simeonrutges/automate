@@ -18,68 +18,6 @@ function NavBar() {
         </button>
     );
 
-//     return (
-//         <navbar className="outer-content-container">
-//             <div className="inner-content-container">
-//                 <nav className="nav">
-//                     <Link to="/">
-//             <span className="logo-container">
-//               <img src={logo} alt="logo" />
-//               <h3 className="brand">AutoMate</h3>
-//             </span>
-//                     </Link>
-//
-//                     <span className="nav-buttons">
-//             {!isHomePage && navButton('/', 'Homepagina')}
-//                         {isHomePage && (
-//                             <>
-//                                 {isAuth ? (
-//                                     navButton('/?section=how-it-works', 'Hoe werkt het?')
-//                                 ) : (
-//                                     <>
-//                                         {navButton('/signin', 'Inloggen')}
-//                                         {navButton('/signup', 'Aanmelden')}
-//                                         {navButton('/?section=how-it-works', 'Hoe werkt het?')}
-//                                     </>
-//                                 )}
-//                             </>
-//                         )}
-//                         {isAuth ? (
-//                             <>
-//                                 {isProfilePage ? (
-//                                     <>
-//                                         {navButton('/my-rides', 'Mijn ritten')}
-//                                         {navButton('/my-messages', 'Mijn berichten')}
-//                                     </>
-//                                 ) : isMessagesPage ? (
-//                                     <>
-//                                         {navButton('/my-rides', 'Mijn ritten')}
-//                                         {navButton('/profile', 'Profielpagina')}
-//                                     </>
-//                                 ) : (
-//                                     navButton('/profile', 'Profielpagina')
-//                                 )}
-//                                 <button type="button" onClick={logout}>
-//                                     Log uit
-//                                 </button>
-//                             </>
-//                         ) : (
-//                             !isHomePage && (
-//                                 <>
-//                                     {navButton('/signin', 'Inloggen')}
-//                                     {navButton('/signup', 'Aanmelden')}
-//                                 </>
-//                             )
-//                         )}
-//           </span>
-//                 </nav>
-//             </div>
-//         </navbar>
-//     );
-// }
-//
-// export default NavBar;
-
     return (
         <div className="outer-content-container">
             <div className="inner-content-container">

@@ -79,31 +79,10 @@ function Notification(props) {
     const displayDepartureDateTime = `${formattedDepartureDate} om ${formattedDepartureTime}`;
 
     return (
-//         <ride className="outer-content-container">
-//             <div className="inner-content-container">
-//
-//                 <div>
-//                     <h1>{displayType}</h1>
-//                     <p>Bericht datum: {displayDate}</p>
-//                     {notification.type === "RIDE_CANCELLED_BY_DRIVER" &&
-//                         <p>Bestuurder: <Link to={`/profile/${driver}`}>{driver}</Link></p>}
-//                     <p>Ophaal locatie: {pickUpLocation}</p>
-//                     <p>Bestemming: {destination}</p>
-//                     <p>Vertrek: {displayDepartureDateTime}</p>
-//                     <p>Aankomsttijd: {estimatedArrivalTime}</p>
-//                     {notification.type !== "RIDE_CANCELLED_BY_DRIVER" &&
-//                         <p>BELANGRIJK! Raadpleeg altijd de meest recente updates via <Link to={`/rides/${rideId}`}>"Mijn
-//                             ritten"</Link></p>}
-//                 </div>
-//
-//             </div>
-//         </ride>
-//     );
-// }
 
         <div className="outer-content-container">
             <main className="inner-content-container">
-                <article>
+                <article id="notification-message">
                     <h1 className="notification-message">{displayType}</h1>
                     <p className="timestamp">Tijdstempel: {displayDate}</p>
                     {notification.type === "RIDE_CANCELLED_BY_DRIVER" &&
