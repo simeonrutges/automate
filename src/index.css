@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&family=Neucha&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat+Subrayada&family=Roboto&display=swap');
-/*@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');*/
-/*@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed&display=swap');*/
-/*tweede import is van concept opdr*/
 
 /*////////////////////////
     Table of Contents
@@ -50,16 +47,11 @@ body {
   flex-basis: 1300px;
   flex-shrink: 1;
   flex-grow: 0;
-  /*We voegen margin toe aan de linker- en rechterkant, zodat de content nooit helemaal tegen de rand gedrukt kan worden*/
   margin: 0 20px;
-  /*We zorgen er ook voor dat deze flex-item op haar beurt ook weer een flexbox container is, waarin alle children onder elkaar komen te staan*/
   display: flex;
   flex-direction: column;
-  /*justify-content: center;*/
-  /*24/7 was hierboven maar veranderd naar hieronder. kan evt weggelaten worden*/
 /*align-items: center;*/
-/*  background-color: #ea7e1f;*/
-/*  border: 1px solid black;*/
+
 }
 
 /* ------------------------------- 2. Typography ----------------------------------- */
