@@ -38,18 +38,16 @@ body {
   font-size: 16px;
 }
 
-/* De buitenste container is altijd de volledige schermbreedte. Het is een flexbox container die zijn inhoud altijd netjes horizontaal centreert */
 .outer-content-container {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
-/*De binnenste container is maximaal 1400px breed, zodat het er ook goed uitziet op brede schermen.
-Hij mag krimpen als het scherm minder breed wordt, maar niet groeien als er meer ruimte is.*/
 .inner-content-container {
-  flex-basis: 1200px;
+  flex-basis: 1300px;
   flex-shrink: 1;
   flex-grow: 0;
   /*We voegen margin toe aan de linker- en rechterkant, zodat de content nooit helemaal tegen de rand gedrukt kan worden*/
@@ -57,10 +55,11 @@ Hij mag krimpen als het scherm minder breed wordt, maar niet groeien als er meer
   /*We zorgen er ook voor dat deze flex-item op haar beurt ook weer een flexbox container is, waarin alle children onder elkaar komen te staan*/
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  /*24/7 was hierboven maar veranderd naar hieronder*/
+  /*justify-content: center;*/
+  /*24/7 was hierboven maar veranderd naar hieronder. kan evt weggelaten worden*/
 /*align-items: center;*/
-  background-color: #ea7e1f;
+/*  background-color: #ea7e1f;*/
+/*  border: 1px solid black;*/
 }
 
 /* ------------------------------- 2. Typography ----------------------------------- */
@@ -102,7 +101,7 @@ h6 {
 
 p {
   margin: 12px 0;
-  font-family: Helvetica;
+  font-family: Helvetica, sans-serif;
   letter-spacing: 1px;
 }
 

@@ -298,180 +298,371 @@ function Home() {
         }
     }, [location]);
 
+//     return (
+//
+//         <div className="outer-content-container">
+//             <div className="inner-content-container">
+//
+//                 <header className="header-section">
+//                     <img src={picture} alt="auto door bos" className="cover-img"/>
+//                     <div className="header-text">
+//                         <h1>De slimme keuze voor milieubewuste reizigers</h1>
+//                     </div>
+//
+//                     <div className="form-container">
+//                         <div className="form-buttonblock-home">
+//                             <button className={`form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}`}
+//                                     type="button" onClick={handleSelfDriveClick}>Zelf rijden
+//                             </button>
+//                             <button className={`form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}`}
+//                                     type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
+//                             </button>
+//                         </div>
+//
+//                         {activeForm === 'selfDrive' ? (
+//                                 <form onSubmit={handleSubmitSelfDrive}>
+//                                     <FormInput id="pickUpLocation" labelText="Vertrek:" inputType="text"
+//                                                value={pickUpLocation} onChange={handlePickUpLocationChange} required
+//                                                placeholder="Utrecht "/>
+//                                     <FormInput id="pickUpAddress" labelText="Adres:" inputType="text"
+//                                                value={pickUpAddress} onChange={handlePickUpAddressChange} required
+//                                                placeholder="Straatweg 16 / Station"/>
+//                                     <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination}
+//                                                onChange={handleDestinationChange} required placeholder="Amsterdam"/>
+//                                     <FormInput id="destinationAddress" labelText="Adres:" inputType="text"
+//                                                value={destinationAddress}
+//                                                onChange={handleDestinationAddressChange} required
+//                                                placeholder="De Boelelaan 519 / Station Zuid"/>
+//                                     <FormInput id="route" labelText="Route:" inputType="text" value={route}
+//                                                onChange={handleRouteChange} placeholder="via Hilversum, A27 en A1 "/>
+//                                                {routeError && <p className="error">{routeError}</p>}
+//                                     <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
+//                                                value={addRideInfo} onChange={handleAddRideInfoChange}
+//                                                placeholder="We stoppen in Hilversum voor koffie"/>
+//                                     {addRideInfoError && <p className="error">{addRideInfoError}</p>}
+//                                     <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
+//                                                value={departureTime} onChange={handleDepartureTimeChange} required/>
+//                                     <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
+//                                                value={departureDate} onChange={handleDepartureDateChange} required/>
+//                                     {dateTimeError && <div className="error">{dateTimeError}</div>}
+//
+//                                     <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="3"
+//                                                step="0.01" value={pricePerPerson} onChange={handlePricePerPersonChange}
+//                                                required placeholder="min. 3 euro "/>
+//                                     {pricePerPersonError && <div className="error">{pricePerPersonError}</div>}
+//
+//                                     <FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number"
+//                                                min="1" max="5" step="1" value={availableSpots}
+//                                                onChange={handleAvailableSpotsChange} required placeholder="min.1, max.5"/>
+//                                     {availableSpotsError && <div className="error">{availableSpotsError}</div>}
+//                                     <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
+//                                                onChange={handleEtaChange} required placeholder="Utrecht "/>
+//                                     {etaError && <div className="error">{etaError}</div>}
+//
+//                                     <button type="submit">Plaats rit</button>
+//                                 </form>
+//                             )
+//                             : (
+//                                 <form onSubmit={handleSubmitRideAlong}>
+//                                     <FormInput id="pickUpLocation" labelText="Vertrekplaats:" inputType="text"
+//                                                value={pickUpLocation}
+//                                                onChange={e => setPickUpLocation(e.target.value)} required
+//                                                placeholder="Utrecht "/>
+//
+//                                     <FormInput id="destination" labelText="Bestemming:" inputType="text"
+//                                                value={destination} onChange={e => setDestination(e.target.value)}
+//                                                required placeholder="Alkmaar "/>
+//
+//                                     <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" min="1" max="5"
+//                                                step="1" value={pax}
+//                                                onChange={e => setPax(e.target.value)} required
+//                                                placeholder="min. 1, max. 5"/>
+//                                     {pax < 1 || pax > 5 &&
+//                                         <div className="error">Het aantal reizigers moet tussen 1 en 5 liggen.</div>}
+//
+//                                     <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
+//                                                value={departureDate} onChange={e => setDepartureDate(e.target.value)}
+//                                                required/>
+//                                     {departureDateError && <div className="error">{departureDateError}</div>}
+//
+//                                     <button type="submit">Zoeken</button>
+//                                 </form>
+//                             )}
+//
+//                     </div>
+//                 </header>
+//
+//
+//                 <section id="pros" className="outer-content-container">
+//                     <div className="inner-content-container default-area-padding">
+//
+//                         <article className="benefit cost-saving">
+//                 <span className="benefit__image-wrapper">
+//                      <img src={picture_save} alt="4 stacks of coins with the word 'save' on them"/>
+//                 </span>
+//
+//                             <div className="benefit__info-container">
+//                                 <h4>Kostenbesparend</h4>
+//                                 <p>Bespaar geld en deel je rit met anderen. Carpoolen is de perfecte manier om je
+//                                     uitgaven voor brandstof te verminderen en de kosten voor het onderhoud van je auto
+//                                     te delen.</p>
+//                             </div>
+//                         </article>
+//                         <article className="benefit sustainability">
+//                 <span className="benefit__image-wrapper">
+//                     <img src={img_environmental_sustainability} alt="Footprint in forest"/>
+//                 </span>
+//                             <div className="benefit__info-container">
+//                                 <h4>Milieuvriendelijk</h4>
+//                                 <p>Draag bij aan een beter milieu en verminder je ecologische voetafdruk.
+//                                     Carpoolen vermindert het aantal auto's op de weg en zorgt voor minder CO2-uitstoot
+//                                     en
+//                                     luchtverontreiniging.</p>
+//                             </div>
+//                         </article>
+//                         <article className="benefit stress-reduction">
+//                 <span className="benefit__image-wrapper">
+//                     <img src={img_conviviality} alt="People having fun while carpooling"/>
+//                 </span>
+//
+//                             <div className="benefit__info-container">
+//                                 <h4>Stress verminderend</h4>
+//                                 <p>Maak nieuwe vrienden en verminder de stress van het rijden. Carpoolen biedt een
+//                                     geweldige kans om in contact te komen met anderen en je rit aangenamer te maken.
+//                                     Bovendien kan carpoolen bijdragen aan het verminderen van stress en vermoeidheid,
+//                                     waardoor je ontspannen op je bestemming aankomt.</p>
+//                             </div>
+//                         </article>
+//                     </div>
+//                 </section>
+//                 <section id="how-it-works" className="outer-content-container">
+//                     <div className="inner-content-container default-area-padding default-text-restrictor">
+//                         <div className="expl-box">
+//                             <h6>Zo werkt het</h6>
+//                             <p>
+//                                 Hallo carpool-liefhebbers! Weet je wat zo geweldig is aan ons platform? Je kunt niet
+//                                 alleen ritten vinden, maar ook ritten plaatsen! Het is super makkelijk: vul je profiel
+//                                 aan met je ritdetails, kies zelf de prijs en het aantal passagiers dat je wilt meenemen.
+//                                 Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem
+//                                 of telefonisch, en samen delen jullie de kosten van de reis.
+//                             </p>
+//                             <p>
+//                                 Ben je op zoek naar een lift? Zoek dan gemakkelijk naar beschikbare ritten die bij jouw
+//                                 planning passen. En voordat je boekt, kan je altijd even contact opnemen met de
+//                                 bestuurder via ons messaging systeem of telefoon om vragen te stellen en elkaar beter te
+//                                 leren kennen. Het betalen van de ritkosten regelen jullie onderling, dus geen zorgen
+//                                 daarover.
+//                             </p>
+//                             <p>
+//                                 Eenmaal op weg, leun achterover en geniet van de reis! En als alles goed gaat, laat dan
+//                                 niet na om je chauffeur een beoordeling te geven - wie weet geven ze er wel een voor jou
+//                                 terug!
+//                             </p>
+//                         </div>
+//                     </div>
+//                 </section>
+//                 <section>
+//                     <p>Enthousiast geworden? <Link to="/signup">Registreer</Link> je nu om te beginnen met het delen van
+//                         ritten, geld te besparen en nieuwe mensen te ontmoeten. Of bekijk onze Veelgestelde Vragen (FAQ)
+//                         pagina voor meer informatie over ons platform en hoe het werkt.</p>
+//                     <p>Ben je <Link to="/signin">ingelogd</Link>? Bekijk dan hier je <Link
+//                         to="/profile">Profielpagina</Link> en start vandaag nog met onbezorgd reizen!</p>
+//                 </section>
+//
+//             </div>
+//         </div>
+//     );
+// }
+
     return (
+        <>
+        <header className="outer-content-container">
+            <img src={picture} alt="auto door bos" className="cover-img"/>
+            {/*<div className="header-section">*/}
+            {/*<img src={picture} alt="auto door bos" className="cover-img"/>*/}
 
-        <div className="outer-content-container">
-            <div className="inner-content-container">
+                {/*<img src={picture} alt="auto door bos" className="cover-img"/>*/}
+                <div className="header-text">
+                    <h1 id="header-slogan">De slimme keuze voor milieubewuste reizigers</h1>
+                </div>
+                <div className="inner-content-container">
 
-                <header className="header-section">
-                    <img src={picture} alt="auto door bos" className="cover-img"/>
-                    <div className="header-text">
-                        <h1>De slimme keuze voor milieubewuste reizigers</h1>
+                <div className="form-container">
+                    <div className="form-buttonblock-home">
+                        <button className={`form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}`}
+                                type="button" onClick={handleSelfDriveClick}>Zelf rijden
+                        </button>
+                        <button className={`form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}`}
+                                type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
+                        </button>
                     </div>
 
-                    <div className="form-container">
-                        <div className="form-buttonblock-home">
-                            <button className={`form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}`}
-                                    type="button" onClick={handleSelfDriveClick}>Zelf rijden
-                            </button>
-                            <button className={`form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}`}
-                                    type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
-                            </button>
-                        </div>
+                    {activeForm === 'selfDrive' ? (
+                            <form onSubmit={handleSubmitSelfDrive}>
+                                <FormInput id="pickUpLocation" labelText="Vertrek:" inputType="text"
+                                           value={pickUpLocation} onChange={handlePickUpLocationChange} required
+                                           placeholder="Utrecht "/>
+                                <FormInput id="pickUpAddress" labelText="Adres:" inputType="text"
+                                           value={pickUpAddress} onChange={handlePickUpAddressChange} required
+                                           placeholder="Straatweg 16 / Station"/>
+                                <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination}
+                                           onChange={handleDestinationChange} required placeholder="Amsterdam"/>
+                                <FormInput id="destinationAddress" labelText="Adres:" inputType="text"
+                                           value={destinationAddress}
+                                           onChange={handleDestinationAddressChange} required
+                                           placeholder="De Boelelaan 519 / Station Zuid"/>
+                                <FormInput id="route" labelText="Route:" inputType="text" value={route}
+                                           onChange={handleRouteChange} placeholder="via Hilversum, A27 en A1 "/>
+                                {routeError && <p className="error">{routeError}</p>}
+                                <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
+                                           value={addRideInfo} onChange={handleAddRideInfoChange}
+                                           placeholder="We stoppen in Hilversum voor koffie"/>
+                                {addRideInfoError && <p className="error">{addRideInfoError}</p>}
+                                <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
+                                           value={departureTime} onChange={handleDepartureTimeChange} required/>
+                                <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
+                                           value={departureDate} onChange={handleDepartureDateChange} required/>
+                                {dateTimeError && <div className="error">{dateTimeError}</div>}
 
-                        {activeForm === 'selfDrive' ? (
-                                <form onSubmit={handleSubmitSelfDrive}>
-                                    <FormInput id="pickUpLocation" labelText="Vertrek:" inputType="text"
-                                               value={pickUpLocation} onChange={handlePickUpLocationChange} required
-                                               placeholder="Utrecht "/>
-                                    <FormInput id="pickUpAddress" labelText="Adres:" inputType="text"
-                                               value={pickUpAddress} onChange={handlePickUpAddressChange} required
-                                               placeholder="Straatweg 16 / Station"/>
-                                    <FormInput id="destination" labelText="Bestemming:" inputType="text" value={destination}
-                                               onChange={handleDestinationChange} required placeholder="Amsterdam"/>
-                                    <FormInput id="destinationAddress" labelText="Adres:" inputType="text"
-                                               value={destinationAddress}
-                                               onChange={handleDestinationAddressChange} required
-                                               placeholder="De Boelelaan 519 / Station Zuid"/>
-                                    <FormInput id="route" labelText="Route:" inputType="text" value={route}
-                                               onChange={handleRouteChange} placeholder="via Hilversum, A27 en A1 "/>
-                                               {routeError && <p className="error">{routeError}</p>}
-                                    <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
-                                               value={addRideInfo} onChange={handleAddRideInfoChange}
-                                               placeholder="We stoppen in Hilversum voor koffie"/>
-                                    {addRideInfoError && <p className="error">{addRideInfoError}</p>}
-                                    <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
-                                               value={departureTime} onChange={handleDepartureTimeChange} required/>
-                                    <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
-                                               value={departureDate} onChange={handleDepartureDateChange} required/>
-                                    {dateTimeError && <div className="error">{dateTimeError}</div>}
+                                <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="3"
+                                           step="0.01" value={pricePerPerson} onChange={handlePricePerPersonChange}
+                                           required placeholder="min. 3 euro "/>
+                                {pricePerPersonError && <div className="error">{pricePerPersonError}</div>}
 
-                                    <FormInput id="pricePerPerson" labelText="Prijs per persoon:" inputType="number" min="3"
-                                               step="0.01" value={pricePerPerson} onChange={handlePricePerPersonChange}
-                                               required placeholder="min. 3 euro "/>
-                                    {pricePerPersonError && <div className="error">{pricePerPersonError}</div>}
+                                <FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number"
+                                           min="1" max="5" step="1" value={availableSpots}
+                                           onChange={handleAvailableSpotsChange} required placeholder="min.1, max.5"/>
+                                {availableSpotsError && <div className="error">{availableSpotsError}</div>}
+                                <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
+                                           onChange={handleEtaChange} required placeholder="Utrecht "/>
+                                {etaError && <div className="error">{etaError}</div>}
 
-                                    <FormInput id="availableSpots" labelText="Beschikbare plaatsen:" inputType="number"
-                                               min="1" max="5" step="1" value={availableSpots}
-                                               onChange={handleAvailableSpotsChange} required placeholder="min.1, max.5"/>
-                                    {availableSpotsError && <div className="error">{availableSpotsError}</div>}
-                                    <FormInput id="eta" labelText="Geschatte aankomsttijd:" inputType="time" value={eta}
-                                               onChange={handleEtaChange} required placeholder="Utrecht "/>
-                                    {etaError && <div className="error">{etaError}</div>}
+                                <button type="submit">Plaats rit</button>
+                            </form>
+                        )
+                        : (
+                            <form onSubmit={handleSubmitRideAlong}>
+                                <FormInput id="pickUpLocation" labelText="Vertrekplaats:" inputType="text"
+                                           value={pickUpLocation}
+                                           onChange={e => setPickUpLocation(e.target.value)} required
+                                           placeholder="Utrecht "/>
 
-                                    <button type="submit">Plaats rit</button>
-                                </form>
-                            )
-                            : (
-                                <form onSubmit={handleSubmitRideAlong}>
-                                    <FormInput id="pickUpLocation" labelText="Vertrekplaats:" inputType="text"
-                                               value={pickUpLocation}
-                                               onChange={e => setPickUpLocation(e.target.value)} required
-                                               placeholder="Utrecht "/>
+                                <FormInput id="destination" labelText="Bestemming:" inputType="text"
+                                           value={destination} onChange={e => setDestination(e.target.value)}
+                                           required placeholder="Alkmaar "/>
 
-                                    <FormInput id="destination" labelText="Bestemming:" inputType="text"
-                                               value={destination} onChange={e => setDestination(e.target.value)}
-                                               required placeholder="Alkmaar "/>
+                                <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" min="1" max="5"
+                                           step="1" value={pax}
+                                           onChange={e => setPax(e.target.value)} required
+                                           placeholder="min. 1, max. 5"/>
+                                {pax < 1 || pax > 5 &&
+                                    <div className="error">Het aantal reizigers moet tussen 1 en 5 liggen.</div>}
 
-                                    <FormInput id="pax" labelText="Aantal reizigers:" inputType="number" min="1" max="5"
-                                               step="1" value={pax}
-                                               onChange={e => setPax(e.target.value)} required
-                                               placeholder="min. 1, max. 5"/>
-                                    {pax < 1 || pax > 5 &&
-                                        <div className="error">Het aantal reizigers moet tussen 1 en 5 liggen.</div>}
+                                <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
+                                           value={departureDate} onChange={e => setDepartureDate(e.target.value)}
+                                           required/>
+                                {departureDateError && <div className="error">{departureDateError}</div>}
 
-                                    <FormInput id="departureDate" labelText="Reisdatum:" inputType="date"
-                                               value={departureDate} onChange={e => setDepartureDate(e.target.value)}
-                                               required/>
-                                    {departureDateError && <div className="error">{departureDateError}</div>}
+                                <button type="submit">Zoeken</button>
+                            </form>
+                        )}
+                </div>
 
-                                    <button type="submit">Zoeken</button>
-                                </form>
-                            )}
-
-                    </div>
-                </header>
+            </div>
+            {/*</div>*/}
+        </header>
 
 
-                <section id="pros" className="outer-content-container">
-                    <div className="inner-content-container default-area-padding">
+     <main>
+        <section id="pros" className="outer-content-container">
+            <div className="inner-content-container default-area-padding">
 
-                        <article className="benefit cost-saving">
+                <article className="benefit cost-saving">
                 <span className="benefit__image-wrapper">
                      <img src={picture_save} alt="4 stacks of coins with the word 'save' on them"/>
                 </span>
 
-                            <div className="benefit__info-container">
-                                <h4>Kostenbesparend</h4>
-                                <p>Bespaar geld en deel je rit met anderen. Carpoolen is de perfecte manier om je
-                                    uitgaven voor brandstof te verminderen en de kosten voor het onderhoud van je auto
-                                    te delen.</p>
-                            </div>
-                        </article>
-                        <article className="benefit sustainability">
+                    <div className="benefit__info-container">
+                        <h4>Kostenbesparend</h4>
+                        <p>Bespaar geld en deel je rit met anderen. Carpoolen is de perfecte manier om je
+                            uitgaven voor brandstof te verminderen en de kosten voor het onderhoud van je auto
+                            te delen.</p>
+                    </div>
+                </article>
+
+                <article className="benefit sustainability">
                 <span className="benefit__image-wrapper">
                     <img src={img_environmental_sustainability} alt="Footprint in forest"/>
                 </span>
-                            <div className="benefit__info-container">
-                                <h4>Milieuvriendelijk</h4>
-                                <p>Draag bij aan een beter milieu en verminder je ecologische voetafdruk.
-                                    Carpoolen vermindert het aantal auto's op de weg en zorgt voor minder CO2-uitstoot
-                                    en
-                                    luchtverontreiniging.</p>
-                            </div>
-                        </article>
-                        <article className="benefit stress-reduction">
+                    <div className="benefit__info-container">
+                        <h4>Milieuvriendelijk</h4>
+                        <p>Draag bij aan een beter milieu en verminder je ecologische voetafdruk.
+                            Carpoolen vermindert het aantal auto's op de weg en zorgt voor minder CO2-uitstoot
+                            en
+                            luchtverontreiniging.</p>
+                    </div>
+                </article>
+
+                <article className="benefit stress-reduction">
                 <span className="benefit__image-wrapper">
                     <img src={img_conviviality} alt="People having fun while carpooling"/>
                 </span>
 
-                            <div className="benefit__info-container">
-                                <h4>Stress verminderend</h4>
-                                <p>Maak nieuwe vrienden en verminder de stress van het rijden. Carpoolen biedt een
-                                    geweldige kans om in contact te komen met anderen en je rit aangenamer te maken.
-                                    Bovendien kan carpoolen bijdragen aan het verminderen van stress en vermoeidheid,
-                                    waardoor je ontspannen op je bestemming aankomt.</p>
-                            </div>
-                        </article>
+                    <div className="benefit__info-container">
+                        <h4>Stress verminderend</h4>
+                        <p>Maak nieuwe vrienden en verminder de stress van het rijden. Carpoolen biedt een
+                            geweldige kans om in contact te komen met anderen en je rit aangenamer te maken.
+                            Bovendien kan carpoolen bijdragen aan het verminderen van stress en vermoeidheid,
+                            waardoor je ontspannen op je bestemming aankomt.</p>
                     </div>
-                </section>
-                <section id="how-it-works" className="outer-content-container">
-                    <div className="inner-content-container default-area-padding default-text-restrictor">
-                        <div className="expl-box">
-                            <h6>Zo werkt het</h6>
-                            <p>
-                                Hallo carpool-liefhebbers! Weet je wat zo geweldig is aan ons platform? Je kunt niet
-                                alleen ritten vinden, maar ook ritten plaatsen! Het is super makkelijk: vul je profiel
-                                aan met je ritdetails, kies zelf de prijs en het aantal passagiers dat je wilt meenemen.
-                                Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem
-                                of telefonisch, en samen delen jullie de kosten van de reis.
-                            </p>
-                            <p>
-                                Ben je op zoek naar een lift? Zoek dan gemakkelijk naar beschikbare ritten die bij jouw
-                                planning passen. En voordat je boekt, kan je altijd even contact opnemen met de
-                                bestuurder via ons messaging systeem of telefoon om vragen te stellen en elkaar beter te
-                                leren kennen. Het betalen van de ritkosten regelen jullie onderling, dus geen zorgen
-                                daarover.
-                            </p>
-                            <p>
-                                Eenmaal op weg, leun achterover en geniet van de reis! En als alles goed gaat, laat dan
-                                niet na om je chauffeur een beoordeling te geven - wie weet geven ze er wel een voor jou
-                                terug!
-                            </p>
-                        </div>
-                    </div>
-                </section>
-                <section>
-                    <p>Enthousiast geworden? <Link to="/signup">Registreer</Link> je nu om te beginnen met het delen van
-                        ritten, geld te besparen en nieuwe mensen te ontmoeten. Of bekijk onze Veelgestelde Vragen (FAQ)
-                        pagina voor meer informatie over ons platform en hoe het werkt.</p>
-                    <p>Ben je <Link to="/signin">ingelogd</Link>? Bekijk dan hier je <Link
-                        to="/profile">Profielpagina</Link> en start vandaag nog met onbezorgd reizen!</p>
-                </section>
+                </article>
 
             </div>
-        </div>
-    );
+        </section>
+
+
+         <section id="how-it-works" className="outer-content-container">
+             <div className="inner-content-container default-area-padding default-text-restrictor">
+                 <article className="expl-box">
+                     <h6>Zo werkt het</h6>
+                     <p>
+                         Hallo carpool-liefhebbers! Weet je wat zo geweldig is aan ons platform? Je kunt niet
+                         alleen ritten vinden, maar ook ritten plaatsen! Het is super makkelijk: vul je profiel
+                         aan met je ritdetails, kies zelf de prijs en het aantal passagiers dat je wilt meenemen.
+                         Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem
+                         of telefonisch, en samen delen jullie de kosten van de reis.
+                     </p>
+                     <p>
+                         Ben je op zoek naar een lift? Zoek dan gemakkelijk naar beschikbare ritten die bij jouw
+                         planning passen. En voordat je boekt, kan je altijd even contact opnemen met de
+                         bestuurder via ons messaging systeem of telefoon om vragen te stellen en elkaar beter te
+                         leren kennen. Het betalen van de ritkosten regelen jullie onderling, dus geen zorgen
+                         daarover.
+                     </p>
+                     <p>
+                         Eenmaal op weg, leun achterover en geniet van de reis! En als alles goed gaat, laat dan
+                         niet na om je chauffeur een beoordeling te geven - wie weet geven ze er wel een voor jou
+                         terug!
+                     </p>
+                 </article>
+             </div>
+         </section>
+
+
+
+         <section className="outer-content-container">
+             <div className="inner-content-container">
+             <p>Enthousiast geworden? <Link to="/signup">Registreer</Link> je nu om te beginnen met het delen van
+                 ritten, geld te besparen en nieuwe mensen te ontmoeten. Of bekijk onze Veelgestelde Vragen (FAQ)
+                 pagina voor meer informatie over ons platform en hoe het werkt.</p>
+             <p>Ben je <Link to="/signin">ingelogd</Link>? Bekijk dan hier je <Link
+                 to="/profile">Profielpagina</Link> en start vandaag nog met onbezorgd reizen!</p>
+             </div>
+          </section>
+
+    </main>
+        </>
+);
 }
 
 export default Home;

@@ -1,21 +1,26 @@
-home {
-    background-color: white;
-}
 
-.header-section{
-    display: flex;
-    position: relative;
-    width: 100%;
-    flex-direction: column;
-}
 
-.home img {
-    width: 100%;
-    height: auto;
+/*.header-section{*/
+/*    display: flex;*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    flex-direction: column;*/
+/*}*/
+/*deze hierboven weer aan evt 26/7*/
+/*.header-section{*/
+/*    !*background-image: url('../../assets/shutterstock_2122349819.jpg');*!*/
+/*    !*background-size: cover;*!*/
+/*    !*background-position: center;*!*/
+/*}*/
 
-    object-fit: cover;
+/*.home img {*/
+/*    width: 100%;*/
+/*    height: auto;*/
 
-}
+/*    object-fit: cover;*/
+
+/*}*/
+
 
 .header-text {
     position: absolute;
@@ -23,23 +28,35 @@ home {
     left: 27%;
     transform: translate(-50%, -50%);
     padding: 20px;
+    margin-left: 20px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0);
     color: white;
 }
 
-.home h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-    border: 3px solid black;
+/*.home h1 {*/
+/*    font-size: 32px;*/
+/*    margin-bottom: 10px;*/
+/*    border: 3px solid black;*/
+/*}*/
+
+/*.home p {*/
+/*    font-size: 18px;*/
+/*    margin-bottom: 0;*/
+/*    border: 3px solid black;*/
+/*}*/
+
+.cover-img{
+    width: 100%;
+    /*background-repeat: no-repeat;*/
+    height: 700px;
+    object-fit: cover;
 }
 
-.home p {
-    font-size: 18px;
-    margin-bottom: 0;
-    border: 3px solid black;
+#header-slogan{
+    margin-left: 100px;
+    padding-left: 80px;
 }
-
 
 .form-container {
     position: absolute;
