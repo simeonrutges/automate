@@ -28,7 +28,7 @@ function SignIn() {
     }
 
     return (
-        <div className="signin outer-content-container">
+        <div className="outer-content-container">
             <div className="inner-content-container">
                 <header>
                     <h1>Inloggen</h1>

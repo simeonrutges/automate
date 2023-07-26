@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&family=Neucha&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat+Subrayada&family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed&display=swap');*/
 /*tweede import is van concept opdr*/
 
 /*////////////////////////
@@ -28,18 +28,14 @@
 * {
   margin: 0;
   padding: 0;
-  /*Dit is belangrijk zodat de breedtes en hoogtes van elementen worden berekend INCLUSIEF padding en borders */
   box-sizing: border-box;
 }
 
 body {
   font-family: Roboto, Arial, Helvetica, sans-serif;
-  /*font-family: 'Bebas Neue', sans-serif;*/
   color: #051524;
   font-weight: 300;
-  /*font-size: 20px;*/
   font-size: 16px;
-  /*line-height: 24px;*/
 }
 
 /* De buitenste container is altijd de volledige schermbreedte. Het is een flexbox container die zijn inhoud altijd netjes horizontaal centreert */
@@ -64,7 +60,7 @@ Hij mag krimpen als het scherm minder breed wordt, maar niet groeien als er meer
   justify-content: center;
   /*24/7 was hierboven maar veranderd naar hieronder*/
 /*align-items: center;*/
-  /*background-color: #ea7e1f;*/
+  background-color: #ea7e1f;
 }
 
 /* ------------------------------- 2. Typography ----------------------------------- */
@@ -75,13 +71,7 @@ h3,
 h4,
 h5,
 h6 {
-  /*font-family: 'Neucha', 'Times New Roman', cursive;*/
-  /*font-family: Arial;*/
-
   font-family: Merriweather, 'Times New Roman', serif;
-
-  /*font-family: Roboto, Arial, Helvetica, sans-serif;*/
-  /*font-family: Roboto;*/
 }
 
 h1, h2 {
@@ -148,7 +138,6 @@ h2 {
 
 .content {
   margin: 0px;
-  /*was 32px*/
 }
 
 .form-button {
@@ -174,7 +163,6 @@ button {
   border-radius: 3px;
 }
 
-/*Zorgt ervoor dat als twee buttons naast elkaar staan, er altijd ruimte tussen blijft*/
 button + button {
   margin-left: 8px;
 }
@@ -218,20 +206,8 @@ nav a:active {
   margin-right: 8px;
 }
 
-/*section  {*/
-/*  margin: 0 0 50px 0;*/
-/*}*/
-/*24/7 uitgecomment*/
-
 .error {
   color: orangered;
-}
-
-/*Zet mij op een element en ik blijf voor altijd draaien!*/
-.loading-icon {
-  width: 16px;
-  height: 16px;
-  animation: rotating 1.5s linear infinite;
 }
 
 @keyframes rotating {
@@ -255,10 +231,6 @@ nav a:active {
 
 /* ------------------------------- 5. Media Queries -------------------------------- */
 
-
-/*Omdat hier maar zo weinig media-queries nodig zijn is er gebruik gemaakt van een max-width query.*/
-/*Normaliter maak je altijd gebruik van min-width queries, waarbij de versie voor mobiel buiten de query staat, */
-/*en de versie voor desktop juist BUITEN de query*/
 @media screen and (max-width: 576px) {
   h1, h2 {
     font-size: 36px;
@@ -295,12 +267,12 @@ nav a:active {
     margin: 0;
   }
 
-  .work-article__image-wrapper {
+  .benefit__image-wrapper {
     /*om de breedte, die nu geldt als lengte, te overschrijven*/
     flex-basis: auto;
   }
 
-  .work-article__info-container {
+  .benefit__info-container {
     padding: 0 0 50px 0;
     /*om de breedte, die nu geldt als lengte, te overschrijven*/
     flex-basis: auto;

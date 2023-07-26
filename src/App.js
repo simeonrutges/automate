@@ -55,11 +55,11 @@ function App() {
                         </PrivateRoute>
                     </Route>
 
-                    <Route exact path="/my-rides/:rideId">
-                        <PrivateRoute auth={isAuth}>
-                            <RideDetails/>
-                        </PrivateRoute>
-                    </Route>
+                    {/*<Route exact path="/my-rides/:rideId">*/}
+                    {/*    <PrivateRoute auth={isAuth}>*/}
+                    {/*        <RideDetails/>*/}
+                    {/*    </PrivateRoute>*/}
+                    {/*</Route>*/}
 
                     <Route exact path="/my-messages/:username">
                         <PrivateRoute auth={isAuth}>

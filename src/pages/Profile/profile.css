@@ -96,3 +96,12 @@
     background: #F0F0F0;
     color: #000000;
 }
+#contact-details {
+    margin-bottom: 2px;
+    padding-bottom: 2px;
+}
+#ride-status {
+    color: #4CAD98;
+    padding-top: 5px;
+    padding-bottom: 23px;
+}

@@ -34,6 +34,9 @@ function Home() {
 
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
+    const [addRideInfoError, setAddRideInfoError] = useState("");
+    const [routeError, setRouteError] = useState("");
+
 
     const [dateTimeError, setDateTimeError] = useState(null);
     const [etaError, setEtaError] = useState("");
@@ -130,6 +133,20 @@ function Home() {
             return;
         } else {
             setAvailableSpotsError("");
+        }
+
+        if (route.length > 250) {
+            setRouteError("De route informatie is te lang. Maximum lengte is 250 tekens.");
+            return;
+        } else {
+            setRouteError("");
+        }
+
+        if (addRideInfo.length > 500) {
+            setAddRideInfoError("Extra ritinformatie is te lang. Maximum lengte is 500 tekens.");
+            return;
+        } else {
+            setAddRideInfoError("");
         }
 
         const now = new Date();
@@ -318,9 +335,11 @@ function Home() {
                                                placeholder="De Boelelaan 519 / Station Zuid"/>
                                     <FormInput id="route" labelText="Route:" inputType="text" value={route}
                                                onChange={handleRouteChange} placeholder="via Hilversum, A27 en A1 "/>
+                                               {routeError && <p className="error">{routeError}</p>}
                                     <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
                                                value={addRideInfo} onChange={handleAddRideInfoChange}
                                                placeholder="We stoppen in Hilversum voor koffie"/>
+                                    {addRideInfoError && <p className="error">{addRideInfoError}</p>}
                                     <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
                                                value={departureTime} onChange={handleDepartureTimeChange} required/>
                                     <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"

@@ -18,7 +18,8 @@ function Profile() {
 
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const [fetchProfileDataError, setFetchProfileDataError] = useState('');
+    const [bioLenghtErrorMsg, setBioLenghtErrorMsg] = useState("");
+    const [apiErrorMsg, setApiErrorMsg] = useState('');
     const [toggle, setToggle] = useState(false);
 
     const [uploadedImage, setUploadedImage] = useState(null);
@@ -47,7 +48,7 @@ function Profile() {
             } catch (e) {
                 console.error(e);
 
-                setFetchProfileDataError(e.response.status);
+                setApiErrorMsg(e.response.status);
             }
         }
 
@@ -56,6 +57,12 @@ function Profile() {
 
     async function handleBioSubmit(e) {
         e.preventDefault();
+
+        if (bio.length > 1000) {
+            setBioLenghtErrorMsg("Bio is te lang. Maximum lengte is 1000 tekens.");
+            return;
+        }
+
         toggleError(false);
         toggleLoading(true);
 
@@ -94,7 +101,11 @@ function Profile() {
                 console.error("Ongeldige response van de server");
             }
         } catch (e) {
+            // console.error(e);
+            // toggleError(true);
+
             console.error(e);
+            setApiErrorMsg(e.message);
             toggleError(true);
         }
         toggleLoading(false);
@@ -287,9 +298,9 @@ function Profile() {
                         <main className="main-content main-section">
                             <section className="contact-section">
 
-                                <h4>Contactgegevens</h4>
+                                <h4 id="contact-details">Contactgegevens</h4>
                                 <div className="contact-details">
-                                    <p>Rijstatus: {profileData.roles}</p>
+                                    <p id="ride-status">Rijstatus: {profileData.roles}</p>
                                     <p>Voornaam: {profileData.firstname}</p>
                                     <p>Achternaam: {profileData.lastname}</p>
                                     <p>Telefoon:
@@ -341,6 +352,9 @@ function Profile() {
                                                         onChange={(e) => setBio(e.target.value)}
                                                     />
                                                 </label>
+                                                {apiErrorMsg && <p className="error">{apiErrorMsg}</p>}
+                                                {bioLenghtErrorMsg && <p className="error">{bioLenghtErrorMsg}</p>}
+
                                                 <button type="submit" className="form-button">
                                                     Opslaan
                                                 </button>
