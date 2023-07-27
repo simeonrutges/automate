@@ -12,11 +12,12 @@ import {AuthContext} from "../../context/AuthContext";
 function Home() {
     const {isAuth, isBestuurder, isPassagier, user} = useContext(AuthContext);
     const token = localStorage.getItem('token');
+    const history = useHistory();
 
-    // voor het switchen van de forms
-    const [activeForm, setActiveForm] = useState('rideAlong'); // 'rideAlong' of 'selfDrive'
+    // voor het switchen van de forms; 'rideAlong' or 'selfDrive'
+    const [activeForm, setActiveForm] = useState('rideAlong');
 
-    // voor addRide form
+    // selfdrive form
     const [pickUpLocation, setPickUpLocation] = useState('');
     const [destination, setDestination] = useState('');
     const [route, setRoute] = useState('');
@@ -34,16 +35,15 @@ function Home() {
 
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
+    const [addRideInfoError, setAddRideInfoError] = useState("");
+    const [routeError, setRouteError] = useState("");
 
     const [dateTimeError, setDateTimeError] = useState(null);
     const [etaError, setEtaError] = useState("");
     const [departureDateError, setDepartureDateError] = useState("");
 
-    const history = useHistory();
-
     const [availableSpotsError, setAvailableSpotsError] = useState("");
     const [pricePerPersonError, setPricePerPersonError] = useState("");
-
 
     function handleAvailableSpotsChange(e) {
         const enteredValue = parseInt(e.target.value);
@@ -94,7 +94,6 @@ function Home() {
         setDestinationAddress(e.target.value);
     };
 
-
     const setDepartureDateTime = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
 
@@ -130,6 +129,20 @@ function Home() {
             return;
         } else {
             setAvailableSpotsError("");
+        }
+
+        if (route.length > 250) {
+            setRouteError("De route informatie is te lang. Maximum lengte is 250 tekens.");
+            return;
+        } else {
+            setRouteError("");
+        }
+
+        if (addRideInfo.length > 500) {
+            setAddRideInfoError("Extra ritinformatie is te lang. Maximum lengte is 500 tekens.");
+            return;
+        } else {
+            setAddRideInfoError("");
         }
 
         const now = new Date();
@@ -178,7 +191,7 @@ function Home() {
 
             // Add the current user to the list of users for the ride
             const rideId = result.data.id;
-            // klopt: pax = 0 bij bestuurder
+            // pax = 0 because the user is driver and not an passenger
             await axios.post(`http://localhost:8080/rides/${rideId}/${username}/${0}`, {}, {
                 headers: {
                     "Content-Type": 'application/json',
@@ -200,7 +213,6 @@ function Home() {
         toggleLoading(false);
     }
 
-
     //RideAlong-form
     const [pax, setPax] = useState('');
 
@@ -215,7 +227,7 @@ function Home() {
         }
         // Controleer of de gekozen reisdatum in het verleden ligt:
         const nowDate = new Date();
-        nowDate.setHours(0, 0, 0, 0);  // Zet de tijd op 00:00:00
+        nowDate.setHours(0, 0, 0, 0);
 
         const chosenDate = new Date(departureDate);
 
@@ -250,7 +262,6 @@ function Home() {
         toggleLoading(false);
     }
 
-
     const handleSelfDriveClick = () => {
 
         if (!isAuth) {
@@ -282,22 +293,20 @@ function Home() {
     }, [location]);
 
     return (
-
-        <div className="outer-content-container">
-            <div className="inner-content-container">
-
-                <header className="header-section">
-                    <img src={picture} alt="auto door bos" className="cover-img"/>
-                    <div className="header-text">
-                        <h1>De slimme keuze voor milieubewuste reizigers</h1>
-                    </div>
+        <>
+            <header className="outer-content-container">
+                <img src={picture} alt="auto door bos" className="cover-img"/>
+                <div className="header-text">
+                    <h1 id="header-slogan">De slimme keuze voor milieubewuste reizigers</h1>
+                </div>
+                <div className="inner-content-container">
 
                     <div className="form-container">
-                        <div className="form-buttonblock-home">
-                            <button className={`form-button-home ${activeForm === 'selfDrive' ? 'active' : ''}`}
+                        <div className="search-box">
+                            <button className={`function-switch-button ${activeForm === 'selfDrive' ? 'active' : ''}`}
                                     type="button" onClick={handleSelfDriveClick}>Zelf rijden
                             </button>
-                            <button className={`form-button-home ${activeForm === 'rideAlong' ? 'active' : ''}`}
+                            <button className={`function-switch-button ${activeForm === 'rideAlong' ? 'active' : ''}`}
                                     type="button" onClick={() => setActiveForm('rideAlong')}>Rij mee
                             </button>
                         </div>
@@ -318,9 +327,11 @@ function Home() {
                                                placeholder="De Boelelaan 519 / Station Zuid"/>
                                     <FormInput id="route" labelText="Route:" inputType="text" value={route}
                                                onChange={handleRouteChange} placeholder="via Hilversum, A27 en A1 "/>
+                                    {routeError && <p className="error">{routeError}</p>}
                                     <FormInput id="addRideInfo" labelText="Extra ritinformatie:" inputType="text"
                                                value={addRideInfo} onChange={handleAddRideInfoChange}
                                                placeholder="We stoppen in Hilversum voor koffie"/>
+                                    {addRideInfoError && <p className="error">{addRideInfoError}</p>}
                                     <FormInput id="departureTime" labelText="Vertrektijd:" inputType="time"
                                                value={departureTime} onChange={handleDepartureTimeChange} required/>
                                     <FormInput id="departureDate" labelText="Vertrekdatum:" inputType="date"
@@ -369,19 +380,18 @@ function Home() {
                                     <button type="submit">Zoeken</button>
                                 </form>
                             )}
-
                     </div>
-                </header>
 
+                </div>
+            </header>
 
+            <main>
                 <section id="pros" className="outer-content-container">
                     <div className="inner-content-container default-area-padding">
-
                         <article className="benefit cost-saving">
                 <span className="benefit__image-wrapper">
                      <img src={picture_save} alt="4 stacks of coins with the word 'save' on them"/>
                 </span>
-
                             <div className="benefit__info-container">
                                 <h4>Kostenbesparend</h4>
                                 <p>Bespaar geld en deel je rit met anderen. Carpoolen is de perfecte manier om je
@@ -389,6 +399,7 @@ function Home() {
                                     te delen.</p>
                             </div>
                         </article>
+
                         <article className="benefit sustainability">
                 <span className="benefit__image-wrapper">
                     <img src={img_environmental_sustainability} alt="Footprint in forest"/>
@@ -401,11 +412,11 @@ function Home() {
                                     luchtverontreiniging.</p>
                             </div>
                         </article>
+
                         <article className="benefit stress-reduction">
                 <span className="benefit__image-wrapper">
                     <img src={img_conviviality} alt="People having fun while carpooling"/>
                 </span>
-
                             <div className="benefit__info-container">
                                 <h4>Stress verminderend</h4>
                                 <p>Maak nieuwe vrienden en verminder de stress van het rijden. Carpoolen biedt een
@@ -416,16 +427,18 @@ function Home() {
                         </article>
                     </div>
                 </section>
+
                 <section id="how-it-works" className="outer-content-container">
                     <div className="inner-content-container default-area-padding default-text-restrictor">
-                        <div className="expl-box">
+                        <article className="expl-box">
                             <h6>Zo werkt het</h6>
                             <p>
                                 Hallo carpool-liefhebbers! Weet je wat zo geweldig is aan ons platform? Je kunt niet
                                 alleen ritten vinden, maar ook ritten plaatsen! Het is super makkelijk: vul je profiel
-                                aan met je ritdetails, kies zelf de prijs en het aantal passagiers dat je wilt meenemen.
+                                aan en maak een rit aan. kies zelf de prijs, het aantal passagiers dat je wilt meenemen
+                                en alle overige ritdetails.
                                 Passagiers kunnen dan eenvoudig contact met je opnemen via ons interne berichtensysteem
-                                of telefonisch, en samen delen jullie de kosten van de reis.
+                                en samen delen jullie de kosten van de reis.
                             </p>
                             <p>
                                 Ben je op zoek naar een lift? Zoek dan gemakkelijk naar beschikbare ritten die bij jouw
@@ -439,19 +452,23 @@ function Home() {
                                 niet na om je chauffeur een beoordeling te geven - wie weet geven ze er wel een voor jou
                                 terug!
                             </p>
-                        </div>
+                        </article>
                     </div>
                 </section>
-                <section>
-                    <p>Enthousiast geworden? <Link to="/signup">Registreer</Link> je nu om te beginnen met het delen van
-                        ritten, geld te besparen en nieuwe mensen te ontmoeten. Of bekijk onze Veelgestelde Vragen (FAQ)
-                        pagina voor meer informatie over ons platform en hoe het werkt.</p>
-                    <p>Ben je <Link to="/signin">ingelogd</Link>? Bekijk dan hier je <Link
-                        to="/profile">Profielpagina</Link> en start vandaag nog met onbezorgd reizen!</p>
-                </section>
 
-            </div>
-        </div>
+                <section className="outer-content-container">
+                    <div className="inner-content-container">
+                        <p>Enthousiast geworden? <Link to="/signup">Registreer</Link> je nu om te beginnen met het delen
+                            van
+                            ritten, geld te besparen en nieuwe mensen te ontmoeten. Of bekijk onze Veelgestelde Vragen
+                            (FAQ)
+                            pagina voor meer informatie over ons platform en hoe het werkt.</p>
+                        <p>Ben je <Link to="/signin">ingelogd</Link>? Bekijk dan hier je <Link
+                            to="/profile">Profielpagina</Link> en start vandaag nog met onbezorgd reizen!</p>
+                    </div>
+                </section>
+            </main>
+        </>
     );
 }
 

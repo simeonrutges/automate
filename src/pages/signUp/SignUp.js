@@ -4,8 +4,6 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 import "../signUp/signUp.css";
 
-
-
 function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -102,7 +100,7 @@ function SignUp() {
                         reizen!
                     </p>
                 </header>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="sign-up-box">
                     <FormInput
                         id="username"
                         labelText="Gebruikersnaam:"

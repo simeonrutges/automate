@@ -1,45 +1,26 @@
-home {
-    background-color: white;
-}
-
-.header-section{
-    display: flex;
-    position: relative;
-    width: 100%;
-    flex-direction: column;
-}
-
-.home img {
-    width: 100%;
-    height: auto;
-
-    object-fit: cover;
-
-}
-
+/* --------------- Header --------------------------- */
 .header-text {
     position: absolute;
     top: 65%;
     left: 27%;
     transform: translate(-50%, -50%);
     padding: 20px;
+    margin-left: 20px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0);
     color: white;
 }
 
-.home h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-    border: 3px solid black;
+.cover-img{
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
 }
 
-.home p {
-    font-size: 18px;
-    margin-bottom: 0;
-    border: 3px solid black;
+#header-slogan{
+    margin-left: 100px;
+    padding-left: 80px;
 }
-
 
 .form-container {
     position: absolute;
@@ -47,24 +28,27 @@ home {
     left: 75%;
     transform: translate(-50%, -50%);
     padding: 0px;
+
     text-align: center;
     background-color: white;
     border-radius: 4px;
+
+    width: 350px;
+    margin-top: 70px;
 }
 
-.form-buttonblock-home {
+.search-box {
     display: flex;
     flex-direction: row;
     border-radius: 4px;
     border: none;
-    padding: 0px 0px;
     margin-bottom: 0px;
     background-color: #f5ab00;
     color: white;
     font-weight: bold;
 }
 
-.form-button-home {
+.function-switch-button {
     border: 3px solid #F5F5F5;
     margin: 0px;
     border-radius: 0%;
@@ -78,7 +62,7 @@ button:active {
     border-color: #333333;
 }
 
-/* --------------- 4.3 Pros --------------------------- */
+/* --------------- Pros --------------------------- */
 
 #pros {
     background-color: #F3F6F9;
@@ -92,44 +76,34 @@ button:active {
     margin: 70px 0 70px 0;
 }
 
-/*Draai de volgorde van de afbeelding en tekst om bij de 1e, 3e, etc.*/
 .benefit:nth-of-type(odd) {
     flex-direction: row-reverse;
 }
 
 .benefit__image-wrapper {
-    /*De afbeelding-wrapper moet in de basis 800px breed zijn...*/
     flex-basis: 800px;
-    /*Als er meer ruimte is, mag hij NIET groter worden*/
     flex-grow: 0;
-    /*Als er minder ruimte is, krimpt hij 1 fractie (dus alles) van de ingeleverde ruimte*/
     flex-shrink: 1;
 }
 
 .benefit__image-wrapper img {
-    /*Om afbeeldingen goed mee te laten schalen met de wrapper, zet je de afbeelding zelf altijd op 100% breedte.
-    Zo past de afbeelding zich telkens aan, aan zijn omgeving*/
     width: 100%;
     box-shadow: 0 32px 28px -10px rgba(0, 0, 0, 0.22);
 }
 
 .benefit__info-container {
-    /*De content moet in de basis 480 breed zijn*/
     flex-basis: 480px;
-    /*Als er meer ruimte is, mag hij NIET groter worden*/
     flex-grow: 0;
-    /*Als er minder ruimte is, mag hij NIET kleiner worden*/
     flex-shrink: 0;
     padding: 0 50px 50px 50px;
 }
-
 
 .benefit__info-container p {
     font-weight: 400;
     margin: 50px 0;
 }
 
-/* --------------- 4.2 Introduction ------------------- */
+/* --------------- Zo werkt het ------------------- */
 
 #how-it-works {
     background-color: #4CAD98;

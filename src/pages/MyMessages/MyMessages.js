@@ -25,9 +25,9 @@ function MyMessages() {
         };
 
         fetchMessages();
-        const interval = setInterval(fetchMessages, 5000); // Fetch messages every 5 seconds
+        const interval = setInterval(fetchMessages, 5000); // Fetch messages elke 5 seconds
 
-        return () => clearInterval(interval); // Clean up the interval on unmount
+        return () => clearInterval(interval);
     }, [isAuth, user]);
 
     return (

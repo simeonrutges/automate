@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
+import "../signIn/signIn.css";
 
 function SignIn() {
     const [username, setUsername] = useState('');
@@ -28,7 +29,7 @@ function SignIn() {
     }
 
     return (
-        <div className="signin outer-content-container">
+        <div className="outer-content-container">
             <div className="inner-content-container">
                 <header>
                     <h1>Inloggen</h1>
@@ -36,7 +37,7 @@ function SignIn() {
                 </header>
 
                 <main>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className="sign-in-box">
                         <label htmlFor="username-field">
                             Gebruikersnaam:
                             <input
