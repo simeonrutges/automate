@@ -34,12 +34,10 @@ function MessageDetails() {
     }
 
     useEffect(() => {
-        // Haal bij het mounten van de component de bestaande berichten op
         fetchMessages();
 
         const interval = setInterval(fetchMessages, 5000); // Elke 5 seconden
 
-        // Cleanup-functie om het interval te stoppen bij het unmounten van de component
         return () => {
             clearInterval(interval);
         };

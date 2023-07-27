@@ -66,7 +66,7 @@ function Notification(props) {
         "Estimated Arrival Time": estimatedArrivalTime
     } = rideDetailsObj;
 
-    // Haal rideId direct uit notification
+    // Haal rideId uit notification
     const {rideId} = notification;
 
     const departureDate = new Date(departureDateTime);

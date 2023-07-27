@@ -4,8 +4,6 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 import "../signUp/signUp.css";
 
-
-
 function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");

@@ -13,7 +13,6 @@ import Footer from "./components/footer/Footer";
 import Confirmation from "./pages/Confirmation/Confirmation";
 import MyMessages from "./pages/MyMessages/MyMessages";
 import MyRides from "./pages/MyRides/MyRides";
-import RideDetails from "./pages/RideDetails/RideDetails";
 import MessageDetail from "./pages/MessageDetail/MessageDetail";
 import Notification from "./pages/Notifications/Notification";
 
@@ -54,12 +53,6 @@ function App() {
                             <MyRides/>
                         </PrivateRoute>
                     </Route>
-
-                    {/*<Route exact path="/my-rides/:rideId">*/}
-                    {/*    <PrivateRoute auth={isAuth}>*/}
-                    {/*        <RideDetails/>*/}
-                    {/*    </PrivateRoute>*/}
-                    {/*</Route>*/}
 
                     <Route exact path="/my-messages/:username">
                         <PrivateRoute auth={isAuth}>

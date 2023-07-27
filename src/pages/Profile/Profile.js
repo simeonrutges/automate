@@ -101,9 +101,6 @@ function Profile() {
                 console.error("Ongeldige response van de server");
             }
         } catch (e) {
-            // console.error(e);
-            // toggleError(true);
-
             console.error(e);
             setApiErrorMsg(e.message);
             toggleError(true);
@@ -249,7 +246,6 @@ function Profile() {
 
     // button
     const handleSendMessage = () => {
-        // Navigeer naar de nieuwe pagina (bijv. '/nieuw-bericht') wanneer er op de knop wordt geklikt
         history.push(`/my-messages/${username}`);
     };
 
